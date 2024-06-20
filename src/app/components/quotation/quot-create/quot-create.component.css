@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 5px; /* Adjust spacing between buttons as needed */
+}
+
+.select-option {
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+  /* Remove default styles in some browsers */
+  /* Remove default styles in some browsers */
+  /* Remove default styles in some browsers */
+}
+
+.common-style {
+  border: 1px solid #ccc; /* Common border */
+  width: 100px; /* Ensure all select elements have the same width */
+  height: 40px; /* Ensure all select elements have the same height */
+  padding: 0.5rem; /* Add padding to make the options more readable */
+  background-color: white; /* Ensure background is white for better visibility */
+  color: black; /* Ensure text color is black for better visibility */
+}
+
+.common-style:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.common-style:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.flex {
+  display: flex;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.custom-border {
+  border-color: #ccc;
+}

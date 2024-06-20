@@ -1,0 +1,106 @@
+<section class="bg">
+  <div
+    class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-10"
+  >
+    <div
+      class="w-full rounded-2xl border border-blue-400/50 bg-gradient-to-t from-sky-950 to-black/40 py-4 shadow-lg backdrop-blur-lg sm:max-w-md md:mt-0 dark:border dark:border-gray-700 dark:bg-gray-800"
+    >
+      <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
+        <div class="flex items-center justify-center">
+          <div>
+            <div class="flex justify-center">
+              <img src="../../../../assets/img/cloude (1).svg" class="w-32" />
+            </div>
+            <div>
+              <h1
+                class="text-center text-2xl font-bold text-blue-600 dark:text-white"
+              >
+                Cloute Technologies
+              </h1>
+              <h1
+                class="mt-4 text-center font-semibold text-gray-50 dark:text-white"
+              >
+                Login into Your Account
+              </h1>
+            </div>
+          </div>
+        </div>
+        <form class="mx-6 space-y-4 md:space-y-6" [formGroup]="loginForm">
+          <div>
+            <!-- <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Your email</label
+            > -->
+            <div class="relative">
+              <div
+                class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5"
+              >
+                <svg
+                  class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 16"
+                >
+                  <path
+                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
+                  />
+                  <path
+                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                formControlName="email"
+                autocomplete="email"
+                class="block w-full rounded-lg border border-blue-300 bg-transparent p-2.5 ps-10 text-sm text-white outline-none focus:border-blue-500 focus:ring-blue-500 dark:border-blue-600 dark:text-white dark:placeholder-blue-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Enter Your Email"
+                [ngClass]="{
+                  error:
+                    loginForm.get('email')?.invalid &&
+                    loginForm.get('email')?.touched,
+                  success:
+                    loginForm.get('email')?.valid &&
+                    loginForm.get('email')?.touched
+                }"
+                required=""
+              />
+              <small
+                class="text-red-600"
+                *ngIf="
+                  loginForm.get('email')?.hasError('pattern') &&
+                  loginForm.get('email')?.touched
+                "
+                >Invalid Email pattern!</small
+              >
+              <small
+                class="text-red-600"
+                *ngIf="
+                  loginForm.get('email')?.hasError('required') &&
+                  loginForm.get('email')?.touched
+                "
+                >Please Enter your Email!</small
+              >
+            </div>
+
+            <p class="mt-[5px] w-full text-center text-xs text-gray-400">
+              We will be sending an OTP to this email
+            </p>
+          </div>
+
+          <button
+            type="submit"
+            (click)="signIn(loginForm.value)"
+            [disabled]="!loginForm.valid"
+            [ngClass]="{ 'disabled-button': !loginForm.valid }"
+            class="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Continue with Email
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

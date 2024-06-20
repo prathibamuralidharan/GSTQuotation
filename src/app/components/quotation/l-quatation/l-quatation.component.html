@@ -1,0 +1,394 @@
+<section class="ml-64 bg-gray-100">
+  <section class="rounded-sm bg-gray-100 pb-4 shadow-md">
+    <div
+      class="container inline-flex items-center justify-between p-2 font-normal text-black"
+    >
+      <div>
+        <h1 class="inline-flex items-center text-gray-500">
+          <svg
+            class="size-4 text-gray-500 dark:text-gray-800"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m15 19-7-7 7-7"
+            />
+          </svg>
+          Quotations
+        </h1>
+      </div>
+      <div class="button-group flex">
+        <button
+          type="button"
+          class="inline-flex items-center rounded-lg px-5 py-2.5 text-center text-sm font-medium text-gray-500 focus:outline-none focus:ring-4 focus:ring-[#3b5998]/50 dark:focus:ring-[#3b5998]/55"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="size-4"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Custom Headers
+          <svg
+            class="size-4 text-gray-800 dark:text-gray-800"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="6"
+            height="6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"
+            />
+          </svg>
+        </button>
+        <div class="flex">
+          <button
+            routerLink="/home/quote"
+            type="button"
+            class="mr-4 flex items-center gap-2 rounded-lg bg-blue-600 p-2 text-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+            <small>Create Quotation</small>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="ml-4 flex gap-6 font-semibold">
+        <button class="hover:text-blue-600">All Transactions</button>
+        <button class="hover:text-blue-600">Cancelled</button>
+        <button class="hover:text-blue-600">Drafts</button>
+      </div>
+    </div>
+
+    <div class="m-2 mt-0 rounded-md bg-white p-2 shadow-md">
+      <div class="flex gap-4">
+        <!-- Search Form -->
+        <form class="w-full max-w-md">
+          <!-- Search Input -->
+          <div class="mt-2">
+            <label
+              for="default-search"
+              class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Search</label
+            >
+            <div class="relative">
+              <div
+                class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
+              >
+                <svg
+                  class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="search"
+                id="default-search"
+                class="inline-flex w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Search Mockups, Logos..."
+                required
+              />
+              <!-- <button
+                type="submit"
+                class="absolute bottom-2.5 end-2.5 rounded-lg bg-blue-700 px-4 py-1 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Search
+              </button> -->
+            </div>
+          </div>
+        </form>
+
+        <!-- Date Range Picker -->
+        <div class="inline-flex items-center">
+          <div date-rangepicker class="relative">
+            <div
+              class="pointer-events-none absolute inset-y-0 start-0 inline-flex items-center ps-3"
+            >
+              <svg
+                class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                />
+              </svg>
+            </div>
+            <input
+              name="start"
+              [value]="currentDate"
+              type="date"
+              class="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Select date start"
+            />
+          </div>
+          <span class="mx-4 text-gray-500">to</span>
+          <div date-rangepicker class="relative">
+            <div
+              class="pointer-events-none absolute inset-y-0 start-0 inline-flex items-center ps-3"
+            >
+              <svg
+                class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                />
+              </svg>
+            </div>
+            <input
+              name="end"
+              type="date"
+              class="mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Select date end"
+            />
+          </div>
+        </div>
+
+        <!-- Delete Button -->
+        <div class="ml-auto mr-4 inline-flex items-center">
+          <button
+            class="flex items-center gap-2 rounded-xl bg-red-200 p-2 font-semibold text-red-600"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-5 w-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"
+              />
+            </svg>
+            Delete All
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-4 rounded-lg border bg-white">
+        <div>
+          <section class="rounded-lg dark:bg-white">
+            <div class="mx-auto">
+              <div
+                class="relative overflow-hidden bg-white sm:rounded-lg dark:bg-white"
+              >
+                <div class="max-h-96 overflow-x-auto overflow-y-scroll">
+                  <table
+                    class="w-full text-left text-sm text-gray-500 dark:text-gray-400"
+                  >
+                    <thead
+                      class="sticky top-0 bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-100 dark:text-gray-400"
+                    >
+                      <tr>
+                        <th class="px-4 py-3">QuotationID</th>
+                        <th class="px-4 py-3">Customer</th>
+                        <th class="px-4 py-3">QuotationDate</th>
+                        <th class="px-4 py-3">Phone</th>
+                        <th class="px-4 py-3">Total</th>
+                        <th class="px-4 py-3">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        class="group/tr border-b transition-all duration-500 hover:bg-gray-50 dark:border-gray-400"
+                        *ngFor="let quote of _quotationList"
+                      >
+                        <th class="px-4 py-3 group-hover/tr:text-black">
+                          {{ quote.quoAutoId }}
+                        </th>
+                        <td
+                          class="text-wrap px-4 py-3 group-hover/tr:text-black"
+                        >
+                          {{ quote.cusName }}
+                        </td>
+                        <td class="px-4 py-3 group-hover/tr:text-black">
+                          {{ quote.quoDate | date: "dd-MM-yyyy" }}
+                        </td>
+                        <td class="px-4 py-3 group-hover/tr:text-black">
+                          {{ quote.cusConPhone }}
+                        </td>
+                        <td class="px-4 py-3 group-hover/tr:text-black">
+                          {{ quote.total }}
+                        </td>
+                        <td
+                          class="flex items-center justify-start px-4 py-3 text-center group-hover/tr:font-bold group-hover/tr:text-gray-500"
+                        >
+                          <button
+                            (click)="viewQuotationPdf()"
+                            routerLink="/home/pdf"
+                            id="view-button"
+                            class="mr-4 inline-flex items-center rounded-lg text-center text-sm font-medium text-blue-500 hover:text-blue-800 focus:outline-none dark:text-blue-400 dark:hover:text-white"
+                            type="button"
+                          >
+                            <div
+                              *ngIf="!isPopupVisible"
+                              class="group/delete rounded-lg bg-blue-100 p-0 transition-all duration-500 hover:bg-pink-600 hover:text-white active:translate-y-1"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1/2"
+                                stroke="currentColor"
+                                class="size-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                                />
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                          <button
+                            id="delete-button"
+                            class="inline-flex items-center rounded-lg text-center text-sm font-medium text-gray-500 hover:text-gray-800 focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                            type="button"
+                          >
+                            <div
+                              class="group/delete rounded-lg bg-red-100 p-1 transition-all duration-500 hover:bg-red-600 active:translate-y-1"
+                            >
+                              <svg
+                                class="h-4 w-4 text-red-600 group-hover/delete:text-red-100"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+                                />
+                              </svg>
+                            </div>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div
+                    class="col-span-full flex h-80 items-center justify-center"
+                  >
+                    <tr>
+                      <td class="col-span-12">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1"
+                          stroke="currentColor"
+                          class="w-24 text-gray-200"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"
+                          />
+                        </svg>
+                        <small>
+                          <button
+                            type="button"
+                            routerLink="/home/cproduct"
+                            class="-ml-5 mt-2 inline-flex items-center rounded-lg bg-blue-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              class="size-4"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+                            Create Estimate
+                          </button>
+                        </small>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </section>
+</section>
+<section class="" *ngIf="isPdfViewVisible">
+  <app-v-pdf-quatation [quoId]="quoId"></app-v-pdf-quatation>
+</section>

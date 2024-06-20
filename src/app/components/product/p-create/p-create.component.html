@@ -1,0 +1,489 @@
+<section>
+  <div class="ml-64">
+    <section class="bg-white dark:bg-gray-900">
+      <div class="mx-auto max-w-2xl px-4 py-8 lg:py-16">
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+          Add a new product
+        </h2>
+        <form [formGroup]="addProductForm">
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Group</label
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="ml-3 inline-flex size-3.5 items-center text-gray-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <small>
+                <button
+                  class="ml-0.5 font-medium text-gray-400 hover:underline dark:text-gray-400"
+                  (click)="isgroup = true"
+                >
+                  Add Group
+                </button></small
+              >
+              <select
+                #grpId
+                (change)="getCatList(grpId.value)"
+                formControlName="prdGrpId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option
+                  *ngFor="let group of productGroups"
+                  value="{{ group.prdGrpId }}"
+                >
+                  {{ group.prdGrop }}
+                </option>
+              </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdGrpId')?.hasError('required') &&
+                  addProductForm.get('prdGrpId')?.touched
+                "
+                >Group is required!</small
+              >
+            </div>
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Category</label
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="ml-3 inline-flex size-3.5 items-center text-gray-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <small>
+                <button
+                  (click)="iscategory = true"
+                  class="ml-0.5 font-medium text-gray-400 hover:underline dark:text-gray-400"
+                >
+                  Add Category
+                </button></small
+              >
+              <select
+                #catId
+                formControlName="prdCateId"
+                (change)="getBand(catId.value)"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option *ngFor="let cat of catList" value="{{ cat.prdCateId }}">
+                  {{ cat.prdCategory }}
+                </option>
+              </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdCateId')?.hasError('required') &&
+                  addProductForm.get('prdCateId')?.touched
+                "
+                >Category is required!</small
+              >
+            </div>
+
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Brand</label
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="ml-3 inline-flex size-3.5 items-center text-gray-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <small>
+                <button
+                  (click)="isbrand = true"
+                  class="ml-0.5 font-medium text-gray-400 hover:underline dark:text-gray-400"
+                >
+                  Add Brand
+                </button></small
+              >
+              <select
+                #brd
+                formControlName="prdBrandId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option
+                  *ngFor="let brand of brand"
+                  value="{{ brand.prdBrandId }}"
+                >
+                  {{ brand.prdBrand }}
+                </option>
+              </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdBrandId')?.hasError('required') &&
+                  addProductForm.get('prdBrandId')?.touched
+                "
+                >Brand is required!</small
+              >
+            </div>
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product Model</label
+              >
+              <input
+                formControlName="prdModel"
+                type="text"
+                name="price"
+                id="price"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="model"
+                required=""
+              />
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdModel')?.hasError('required') &&
+                  addProductForm.get('prdModel')?.touched
+                "
+                >Model is required!</small
+              >
+            </div>
+          </div>
+
+          <div class="mt-4 w-full">
+            <div>
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product Description</label
+              >
+              <textarea
+                formControlName="prdDescription"
+                type="text"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Product Description"
+                required=""
+              ></textarea>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdDescription')?.hasError('required') &&
+                  addProductForm.get('prdDescription')?.touched
+                "
+                >Description is required!</small
+              >
+            </div>
+          </div>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >HSN Code</label
+              >
+              <input
+                formControlName="prdHsn"
+                type="number"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="HSN code"
+                required=""
+              />
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdHsn')?.hasError('required') &&
+                  addProductForm.get('prdHsn')?.touched
+                "
+                >HSNCode is required!</small
+              >
+            </div>
+
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Unit Price</label
+              >
+              <input
+                formControlName="prdUnitPrice"
+                type="number"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="$20000"
+                required=""
+              />
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdUnitPrice')?.hasError('required') &&
+                  addProductForm.get('prdUnitPrice')?.touched
+                "
+                >Unit Price is required!</small
+              >
+            </div>
+          </div>
+
+          <div class="mt-4 grid gap-5 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product GST Status</label
+              >
+              <select
+                id="countries"
+                formControlName="prdGstStatus"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option value="1">With GST</option>
+                <option value="2">Without GST</option>
+              </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdGstStatus')?.hasError('required') &&
+                  addProductForm.get('prdGstStatus')?.touched
+                "
+              >
+                GST Status is required!</small
+              >
+            </div>
+
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product GST Rate</label
+              >
+              <select
+                id="countries"
+                formControlName="prdGstPercent"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option value="0">0%</option>
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18">18%</option>
+              </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addProductForm.get('prdGstPercent')?.hasError('required') &&
+                  addProductForm.get('prdGstPercent')?.touched
+                "
+                >GST Rate is required!</small
+              >
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            (click)="addprod(brd.value, addProductForm.value)"
+            class="mt-4 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 sm:mt-6 dark:focus:ring-blue-900"
+          >
+            Add product
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+</section>
+<section
+  *ngIf="isgroup"
+  class="fixed inset-0 z-40 flex items-center justify-center bg-gray-800 bg-opacity-50"
+>
+  <div class="rounded-lg bg-white p-6 shadow-lg">
+    <div class=" ">
+      <label class="ml-3 font-sans font-medium text-black">Add Group</label>
+      <button
+        type="button"
+        (click)="isgroup = false"
+        class="hover:text-gray-5 ml-56 rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+      >
+        <span class="sr-only">Close menu</span>
+        <!-- Heroicon name: outline/x -->
+        <svg
+          class="h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <input
+      type="text"
+      #prdGrop
+      class="mb-2 w-72 rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900"
+      placeholder="Enter group name"
+    />
+    <button
+      (click)="addgroup(prdGrop.value)"
+      class="ml-3 rounded-lg px-4 py-2 text-white"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mb-1 inline-flex size-10 items-center text-blue-600"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</section>
+
+<section
+  *ngIf="iscategory"
+  class="fixed inset-0 z-40 flex items-center justify-center bg-gray-800 bg-opacity-50"
+>
+  <div class="rounded-lg bg-white p-6 shadow-lg">
+    <div class=" ">
+      <label class="ml-2 font-sans font-medium text-black">Add Category</label>
+      <button
+        type="button"
+        (click)="iscategory = false"
+        class="hover:text-gray-5 ml-52 rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+      >
+        <span class="sr-only">Close menu</span>
+        <!-- Heroicon name: outline/x -->
+        <svg
+          class="h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <input
+      type="text"
+      #prdCategory
+      class="mb-2 w-72 rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900"
+      placeholder="Enter Category name"
+    />
+    <button
+      (click)="addcate(grpId.value, prdCategory.value)"
+      class="ml-3 rounded-lg px-4 py-2 text-white"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mb-1 inline-flex size-10 items-center text-blue-600"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</section>
+
+<section
+  *ngIf="isbrand"
+  class="fixed inset-0 z-40 flex items-center justify-center bg-gray-800 bg-opacity-50"
+>
+  <div class="rounded-lg bg-white p-6 shadow-lg">
+    <div class=" ">
+      <label class="ml-3 font-sans font-medium text-black">Add Brand</label>
+      <button
+        type="button"
+        (click)="isbrand = false"
+        class="hover:text-gray-5 ml-56 rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+      >
+        <span class="sr-only">Close menu</span>
+        <!-- Heroicon name: outline/x -->
+        <svg
+          class="h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <input
+      #brandData
+      type="text"
+      class="mb-2 w-72 rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900"
+      placeholder="Enter brand name"
+    />
+    <button
+      (click)="addBrand(catId.value, brandData.value)"
+      class="ml-3 rounded-lg px-4 py-2 text-white"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mb-1 inline-flex size-10 items-center text-blue-600"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</section>

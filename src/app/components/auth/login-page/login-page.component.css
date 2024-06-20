@@ -1,0 +1,7 @@
+.error{
+    @apply bg-transparent border border-red-300 text-white text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full ps-10 p-2.5 dark:border-red-600 dark:placeholder-red-400 dark:text-white outline-none dark:focus:ring-red-500 dark:focus:border-red-500;
+    
+  }
+  .success{
+    @apply bg-transparent border border-green-300 text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5 dark:border-green-600 dark:placeholder-red-400 dark:text-white outline-none dark:focus:ring-green-500 dark:focus:border-green-500;
+  }

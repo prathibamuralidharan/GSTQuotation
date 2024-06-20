@@ -1,0 +1,598 @@
+<section
+  class="flex bg-black bg-opacity-45 bg-cover bg-center backdrop-blur-sm"
+>
+  <div class="w-1/2 bg-cover hover:backdrop-blur-sm"></div>
+  <div
+    class="animate-slide-in-right p-100 duration-800 flex w-1/2 flex-1 items-end justify-end space-x-20 bg-white"
+  >
+    <div
+      class="h-screen w-full space-y-10 overflow-y-scroll p-10 text-black backdrop-blur-lg"
+    >
+      <!-- <div class="p-4 rounded-lg">
+                <img src="https://floatui.com/logo.svg" width="300" class="lg:hidden" />
+
+            </div> -->
+      <!-- component -->
+      <div class="flex gap-8">
+        <button
+          type="button"
+          (click)="closeCustomer.emit(false)"
+          class="hover:text-gray-5 inline-flex items-center justify-center rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+        >
+          <span class="sr-only">Close menu</span>
+          <!-- Heroicon name: outline/x -->
+          <svg
+            class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <h1 class="text-xl font-bold">Update Product</h1>
+      </div>
+      <div class="container mx-auto mt-12">
+        <form [formGroup]="updateProduct">
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Group</label
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="ml-3 inline-flex size-3.5 items-center text-gray-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <small>
+                <button
+                  class="ml-0.5 font-medium text-gray-400 hover:underline dark:text-gray-400"
+                  (click)="isgroup = true"
+                >
+                  Add Group
+                </button></small
+              >
+              <select
+                #grpId
+                (change)="getCatList(grpId.value)"
+                formControlName="prdGrpId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option
+                  *ngFor="let group of productGroups"
+                  value="{{ group.prdGrpId }}"
+                >
+                  {{ group.prdGrop }}
+                </option>
+              </select>
+            </div>
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Category</label
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="ml-3 inline-flex size-3.5 items-center text-gray-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <small>
+                <button
+                  (click)="iscategory = true"
+                  class="ml-0.5 font-medium text-gray-400 hover:underline dark:text-gray-400"
+                >
+                  Add Category
+                </button></small
+              >
+              <select
+                #catId
+                formControlName="prdCateId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option *ngFor="let cat of catList" value="{{ cat.prdCateId }}">
+                  {{ cat.prdCategory }}
+                </option>
+              </select>
+            </div>
+
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Brand</label
+              >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="ml-3 inline-flex size-3.5 items-center text-gray-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <small>
+                <button
+                  (click)="isbrand = true"
+                  class="ml-0.5 font-medium text-gray-400 hover:underline dark:text-gray-400"
+                >
+                  Add Brand
+                </button></small
+              >
+              <select
+                #brd
+                formControlName="prdBrandId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option
+                  *ngFor="let brand of brand"
+                  value="{{ brand.prdBrandId }}"
+                >
+                  {{ brand.prdBrand }}
+                </option>
+              </select>
+            </div>
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product Model</label
+              >
+              <input
+                formControlName="prdModel"
+                type="text"
+                name="price"
+                id="price"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="model"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="mt-4 w-full">
+            <div>
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product Description</label
+              >
+              <textarea
+                formControlName="prdDescription"
+                type="text"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Product Description"
+                required=""
+              ></textarea>
+            </div>
+          </div>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >HSN Code</label
+              >
+              <input
+                formControlName="prdHsn"
+                type="number"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="HSN code"
+                required=""
+              />
+            </div>
+
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Unit Price</label
+              >
+              <input
+                formControlName="prdUnitPrice"
+                type="number"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="$20000"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="mt-4 grid gap-5 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product GST Status</label
+              >
+              <select
+                id="countries"
+                formControlName="prdGstStatus"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option value="1">With GST</option>
+                <option value="2">Without GST</option>
+              </select>
+            </div>
+
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product GST Rate</label
+              >
+              <select
+                id="countries"
+                formControlName="prdGstPercent"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option value="0">0%</option>
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18">18%</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-2 flex gap-4">
+            <div *ngIf="isEdit">
+              <button
+                type="submit"
+                (click)="edit()"
+                class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white transition-all duration-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                <svg
+                  class="mr-1 h-5 w-5 text-white"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                  />
+                </svg>
+
+                Edit
+              </button>
+            </div>
+            <div *ngIf="isSave">
+              <button
+                type="submit"
+                (click)="updateProductDetails(updateProduct.value)"
+                class="me-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition-all duration-500 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-600 dark:focus:ring-green-800"
+              >
+                <svg
+                  *ngIf="isSaveIcon"
+                  class="mr-1 inline-flex h-5 w-5 items-center justify-center text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+
+                Save
+              </button>
+            </div>
+
+            <button
+              (click)="isDelete = true"
+              type="submit"
+              class="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white transition-all duration-500 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            >
+              <svg
+                class="mr-1 h-5 w-5 text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+                />
+              </svg>
+
+              Delete
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal toggle -->
+<section *ngIf="isDelete" class="bg-gray-900">
+  <!-- Main modal -->
+  <div
+    id="deleteModal"
+    tabindex="-1"
+    aria-hidden="true"
+    class="h-modal fixed z-50 mx-auto w-full items-center justify-center border bg-gray-900/50 md:inset-0 md:h-full"
+  >
+    <div class="relative h-full w-full max-w-md p-4 md:h-auto">
+      <!-- Modal content -->
+      <div class="flex h-screen w-screen items-center justify-center">
+        <div
+          class="relative rounded-lg bg-white px-8 py-4 text-center shadow dark:bg-gray-800"
+        >
+          <button
+            (click)="isDelete = false"
+            type="button"
+            class="absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-toggle="deleteModal"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <svg
+            class="mx-auto mb-3.5 h-11 w-11 text-gray-400 dark:text-gray-500"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <p class="mb-4 text-gray-500 dark:text-gray-300">
+            Are you sure you want to delete this item?
+          </p>
+          <div class="flex items-center justify-center space-x-4">
+            <button
+              (click)="isDelete = false"
+              data-modal-toggle="deleteModal"
+              type="button"
+              class="focus:ring-primary-300 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600"
+            >
+              No, cancel
+            </button>
+            <button
+              type="submit"
+              class="rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
+            >
+              Yes, I'm sure
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section
+  *ngIf="successToster"
+  class="fixed right-0 top-0 z-40 mt-6 flex w-screen"
+>
+  <div class="mx-auto">
+    <app-toster [message]="message"></app-toster>
+  </div>
+</section> -->
+<section
+  *ngIf="isgroup"
+  class="fixed inset-0 z-40 flex items-center justify-center bg-gray-800 bg-opacity-50"
+>
+  <div class="rounded-lg bg-white p-6 shadow-lg">
+    <div class=" ">
+      <label class="ml-3 font-sans font-medium text-black">Add Group</label>
+      <button
+        type="button"
+        (click)="isgroup = false"
+        class="hover:text-gray-5 ml-56 rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+      >
+        <span class="sr-only">Close menu</span>
+        <!-- Heroicon name: outline/x -->
+        <svg
+          class="h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <input
+      type="text"
+      #prdGrop
+      class="mb-2 w-72 rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900"
+      placeholder="Enter group name"
+    />
+    <button class="ml-3 rounded-lg px-4 py-2 text-white">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mb-1 inline-flex size-10 items-center text-blue-600"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</section>
+
+<section
+  *ngIf="iscategory"
+  class="fixed inset-0 z-40 flex items-center justify-center bg-gray-800 bg-opacity-50"
+>
+  <div class="rounded-lg bg-white p-6 shadow-lg">
+    <div class=" ">
+      <label class="ml-2 font-sans font-medium text-black">Add Category</label>
+      <button
+        type="button"
+        (click)="iscategory = false"
+        class="hover:text-gray-5 ml-52 rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+      >
+        <span class="sr-only">Close menu</span>
+        <!-- Heroicon name: outline/x -->
+        <svg
+          class="h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <input
+      type="text"
+      #prdCategory
+      class="mb-2 w-72 rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900"
+      placeholder="Enter Category name"
+    />
+    <button class="ml-3 rounded-lg px-4 py-2 text-white">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mb-1 inline-flex size-10 items-center text-blue-600"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</section>
+
+<section
+  *ngIf="isbrand"
+  class="fixed inset-0 z-40 flex items-center justify-center bg-gray-800 bg-opacity-50"
+>
+  <div class="rounded-lg bg-white p-6 shadow-lg">
+    <div class=" ">
+      <label class="ml-3 font-sans font-medium text-black">Add Brand</label>
+      <button
+        type="button"
+        (click)="isbrand = false"
+        class="hover:text-gray-5 ml-56 rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+      >
+        <span class="sr-only">Close menu</span>
+        <!-- Heroicon name: outline/x -->
+        <svg
+          class="h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <input
+      #brandData
+      type="text"
+      class="mb-2 w-72 rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900"
+      placeholder="Enter brand name"
+    />
+    <button
+      (click)="addBrand(catId.value, brandData.value)"
+      class="ml-3 rounded-lg px-4 py-2 text-white"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mb-1 inline-flex size-10 items-center text-blue-600"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</section>
