@@ -36,8 +36,8 @@ export class CompanyService {
   insertBank(comId: any, bank: any) {
     return this.http.post(endPoint.addBank + comId, bank);
   }
-  getBank(data: any) {
-    return this.http.get(endPoint.listBank + data);
+  getBank(comId:any) {
+    return this.http.get(endPoint.listBank +comId);
   }
   getBankbyId(gbank: any) {
     return this.http.get(endPoint.getBankId + gbank);

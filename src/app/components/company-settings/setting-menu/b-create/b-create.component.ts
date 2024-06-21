@@ -52,11 +52,12 @@ export class BCreateComponent {
     let comId = sessionStorage.getItem('companyId');
     this.bs.insertBank(comId, data).subscribe((res) => {
       console.log(res);
+      this.successToster = true;
+      this.message = 'Bank Added Successfully';
       this.addBankForm.reset();
       sessionStorage.setItem('companyId', data.companyId);
     });
-    this.successToster = true;
-    this.message = 'Bank Added Successfully';
+    
     this.addBankForm.reset();
   }
   BANK: string = '';

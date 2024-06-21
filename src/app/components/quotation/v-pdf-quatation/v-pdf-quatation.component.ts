@@ -1,20 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-v-pdf-quatation',
   templateUrl: './v-pdf-quatation.component.html',
-  styleUrl: './v-pdf-quatation.component.css',
+  styleUrls: ['./v-pdf-quatation.component.css'],
 })
 export class VPdfQuatationComponent implements OnInit {
-  @Input() quoId: any; // Input property to receive quoId from parent component
+  @Input() quoId: any;
   @Input() isPopupVisible: boolean = false;
+  @Output() closePopup = new EventEmitter<boolean>();
 
   isfadeOutDown = false;
-  ispdfview = false;
 
-  ngOnInit() {
-    console.log('Received PDF data:', this.quoId);
-    // Implement any logic related to quoId if necessary
+  ngOnInit(): void {
+    console.log('QuotationId', this.quoId);
   }
 
   hidePopup() {
@@ -22,6 +21,7 @@ export class VPdfQuatationComponent implements OnInit {
     setTimeout(() => {
       this.isPopupVisible = false;
       this.isfadeOutDown = false;
+      this.closePopup.emit();
     }, 500); // Adjust the duration to match the animation duration
   }
 

@@ -1,0 +1,10 @@
+button.cancel-button {
+  position: fixed; /* or absolute */
+  top: 10px; /* Adjust the distance from the top */
+  right: 10px; /* Adjust the distance from the left */
+  background-color: white; /* Make the button background transparent */
+  border: none; /* Remove default button border */
+  cursor: pointer; /* Change cursor to pointer when hovering over the button */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}

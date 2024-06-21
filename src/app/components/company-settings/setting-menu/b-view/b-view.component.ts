@@ -14,6 +14,8 @@ export class BViewComponent implements OnInit {
   isEdit: boolean = true;
   isSaveIcon: boolean = true;
   isConfrimacc: boolean = false;
+  message: string = '';
+  successToster: boolean = false;
   updateBankForm: FormGroup;
   constructor(
     private bser: CompanyService,
@@ -83,6 +85,11 @@ export class BViewComponent implements OnInit {
     let id = this._BankDetail.bankId;
     this.bser.updateBank(id, data).subscribe((res) => {
       console.log(res);
+    },(error)=>{
+      if(error==200){
+        this.successToster=true;
+        this.message="Bank Updated Successfully"
+      }
     });
   }
 }

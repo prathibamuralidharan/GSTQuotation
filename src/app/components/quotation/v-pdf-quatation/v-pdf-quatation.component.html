@@ -1,10 +1,29 @@
 <body class="">
   <div
     id="popup-wrapper"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-gray-700 bg-opacity-50"
+    class="fixed inset-0 z-40 flex items-center justify-center bg-gray-700 bg-opacity-85"
   >
+    <button
+      (click)="closePopup.emit(false)"
+      class="cancel-button rounded-md border p-4 hover:bg-white hover:text-red-700"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
     <div
-      class="animate animate-fadeInUp relative m-8 max-h-full max-w-4xl overflow-y-auto rounded-lg bg-white p-8 shadow-2xl"
+      class="animate animate-fadeInUp relative m-8 max-h-full max-w-5xl overflow-y-auto rounded-lg bg-white p-8 shadow-2xl"
     >
       <div class="quotation-container mb-8 grid grid-cols-2 gap-8">
         <div class="left-column">
@@ -110,7 +129,32 @@
         </tbody>
       </table>
 
-      <div class="mb-4 grid grid-cols-2 gap-8">
+      <div class="mt-8 flex justify-end">
+        <div class="max-w-md">
+          <!-- Your main content (left section) -->
+        </div>
+        <div class="max-w-md">
+          <div class="mt-8">
+            <table class="min-w-max border-collapse">
+              <tr>
+                <td class="text-sm font-semibold">Taxable Amount</td>
+                <td class="text-sm">₹8,08,200.00</td>
+              </tr>
+              <tr>
+                <td class="px-6 text-sm font-semibold">IGST 18.0%</td>
+                <td class="px-6 text-sm">₹1,45,476.00</td>
+              </tr>
+              <tr>
+                <td class="px-6 text-sm font-semibold">Total</td>
+                <td class="px-6 text-sm">₹9,53,676.00</td>
+              </tr>
+            </table>
+            <table></table>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4 mt-20 grid grid-cols-2 gap-8">
         <div class="mb-4">
           <h3 class="text-xl font-bold">Bank Details:</h3>
           <p class="text-md">Bank: HDFC</p>
@@ -118,31 +162,26 @@
           <p class="text-md">IFSC: HDFC0003758</p>
           <p class="text-md">Branch: HSR LAYOUT - 2</p>
         </div>
+      </div>
+
+      <div class="mb-4 grid grid-cols-2 gap-8">
+        <div class="mb-4">
+          <h3 class="text-2xl font-bold">Terms and Conditions:</h3>
+          <p class="text-sm">1. Tax : GST 18% Included in the above Price.</p>
+          <p class="text-sm">2. Warranty : Company Direct</p>
+          <p class="text-sm">3. Validity : Till 20th of June 2024</p>
+          <p class="text-sm">4. Delivery : Same Day from PO</p>
+          <p class="text-sm">
+            5. Payment : 50% Advance along with PO Balance on Delivery
+          </p>
+        </div>
         <div>
           <h3 class="text-md font-normal">
             For CLOUTE TECHNOLOGIES PRIVATE LIMITED
           </h3>
-          <br /><br /><br /><br /><br /><br />
+          <br /><br /><br />
           <p class="text-sm">Authorized Signatory</p>
         </div>
-      </div>
-
-      <div class="mb-4 mt-0">
-        <h3 class="text-xl font-bold">Notes:</h3>
-        <p class="text-sm">
-          Thanks for reaching out to us for your requirements.
-        </p>
-      </div>
-
-      <div>
-        <h3 class="text-2xl font-bold">Terms and Conditions:</h3>
-        <p class="text-sm">1. Tax : GST 18% Included in the above Price.</p>
-        <p class="text-sm">2. Warranty : Company Direct</p>
-        <p class="text-sm">3. Validity : Till 20th of June 2024</p>
-        <p class="text-sm">4. Delivery : Same Day from PO</p>
-        <p class="text-sm">
-          5. Payment : 50% Advance along with PO Balance on Delivery
-        </p>
       </div>
 
       <!-- Download Button -->

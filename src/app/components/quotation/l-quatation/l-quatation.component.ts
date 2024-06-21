@@ -8,7 +8,7 @@ import { QuotationService } from '../../../services/quotation.service';
 })
 export class LQuatationComponent implements OnInit {
   currentDate: string = '';
-  quoId: number = 0;
+  quoId: number | undefined;
   constructor(private quoService: QuotationService) {}
   ngOnInit() {
     const today = new Date();
@@ -25,13 +25,23 @@ export class LQuatationComponent implements OnInit {
     });
   }
 
-  isPdfViewVisible = false;
   isPopupVisible = false;
   isfadeOutDown = false;
 
-  viewQuotationPdf() {
-    this._quotationList = this.quoId;
-    this.isPdfViewVisible = true;
-    this.isPopupVisible = true;
+  viewQuotationPdf(quoId: any) {
+    console.log('id', quoId);
+    this.quoId = quoId;
+    const selectedQuotation = this._quotationList.find(
+      (quotation: { id: string }) => quotation.id === quoId,
+    );
+    if (selectedQuotation) {
+      this.isPopupVisible = true;
+      console.log('Selected Quotation:', selectedQuotation);
+    } else {
+      console.error('Quotation not found with ID:', quoId);
+    }
+  }
+  closePdf(close: boolean) {
+    this.isPopupVisible = close;
   }
 }

@@ -272,8 +272,7 @@
                           class="flex items-center justify-start px-4 py-3 text-center group-hover/tr:font-bold group-hover/tr:text-gray-500"
                         >
                           <button
-                            (click)="viewQuotationPdf()"
-                            routerLink="/home/pdf"
+                            (click)="viewQuotationPdf(quote.quoId)"
                             id="view-button"
                             class="mr-4 inline-flex items-center rounded-lg text-center text-sm font-medium text-blue-500 hover:text-blue-800 focus:outline-none dark:text-blue-400 dark:hover:text-white"
                             type="button"
@@ -389,6 +388,9 @@
     </div>
   </section>
 </section>
-<section class="" *ngIf="isPdfViewVisible">
-  <app-v-pdf-quatation [quoId]="quoId"></app-v-pdf-quatation>
+<section *ngIf="isPopupVisible">
+  <app-v-pdf-quatation
+    (closePopup)="(closePdf)"
+    [quoId]="quoId"
+  ></app-v-pdf-quatation>
 </section>
