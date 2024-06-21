@@ -11,7 +11,7 @@ import { SharedService } from '../../../../services/shared.service';
 export class CProfileComponent implements OnInit {
   addcompany: FormGroup;
   addlogo: FormGroup;
-  addSign: FormGroup;
+
   selectedFile: File | null = null;
   selectedSignature: File | null = null;
   previewUrl: string | ArrayBuffer | null = null;
@@ -30,9 +30,7 @@ export class CProfileComponent implements OnInit {
     this.addlogo = this.fb1.group({
       comLogo: [null, Validators.required],
     });
-    this.addSign = this.fb1.group({
-      comSignature: [null, Validators.required],
-    });
+
 
     this.addcompany = this.fb1.group({
       emailId: [

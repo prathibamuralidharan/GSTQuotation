@@ -191,6 +191,11 @@
                         </option>
                         <!-- Assuming you will populate the options dynamically -->
                       </select>
+                      <div *ngIf="!cusId.value">
+                        <div class="text-red-500 text-xs mt-1">
+                          Customer Name is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </th>
@@ -334,7 +339,7 @@
                                 formControlName="prdGroup"
                                 #category
                                 class="select-option common-style p-2"
-                                (change)="onProductGroupChange(category.value)"
+                                (change)="onProductGroupChange(category.value)" 
                               >
                                 <option [value]="null" disabled selected>
                                   Group

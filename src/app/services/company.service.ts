@@ -21,7 +21,7 @@ export class CompanyService {
   }
   uploadSignature(file1: FormData) {
     return this.http.post(
-      endPoint.addLogo + sessionStorage.getItem('companyId'),
+      endPoint.addSignature+ sessionStorage.getItem('companyId'),
       file1,
     );
   }
