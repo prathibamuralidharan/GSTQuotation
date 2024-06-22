@@ -33,6 +33,7 @@ export class QuotCreateComponent implements OnInit {
   _sgstAmt: number = 0;
   _igstAmt: number = 0;
   _cgstAmt: number = 0;
+  _taxable: number = 0;
 
   deliveryCharge: number = 0;
   installationCharge: number = 0;
@@ -138,10 +139,10 @@ export class QuotCreateComponent implements OnInit {
     let igst = 0;
 
     if (this.isSameState(this._companyGstIn, this._customerGstIn)) {
-      cgst = this.calculateCgst(gstamt.gstAmt);
-      sgst = this.calculateSgst(gstamt.gstAmt);
+      cgst = this.calculateCgst(gstamt.GSTRate);
+      sgst = this.calculateSgst(gstamt.GSTRate);
     } else {
-      igst = gstamt.gstAmt;
+      igst = gstamt.GSTRate;
     }
 
     console.log(gstamt);
@@ -151,9 +152,12 @@ export class QuotCreateComponent implements OnInit {
       ...gstamt,
 
       unitPrice: gstamt.basePrice,
+      taxable: gstamt.basePrice * data.prdQuantity,
+      gstrate: (gstamt.basePrice * data.prdQuantity) / 100,
       quantity: data.prdQuantity,
       includedtaxAmt: gstamt.TaxAmt,
       gstAmt: gstamt.gstAmt,
+      gstRate: gstamt.GSTRate,
       cgstAmt: cgst,
       sgstAmt: sgst,
       igstAmt: igst,
@@ -161,8 +165,8 @@ export class QuotCreateComponent implements OnInit {
 
     this._unitprice += gstamt.basePrice;
     this._totalAmt += gstamt.TaxAmt;
+    this._taxable += gstamt.basePrice * data.prdQuantity;
     this._gstAmt += gstamt.gstAmt;
-
     this._cgstAmt += cgst;
     this._sgstAmt += sgst;
     this._igstAmt += igst;

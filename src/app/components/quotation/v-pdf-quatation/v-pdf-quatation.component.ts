@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { QuotationService } from '../../../services/quotation.service';
 
 @Component({
   selector: 'app-v-pdf-quatation',
@@ -6,23 +7,13 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./v-pdf-quatation.component.css'],
 })
 export class VPdfQuatationComponent implements OnInit {
+  constructor(private quoService: QuotationService) {}
   @Input() quoId: any;
-  @Input() isPopupVisible: boolean = false;
-  @Output() closePopup = new EventEmitter<boolean>();
-
-  isfadeOutDown = false;
+  @Output() close = new EventEmitter<Boolean>();
 
   ngOnInit(): void {
     console.log('QuotationId', this.quoId);
-  }
-
-  hidePopup() {
-    this.isfadeOutDown = true;
-    setTimeout(() => {
-      this.isPopupVisible = false;
-      this.isfadeOutDown = false;
-      this.closePopup.emit();
-    }, 500); // Adjust the duration to match the animation duration
+    this.viewPdf();
   }
 
   // Function to download the quotation as a PDF
@@ -41,5 +32,15 @@ export class VPdfQuatationComponent implements OnInit {
     } else {
       console.error('Element not found');
     }
+  }
+  closePdfView() {
+    this.close.emit(false);
+  }
+  _allQuoDetails: any;
+  viewPdf() {
+    this.quoService.getAllMasters(this.quoId).subscribe((res) => {
+      console.log(res);
+      this._allQuoDetails = res;
+    });
   }
 }

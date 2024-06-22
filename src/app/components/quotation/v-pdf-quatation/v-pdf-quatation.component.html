@@ -4,9 +4,11 @@
     class="fixed inset-0 z-40 flex items-center justify-center bg-gray-700 bg-opacity-85"
   >
     <button
-      (click)="closePopup.emit(false)"
+      type="button"
+      (click)="closePdfView()"
       class="cancel-button rounded-md border p-4 hover:bg-white hover:text-red-700"
     >
+      <span class="sr-only">CloseMenu</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -23,11 +25,11 @@
       </svg>
     </button>
     <div
-      class="animate animate-fadeInUp relative m-8 max-h-full max-w-5xl overflow-y-auto rounded-lg bg-white p-8 shadow-2xl"
+      class="animate animate-fadeInUp relative inset-14 m-8 max-h-full max-w-5xl overflow-y-auto rounded-lg bg-white p-8 shadow-2xl"
     >
       <div class="quotation-container mb-8 grid grid-cols-2 gap-8">
         <div class="left-column">
-          <h2 class="font text-xl font-bold">QUOTATION</h2>
+          <h2 class="font text-xl font-bold text-green-500">QUOTATION</h2>
           <p class="text-sm text-black">Original for Recipient</p>
           <div class="mb-4 mt-8 flex justify-start">
             <!-- <img
@@ -37,9 +39,12 @@
             /> -->
           </div>
         </div>
-        <div class="right-column mt-12 text-right">
-          <h2 class="text-md font-semibold">
-            CLOUTE TECHNOLOGIES PRIVATE LIMITED
+        <div
+          *ngFor="let quote of _allQuoDetails"
+          class="right-column mt-12 text-right"
+        >
+          <h2 class="text-md font-semibold text-blue-500">
+            {{ quote.comName }}
           </h2>
           <p class="text-sm text-black">
             GSTIN: 29AAGCC3235L1ZG PAN: AAGCC3235L
@@ -129,29 +134,43 @@
         </tbody>
       </table>
 
-      <div class="mt-8 flex justify-end">
-        <div class="max-w-md">
-          <!-- Your main content (left section) -->
-        </div>
-        <div class="max-w-md">
-          <div class="mt-8">
-            <table class="min-w-max border-collapse">
-              <tr>
-                <td class="text-sm font-semibold">Taxable Amount</td>
-                <td class="text-sm">₹8,08,200.00</td>
-              </tr>
-              <tr>
-                <td class="px-6 text-sm font-semibold">IGST 18.0%</td>
-                <td class="px-6 text-sm">₹1,45,476.00</td>
-              </tr>
-              <tr>
-                <td class="px-6 text-sm font-semibold">Total</td>
-                <td class="px-6 text-sm">₹9,53,676.00</td>
-              </tr>
-            </table>
-            <table></table>
-          </div>
-        </div>
+      <div class="ml-96 mt-8 w-1/2 text-right">
+        <table class="">
+          <tr>
+            <td class="text-sm font-semibold">Taxable Amount</td>
+            <td class="text-sm">₹8,08,200.00</td>
+          </tr>
+          <tr>
+            <td class="text-sm font-semibold">CGST 9%</td>
+            <td class="text-sm">₹72,738.00</td>
+          </tr>
+          <tr>
+            <td class="text-sm font-semibold">SGST 9%</td>
+            <td class="text-sm">₹72,738.00</td>
+          </tr>
+          <tr>
+            <td class="text-sm font-semibold">IGST 18.0%</td>
+            <td class="text-sm">₹1,45,476.00</td>
+          </tr>
+
+          <tr class="border-b-2 font-semibold">
+            <td class="text-sm">Total</td>
+            <td class="text-sm">₹9,53,676.00</td>
+          </tr>
+
+          <tr class="">
+            <td class="text-sm font-semibold">Total Amount (in words)</td>
+            <td class="text-sm">
+              INR Nine Lakh, Fifty-Three Thousand, Six Hundred And Seventy-Six
+              Rupees Only.
+            </td>
+          </tr>
+          <tr class="font-semibold">
+            <td class="text-sm">Amount Payable</td>
+            <td class="text-sm">₹9,53,676.00</td>
+          </tr>
+        </table>
+                
       </div>
 
       <div class="mb-4 mt-20 grid grid-cols-2 gap-8">

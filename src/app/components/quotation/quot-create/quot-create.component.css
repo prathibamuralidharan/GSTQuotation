@@ -3,7 +3,18 @@
   justify-content: space-between;
   align-items: center;
 }
-
+button:disabled {
+  background-color: #cccccc; /* Change to desired color */
+  color: #666666; /* Change text color if needed */
+  cursor: not-allowed; /* Change cursor to indicate the button is disabled */
+  opacity: 0.6; /* Optional: Adjust opacity for better visual indication */
+  button:disabled {
+    background-color: #cccccc; /* Change to desired color */
+    color: #666666; /* Change text color if needed */
+    cursor: not-allowed; /* Change cursor to indicate the button is disabled */
+    opacity: 0.6; /* Optional: Adjust opacity for better visual indication */
+  }
+}
 .button-group {
   display: flex;
   gap: 5px; /* Adjust spacing between buttons as needed */

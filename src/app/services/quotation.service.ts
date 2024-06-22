@@ -72,7 +72,7 @@ export class QuotationService {
   getQuotation(comId: any) {
     return this.http.get(endPoint.listQuotation + comId);
   }
-  getQuoteId(quoId: any) {
+  getAllMasters(quoId: any) {
     return this.http.get(endPoint.updateQuotation + quoId);
   }
 }

@@ -1,113 +1,200 @@
-<section class="flex  bg-cover bg-center bg-black backdrop-blur-sm bg-opacity-45 ">
-    <div class="w-1/2  hover:backdrop-blur-sm bg-cover">
-
-    </div>
+<section
+  class="flex bg-black bg-opacity-45 bg-cover bg-center backdrop-blur-sm"
+>
+  <div class="w-1/2 bg-cover hover:backdrop-blur-sm"></div>
+  <div
+    class="animate-slide-in-right p-100 duration-800 flex w-1/2 flex-1 items-end justify-end space-x-20 bg-white"
+  >
     <div
-        class="flex-1 flex items-end  w-1/2 animate-slide-in-right bg-white  justify-end  space-x-20 p-100  duration-800 animate-slide-in-right ">
-        <div
-            class="w-full  overflow-y-scroll h-screen backdrop-blur-lg   space-y-10 p-10 text-black">
-            <!-- <div class="p-4 rounded-lg">
+      class="h-screen w-full space-y-10 overflow-y-scroll p-10 text-black backdrop-blur-lg"
+    >
+      <!-- <div class="p-4 rounded-lg">
                 <img src="https://floatui.com/logo.svg" width="300" class="lg:hidden" />
 
             </div> -->
-            <!-- component -->
-            <div class="flex gap-8">
-                <button type="button" (click)="closeBank.emit(false)"
-                    class=" rounded-md p-2 inline-flex items-center justify-center text-black  hover:text-red-600 hover:text-gray-5  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                    <span class="sr-only">Close menu</span>
-                    <!-- Heroicon name: outline/x -->
-                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+      <!-- component -->
+      <div class="flex gap-8">
+        <button
+          type="button"
+          (click)="closeBank.emit(false)"
+          class="hover:text-gray-5 inline-flex items-center justify-center rounded-md p-2 text-black hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+        >
+          <span class="sr-only">Close menu</span>
+          <!-- Heroicon name: outline/x -->
+          <svg
+            class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <h1 class="mb-6 text-2xl font-bold">Bank Upadate Form</h1>
+      </div>
+      <div class="container mx-auto mt-12">
+        <form [formGroup]="updateBankForm">
+          <div class="space-y-12">
+            <div class="pb-12">
+              <div
+                class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
+              >
+                <div class="sm:col-span-4">
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                    >IFSC Code</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      formControlName="ifscCode"
+                      name="last-name"
+                      id="last-name"
+                      autocomplete="family-name"
+                      class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
 
-                </button>
-                <h1 class="text-2xl font-bold mb-6">Bank Upadate Form</h1>
+                <div class="sm:col-span-6">
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                    >Account Number</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      formControlName="accountNo"
+                      name="last-name"
+                      id="last-name"
+                      autocomplete="family-name"
+                      class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div *ngIf="isConfrimacc" class="sm:col-span-6">
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                    >Confrim Account Number</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      formControlName="conAccountNo"
+                      name="last-name"
+                      id="last-name"
+                      autocomplete="family-name"
+                      class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                    >Branch Name</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      formControlName="branchName"
+                      name="last-name"
+                      id="last-name"
+                      autocomplete="family-name"
+                      class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                    >Bank Name</label
+                  >
+                  <div class="mt-2">
+                    <input
+                      type="text"
+                      formControlName="bankName"
+                      name="last-name"
+                      id="last-name"
+                      autocomplete="family-name"
+                      class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="container mx-auto mt-12">
+          </div>
+          <div class="flex gap-4">
+            <div *ngIf="isEdit">
+              <button
+                type="submit"
+                (click)="enableEdit()"
+                class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white transition-all duration-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                <svg
+                  class="mr-1 h-5 w-5 text-white"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                  />
+                </svg>
 
-                <form [formGroup]="updateBankForm" >
-                    <div class="space-y-12">
+                Edit
+              </button>
+            </div>
+            <div *ngIf="isSave">
+              <button
+                type="submit"
+                (click)="submitUpdate(updateBankForm.value)"
+                class="me-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition-all duration-500 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-600 dark:focus:ring-green-800"
+              >
+                <svg
+                  *ngIf="isSaveIcon"
+                  class="mr-1 inline-flex h-5 w-5 items-center justify-center text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
 
-                        <div class=" pb-12">
+                Update
+              </button>
+            </div>
 
-
-                            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                <div class="sm:col-span-4 ">
-                                    <label for="last-name"
-                                        class="block text-sm font-medium leading-6 text-gray-900">IFSC Code</label>
-                                    <div class="mt-2">
-                                        <input type="text" formControlName="ifscCode" name="last-name" id="last-name" autocomplete="family-name"
-                                            class=" px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                </div>
-                               
-                                
-
-                                <div class="sm:col-span-6">
-                                    <label for="last-name"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Account Number</label>
-                                    <div class="mt-2">
-                                        <input type="text" formControlName="accountNo" name="last-name" id="last-name" autocomplete="family-name"
-                                            class=" px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                </div>
-                                <div *ngIf="isConfrimacc" class="sm:col-span-6">
-                                    <label for="last-name"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Confrim Account Number</label>
-                                    <div class="mt-2">
-                                        <input type="text" formControlName="conAccountNo" name="last-name" id="last-name" autocomplete="family-name"
-                                            class=" px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                </div>
-
-                                <div class="sm:col-span-3 ">
-                                    <label for="last-name"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Branch Name</label>
-                                    <div class="mt-2">
-                                        <input type="text" formControlName="branchName" name="last-name" id="last-name" autocomplete="family-name"
-                                            class=" px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                </div>
-                                <div class="sm:col-span-3">
-                                    <label for="last-name"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Bank Name</label>
-                                    <div class="mt-2">
-                                        <input type="text" formControlName="bankName" name="last-name" id="last-name" autocomplete="family-name"
-                                            class=" px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                </div>
-
-                              
-                               
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div *ngIf="isEdit">
-                            <button type="submit" (click)="enableEdit()"  class="text-white  inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-500  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                <svg class="w-5 h-5 mr-1 text-white" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                                  </svg>
-                                  
-                                Edit
-                            </button>
-                        </div>
-                        <div *ngIf="isSave">
-                            <button type="submit"  (click)="submitUpdate(updateBankForm.value)"  class="focus:outline-none  text-white bg-green-600 hover:bg-green-800 transition-all duration-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-green-600 dark:hover:bg-green-600 dark:focus:ring-green-800">
-                                  
-                               
-                                    <svg *ngIf="isSaveIcon" class="w-5 h-5 inline-flex justify-center mr-1 items-center text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                      </svg>
-            
-                                Save
-                            </button>
-    
-                        </div>
-                      
-                        <!-- <button type="submit" (click)="deleteProduct(productDeatils.itemcode)"   class="text-white inline-flex items-center transition-all duration-500 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+            <!-- <button type="submit" (click)="deleteProduct(productDeatils.itemcode)"   class="text-white inline-flex items-center transition-all duration-500 bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                             <svg class="w-5 h-5 mr-1 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                               </svg>
@@ -115,17 +202,17 @@
     
                            Delete
                         </button> -->
-                    </div>
-                   
-                </form>
-            </div>
-        </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </section>
-<section  *ngIf="successToster" class="fixed flex top-0 right-0  mt-6 z-40 w-screen  ">
-    <div class="mx-auto" >
-      <app-toster [message]="message"></app-toster>
-    </div>
-  
-  </section>
-
+<section
+  *ngIf="successToster"
+  class="fixed right-0 top-0 z-40 mt-6 flex w-screen"
+>
+  <div class="mx-auto">
+    <app-toster [message]="message"></app-toster>
+  </div>
+</section>

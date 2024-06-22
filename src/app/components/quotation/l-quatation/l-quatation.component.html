@@ -278,7 +278,6 @@
                             type="button"
                           >
                             <div
-                              *ngIf="!isPopupVisible"
                               class="group/delete rounded-lg bg-blue-100 p-0 transition-all duration-500 hover:bg-pink-600 hover:text-white active:translate-y-1"
                             >
                               <svg
@@ -388,9 +387,9 @@
     </div>
   </section>
 </section>
-<section *ngIf="isPopupVisible">
+<section *ngIf="isPdfClose">
   <app-v-pdf-quatation
-    (closePopup)="(closePdf)"
+    (close)="handleClosePdfView($event)"
     [quoId]="quoId"
   ></app-v-pdf-quatation>
 </section>

@@ -192,7 +192,7 @@
                         <!-- Assuming you will populate the options dynamically -->
                       </select>
                       <div *ngIf="!cusId.value">
-                        <div class="text-red-500 text-xs mt-1">
+                        <div class="mt-1 text-xs text-red-500">
                           Customer Name is required.
                         </div>
                       </div>
@@ -339,7 +339,7 @@
                                 formControlName="prdGroup"
                                 #category
                                 class="select-option common-style p-2"
-                                (change)="onProductGroupChange(category.value)" 
+                                (change)="onProductGroupChange(category.value)"
                               >
                                 <option [value]="null" disabled selected>
                                   Group
@@ -359,7 +359,7 @@
                                 (change)="onBrandCategoryChange(brand.value)"
                               >
                                 <option [value]="null" disabled selected>
-                                  category
+                                  Category
                                 </option>
                                 <option
                                   *ngFor="let category of _categories"
@@ -457,6 +457,7 @@
                             </a>
                             <div class="flex">
                               <input
+                                readonly
                                 #gst
                                 (change)="gstvalue(gst.value)"
                                 type="number"
@@ -469,6 +470,7 @@
 
                               <button
                                 type="button"
+                                [disabled]="addQuoteForm.invalid"
                                 (click)="addToBill(addQuoteForm.value)"
                                 class="ml-4 mt-2 inline-flex items-center rounded-lg bg-blue-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700"
                               >
@@ -521,6 +523,7 @@
                         <th class="px-4 py-3">Description</th>
                         <th class="px-4 py-3">Unit Price</th>
                         <th class="px-4 py-3">Quantity</th>
+                        <th class="px-4 py-4">Taxable</th>
                         <th class="px-4 py-3">GST(%)</th>
 
                         <th class="px-4 py-3">GST Rate</th>
@@ -551,6 +554,11 @@
                         <td class="px-4 py-3 group-hover/tr:text-black">
                           {{ rItem.quantity }}
                         </td>
+                        <td class="px-4 py-3 group-hover/tr:text-black">
+                          {{
+                            rItem.basePrice * rItem.quantity | number: "1.2-2"
+                          }}
+                        </td>
 
                         <td class="px-5 py-3 group-hover/tr:text-black">
                           {{ rItem.prdGstPercent }}%<br />
@@ -577,7 +585,12 @@
                           ><br />
                         </td>
                         <td class="px-4 py-3 group-hover/tr:text-black">
-                          {{ rItem.gstAmt | number: "1.2-2" }}
+                          {{
+                            (rItem.basePrice *
+                              rItem.quantity *
+                              rItem.prdGstPercent) /
+                              100 | number: "1.2-2"
+                          }}
                         </td>
                         <td class="px-4 py-3 group-hover/tr:text-black">
                           {{ rItem.includedtaxAmt }}
@@ -725,7 +738,7 @@
       <!-- First column -->
       <div>
         <div class="m-2 rounded-md bg-white p-2">
-          <button
+          <!-- <button
             type="button"
             class="mb-2 me-2 mr-9 mt-1 flex w-full items-center rounded-lg border border-blue-400 bg-blue-100 px-4 py-2.5 text-left text-sm font-medium text-gray-900 hover:bg-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:border-gray-300 dark:bg-blue-200 dark:text-blue-800"
             (click)="toggleTextarea()"
@@ -749,7 +762,7 @@
                 d="m9 5 7 7-7 7"
               />
             </svg>
-          </button>
+          </button> -->
           <div *ngIf="showDeliveryCharge">
             <input
               #deliveryCharge
@@ -823,7 +836,7 @@
               <small><h1>Taxable Amount:</h1></small>
 
               <small
-                >{{ _unitprice | currency: "INR"
+                >{{ _taxable | currency: "INR"
                 }}<span
                   class="inline-flex items-center text-right text-gray-500"
                 >
