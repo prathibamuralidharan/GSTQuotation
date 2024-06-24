@@ -1,8 +1,8 @@
-let url = 'http://192.168.1.16:4003/';
-let url2 = 'http://192.168.1.16:4004/';
-let url1 = 'http://192.168.1.16:4001/';
+let url = 'http://192.168.1.8:4003/';
+let url2 = 'http://192.168.1.8:4004/';
+let url1 = 'http://192.168.1.8:4001/';
 let ifsc = 'https://ifsc.razorpay.com/';
-let prod = 'http://192.168.1.16:9004/';
+let prod = 'http://192.168.1.8:9004/';
 
 let customer = url1 + 'customer';
 let company = url + 'company';

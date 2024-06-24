@@ -306,6 +306,7 @@
           </div>
 
           <button
+            [disabled]="addProductForm.invalid"
             type="submit"
             (click)="addprod(brd.value, addProductForm.value)"
             class="mt-4 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 sm:mt-6 dark:focus:ring-blue-900"
@@ -486,4 +487,7 @@
       </svg>
     </button>
   </div>
+</section>
+<section class="mx-auto">
+  <app-toster [message]="message"></app-toster>
 </section>

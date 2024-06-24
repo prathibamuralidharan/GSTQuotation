@@ -393,7 +393,12 @@ export class QuotCreateComponent implements OnInit {
   submitQuotation() {
     let finalList = {
       quoProductList: this.productList,
+      taxableTotal: this._taxable,
+      igstTotal: this._igstAmt,
+      sgstTotal: this._sgstAmt,
+      cgstTotal: this._cgstAmt,
       total: this._totalAmt,
+
       othersCharge: {
         delCharge: this.deliveryCharge,
         instllCharge: this.installationCharge,

@@ -11,6 +11,8 @@ export class VPdfQuatationComponent implements OnInit {
   @Input() quoId: any;
   @Output() close = new EventEmitter<Boolean>();
 
+  productArray: any;
+
   ngOnInit(): void {
     console.log('QuotationId', this.quoId);
     this.viewPdf();
@@ -40,7 +42,11 @@ export class VPdfQuatationComponent implements OnInit {
   viewPdf() {
     this.quoService.getAllMasters(this.quoId).subscribe((res) => {
       console.log(res);
+
       this._allQuoDetails = res;
+      // const { getAllProductDTO } = this._allQuoDetails;
+      // this.productArray = getAllProductDTO;
+      // console.log(this.productArray);
     });
   }
 }

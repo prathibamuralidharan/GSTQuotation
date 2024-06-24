@@ -11,7 +11,7 @@ export class PCreateComponent implements OnInit {
   productGroups: any;
   catList: any;
   brand: any;
-
+  message: string = '';
   addProductForm: FormGroup;
 
   constructor(
@@ -42,11 +42,17 @@ export class PCreateComponent implements OnInit {
     let comId = sessionStorage.getItem('companyId');
     let grp = { prdGrop: data };
     console.log(comId);
-    this.pser.addgroup(grp, comId).subscribe((res) => {
-      console.log(res);
-      console.log(data);
-      this.isgroup = !this.isgroup;
-    });
+    this.pser.addgroup(grp, comId).subscribe(
+      (res) => {
+        console.log(res);
+        //  console.log(data);
+        this.isgroup = false;
+        this.addProductForm.reset();
+      },
+      (error) => {
+        console.error('Error adding group:', error);
+      },
+    );
   }
   getallgroup() {
     let comId = sessionStorage.getItem('companyId');
@@ -59,9 +65,10 @@ export class PCreateComponent implements OnInit {
     this.pser.getAllCatList(data).subscribe(
       (res) => {
         console.log(res);
-
         this.catList = res;
+        this.iscategory = false;
       },
+
       (error: any) => {
         if (error.status == 404) {
           this.catList = undefined;
@@ -91,6 +98,8 @@ export class PCreateComponent implements OnInit {
 
     this.pser.addcategory(cat, id).subscribe((res) => {
       console.log(res);
+      this.iscategory = false;
+      this.addProductForm.reset();
     });
   }
   addBrand(id: any, data: any) {
@@ -100,6 +109,7 @@ export class PCreateComponent implements OnInit {
     this.pser.addBrand(id, brand).subscribe((res) => {
       console.log(res);
       this.isbrand = false;
+      this.addProductForm.reset();
     });
   }
   addprod(brandId: any, data: any) {
@@ -107,6 +117,8 @@ export class PCreateComponent implements OnInit {
 
     this.pser.addproduct(brandId, data).subscribe((res) => {
       console.log(res);
+      this.addProductForm.reset();
+      this.message = 'Product Added Successfully';
     });
   }
 }

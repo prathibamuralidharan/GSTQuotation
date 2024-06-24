@@ -39,49 +39,68 @@
             /> -->
           </div>
         </div>
-        <div
-          *ngFor="let quote of _allQuoDetails"
-          class="right-column mt-12 text-right"
-        >
+        <div class="right-column mt-12 text-right">
           <h2 class="text-md font-semibold text-blue-500">
-            {{ quote.comName }}
+            {{ _allQuoDetails.companyDto.comName }}
           </h2>
           <p class="text-sm text-black">
-            GSTIN: 29AAGCC3235L1ZG PAN: AAGCC3235L
+            GSTIN: {{ _allQuoDetails.companyDto.comGst }}<br />
+            PAN: {{ _allQuoDetails.companyDto.comPan }}
           </p>
           <p class="text-sm text-black">
-            1125, 21st 'A' Cross, 14th Main Road, Sector-3, HSR Layout
+            {{ _allQuoDetails.companyDto.comBAdd1
+            }}{{ _allQuoDetails.companyDto.comBAdd2 }}
           </p>
-          <p class="text-sm text-black">Bengaluru Urban, KARNATAKA, 560102</p>
           <p class="text-sm text-black">
-            Mobile: +91 8197999930 Email: saigovindcloute.co.in
+            {{ _allQuoDetails.companyDto.comBCity
+            }}{{ _allQuoDetails.companyDto.comBState
+            }}{{ _allQuoDetails.companyDto.comBPcode }}
           </p>
-          <p class="text-sm text-black">Website: www.cloute.co.in</p>
+          <p class="text-sm text-black">
+            Mobile:{{ _allQuoDetails.companyDto.comConPhone }}<br />
+            Email:
+            {{ _allQuoDetails.companyDto.comEmail }}
+          </p>
+          <p class="text-sm text-black">
+            Website: {{ _allQuoDetails.companyDto.comUrl }}
+          </p>
         </div>
       </div>
 
       <div class="mb-8 text-left">
-        <p class="text-xl font-bold">Quotation #: EST202425-64</p>
-        <p class="text-sm">Quotation Date: 10 Jun 2024</p>
-        <p class="text-sm">Due Date: 10 Jun 2024</p>
+        <p class="text-xl font-bold">
+          Quotation #: EST202425-{{ _allQuoDetails.quoAutoId }}
+        </p>
+        <p class="text-sm">Quotation Date: {{ _allQuoDetails.quoDate }}</p>
+        <!-- <p class="text-sm">Due Date: 10 Jun 2024</p> -->
       </div>
 
       <div class="mb-8 grid grid-cols-2 gap-8">
         <div>
           <h3 class="text-2xl font-bold">Customer Details:</h3>
-          <p class="text-sm">Mr. Naveen</p>
-          <p class="text-sm">The association of people with disability</p>
-          <p class="text-sm">GSTIN: 29AAATT1921H1ZI</p>
-          <p class="text-sm">Ph: 9591987946</p>
-          <p class="text-sm">naveenapd-india.org</p>
-          <p class="text-sm">Place of Supply: 29-KARNATAKA</p>
+          <p class="text-sm">{{ _allQuoDetails.customerDto.cusName }}</p>
+          <p class="text-sm">{{ _allQuoDetails.customerDto.cusConPerson }}</p>
+          <p class="text-sm">
+            GSTIN: {{ _allQuoDetails.customerDto.cusConPerson.cusGst }}
+          </p>
+          <p class="text-sm">
+            Ph: {{ _allQuoDetails.customerDto.cusConPhone }}
+          </p>
+
+          <p class="text-sm">
+            Place of Supply: {{ _allQuoDetails.customerDto.cusBState }}
+          </p>
         </div>
         <div>
           <h3 class="text-2xl font-bold">Billing Address:</h3>
-          <p class="text-sm">1, THE ASSOCIATION OF PEOPLE WITH DISABILITY</p>
-          <p class="text-sm">6TH CROSS HUTCHINS ROAD, LINGARAJAPURAM</p>
-          <p class="text-sm">Bengaluru Urban, KARNATAKA, 560084</p>
-          <p class="text-sm">Reference: Mail Confirmation</p>
+          <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd1 }}</p>
+          <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd2 }}</p>
+          <p class="text-sm">
+            {{ _allQuoDetails.customerDto.cusBCity
+            }}{{ _allQuoDetails.customerDto.cusBState
+            }}{{ _allQuoDetails.customerDto.cusBPcode }}
+          </p>
+          <p class="text-sm">Reference: {{ _allQuoDetails.quoReference }}</p>
         </div>
       </div>
 
@@ -100,13 +119,17 @@
           </tr>
         </thead>
         <tbody class="bg-white">
-          <tr>
-            <td class="border-b px-6 py-4 text-sm">1</td>
-            <td class="border-b px-6 py-4 text-sm">HP SATA SSD 512GB</td>
-            <td class="border-b px-6 py-4 text-sm">3,500.00</td>
-            <td class="border-b px-6 py-4 text-sm">7</td>
+          <tr *ngFor="let i of _allQuoDetails.getAllProductDTO">
+            <td class="border-b px-6 py-4 text-sm">{{ i.prdId }}</td>
+            <td class="border-b px-6 py-4 text-sm">
+              {{ i.prdModel }}{{ i.prdDescription }}
+            </td>
+            <td class="border-b px-6 py-4 text-sm">{{ i.unitPrice }}</td>
+            <td class="border-b px-6 py-4 text-sm">{{ i.quantity }}</td>
             <td class="border-b px-6 py-4 text-sm">24,500.00</td>
-            <td class="border-b px-6 py-4 text-sm">4,410.00 (18%)</td>
+            <td class="border-b px-6 py-4 text-sm">
+              {{ i.gstAmt }} ({{ i.prdGstPercent }}%)
+            </td>
             <td class="border-b px-6 py-4 text-sm">28,910.00</td>
           </tr>
           <tr>
@@ -176,10 +199,18 @@
       <div class="mb-4 mt-20 grid grid-cols-2 gap-8">
         <div class="mb-4">
           <h3 class="text-xl font-bold">Bank Details:</h3>
-          <p class="text-md">Bank: HDFC</p>
-          <p class="text-md">Account #: 50200012150031</p>
-          <p class="text-md">IFSC: HDFC0003758</p>
-          <p class="text-md">Branch: HSR LAYOUT - 2</p>
+          <p class="text-md">
+            Bank: {{ _allQuoDetails.bankEntityDto.bankName }}
+          </p>
+          <p class="text-md">
+            Account #:{{ _allQuoDetails.bankEntityDto.conAccountNo }}
+          </p>
+          <p class="text-md">
+            IFSC: {{ _allQuoDetails.bankEntityDto.ifscCode }}
+          </p>
+          <p class="text-md">
+            Branch: {{ _allQuoDetails.bankEntityDto.branchName }}
+          </p>
         </div>
       </div>
 
