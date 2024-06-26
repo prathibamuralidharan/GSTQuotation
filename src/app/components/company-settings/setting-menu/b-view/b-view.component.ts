@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../../../services/company.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-b-view',
@@ -20,6 +21,7 @@ export class BViewComponent implements OnInit {
   constructor(
     private bser: CompanyService,
     private fb: FormBuilder,
+    private router: Router,
   ) {
     this.updateBankForm = this.fb.group({
       comId: [sessionStorage.getItem('companyId')],
@@ -83,13 +85,17 @@ export class BViewComponent implements OnInit {
 
   submitUpdate(data: any) {
     let id = this._BankDetail.bankId;
-    this.bser.updateBank(id, data).subscribe((res) => {
-      console.log(res);
-    },(error)=>{
-      if(error==200){
-        this.successToster=true;
-        this.message="Bank Updated Successfully"
-      }
-    });
+    this.bser.updateBank(id, data).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        if (error == 200) {
+          this.successToster = true;
+          this.message = 'Bank Updated Successfully';
+          this.router.navigate(['/home/quote']);
+        }
+      },
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../../services/customer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cus-create',
@@ -17,6 +18,7 @@ export class CusCreateComponent {
   constructor(
     private fb1: FormBuilder,
     private cser: CustomerService,
+    private router: Router,
   ) {
     this.addcustomerForm = this.fb1.group({
       comId: [],
@@ -80,7 +82,7 @@ export class CusCreateComponent {
       console.log(res);
       this.successToster = true;
       this.message = 'Register Successfully';
-      this.addcustomerForm.reset();
+      this.router.navigate(['/home/quote']);
     });
   }
 }

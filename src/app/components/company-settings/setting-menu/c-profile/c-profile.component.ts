@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../../../services/company.service';
 import { SharedService } from '../../../../services/shared.service';
 
@@ -11,7 +11,7 @@ import { SharedService } from '../../../../services/shared.service';
 export class CProfileComponent implements OnInit {
   addcompany: FormGroup;
   addlogo: FormGroup;
-
+  addSign: FormGroup;
   selectedFile: File | null = null;
   selectedSignature: File | null = null;
   previewUrl: string | ArrayBuffer | null = null;
@@ -25,12 +25,14 @@ export class CProfileComponent implements OnInit {
   constructor(
     private fb1: FormBuilder,
     private ser: CompanyService,
-    private shared: SharedService
+    private shared: SharedService,
   ) {
     this.addlogo = this.fb1.group({
       comLogo: [null, Validators.required],
     });
-
+    this.addSign = this.fb1.group({
+      comSignature: [null, Validators.required],
+    });
 
     this.addcompany = this.fb1.group({
       emailId: [
@@ -47,22 +49,8 @@ export class CProfileComponent implements OnInit {
           ),
         ],
       ],
-      comBillAndShip: ['', [Validators.required]],
-      comBAdd1: ['', [Validators.required]],
-      comBAdd2: ['', [Validators.required]],
       comEmailId: [],
       comLandLine: [],
-      comSAdd1: ['', [Validators.required]],
-      comSAdd2: ['', [Validators.required]],
-      comBPcode: [
-        '',
-        [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)],
-      ],
-      comSPcode: ['', [Validators.required]],
-      comBCity: ['', Validators.required],
-      comSCity: ['', [Validators.required]],
-      comBState: ['', Validators.required],
-      comSState: ['', [Validators.required]],
       comGst: [
         '',
         [
@@ -83,7 +71,33 @@ export class CProfileComponent implements OnInit {
         [Validators.required, Validators.pattern(/^[1-9][0-9]{9}$/)],
       ],
       comUrl: [],
+
+      companyAddressDto: this.fb1.array([this.showaddress()]),
     });
+  }
+
+  get companyAddressDto() {
+    return this.addcompany.get('companyAddressDto') as FormArray;
+  }
+  showaddress() {
+    return this.fb1.group({
+      comAddName: ['', Validators.required],
+      comBAdd1: ['', [Validators.required]],
+      comBAdd2: ['', [Validators.required]],
+
+      comBPcode: [
+        '',
+        [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)],
+      ],
+
+      comBCity: ['', Validators.required],
+
+      comBState: ['', Validators.required],
+    });
+  }
+
+  addaddress() {
+    this.companyAddressDto.push(this.showaddress());
   }
 
   ngOnInit(): void {
@@ -93,15 +107,16 @@ export class CProfileComponent implements OnInit {
   fetchCompanyProfile() {
     this.ser.getcompany().subscribe((res) => {
       this._viewCompany = res;
-      this.shared.companyData=res
+      this.shared.companyData = res;
       console.log(res);
 
-      this.addcompany.patchValue(
-      this._viewCompany);
+      this.addcompany.patchValue(this._viewCompany);
     });
   }
 
   SubmitCompany(data: any) {
+    console.log(data);
+
     this.ser.addNewCompany(data).subscribe((res: any) => {
       console.log(data);
       console.log(res);
@@ -139,8 +154,7 @@ export class CProfileComponent implements OnInit {
       });
       console.log(this.selectedFile);
       console.log(this.addlogo);
-      
-      
+
       this.previewFile(file);
       this.onSubmit();
     } else {
@@ -182,7 +196,7 @@ export class CProfileComponent implements OnInit {
   previewFile(file: File) {
     const reader = new FileReader();
     console.log(file);
-    
+
     reader.onload = (e) => {
       if (e.target?.result) {
         this.previewUrl = e.target.result;
@@ -195,7 +209,7 @@ export class CProfileComponent implements OnInit {
     if (this.addlogo.valid && this.selectedFile) {
       const formData = new FormData();
       console.log(formData);
-      
+
       formData.append('comLogo', this.selectedFile);
 
       this.ser.uploadLogo(formData).subscribe(
@@ -210,8 +224,8 @@ export class CProfileComponent implements OnInit {
   }
 
   copyBillingToShipping(): void {
-    console.log(this.addcompany.get('comBAdd1')?.value,'shdg');
-    
+    console.log(this.addcompany.get('comBAdd1')?.value, 'shdg');
+
     this.addcompany.patchValue({
       comSAdd1: this.addcompany.get('comBAdd1')?.value,
       comSAdd2: this.addcompany.get('comBAdd2')?.value,
@@ -220,7 +234,4 @@ export class CProfileComponent implements OnInit {
       comSPcode: this.addcompany.get('comBPcode')?.value,
     });
   }
-
-
- 
 }

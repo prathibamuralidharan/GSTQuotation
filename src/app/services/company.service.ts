@@ -21,7 +21,7 @@ export class CompanyService {
   }
   uploadSignature(file1: FormData) {
     return this.http.post(
-      endPoint.addSignature+ sessionStorage.getItem('companyId'),
+      endPoint.addSignature + sessionStorage.getItem('companyId'),
       file1,
     );
   }
@@ -36,8 +36,8 @@ export class CompanyService {
   insertBank(comId: any, bank: any) {
     return this.http.post(endPoint.addBank + comId, bank);
   }
-  getBank(comId:any) {
-    return this.http.get(endPoint.listBank +comId);
+  getBank(comId: any) {
+    return this.http.get(endPoint.listBank + comId);
   }
   getBankbyId(gbank: any) {
     return this.http.get(endPoint.getBankId + gbank);

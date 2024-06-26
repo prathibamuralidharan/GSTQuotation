@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-p-create',
@@ -17,6 +18,7 @@ export class PCreateComponent implements OnInit {
   constructor(
     private fb1: FormBuilder,
     private pser: ProductService,
+    private router: Router,
   ) {
     this.addProductForm = this.fb1.group({
       prdGrpId: ['', Validators.required],
@@ -119,6 +121,7 @@ export class PCreateComponent implements OnInit {
       console.log(res);
       this.addProductForm.reset();
       this.message = 'Product Added Successfully';
+      this.router.navigate(['/home/quote']);
     });
   }
 }

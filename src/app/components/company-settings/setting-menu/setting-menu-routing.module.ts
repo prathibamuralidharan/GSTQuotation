@@ -8,17 +8,21 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { VCprofileComponent } from './v-cprofile/v-cprofile.component';
 import { SignatureComponent } from './signature/signature.component';
 
-
-
-const routes: Routes = [{path:'companyProfile',component:CProfileComponent},{
-  path:'bankDetail',component:BCreateComponent},
-  {path:'userProfile',component:UserProfileComponent},
-  {path:'listBank',component:BListComponent},{path:'viewBank',component:BViewComponent},
- {path:'viewCompany',component:VCprofileComponent},{path:'sign',component:SignatureComponent}
+const routes: Routes = [
+  { path: 'companyProfile', component: CProfileComponent },
+  {
+    path: 'bankDetail',
+    component: BCreateComponent,
+  },
+  { path: 'userProfile', component: UserProfileComponent },
+  { path: 'listBank', component: BListComponent },
+  { path: 'viewBank', component: BViewComponent },
+  { path: 'viewCompany', component: VCprofileComponent },
+  { path: 'sign', component: SignatureComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SettingMenuRoutingModule { }
+export class SettingMenuRoutingModule {}

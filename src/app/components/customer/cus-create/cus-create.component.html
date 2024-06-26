@@ -447,6 +447,7 @@
             </div>
           </div>
           <button
+            [disabled]="addcustomerForm.invalid"
             (click)="submitCustomer(addcustomerForm.value)"
             type="submit"
             [disabled]="addcustomerForm.invalid"
