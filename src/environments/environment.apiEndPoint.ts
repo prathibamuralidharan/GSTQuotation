@@ -24,7 +24,7 @@ export const endPoint = {
   addLogo: company + '/uploadComLogo/', //- http://localhost:9004/Product/InsertNewProduct/{prdBrandId}
   addSignature: company + '/uploadComSign/', //-http://localhost:4003/company/uploadComSign/{comId}
   viewCompany: company + '/',
-
+  getComLogo: company + '/GetSpecComLogo/',
   addBank: bank + '/InsertNewBank/',
   ifsccode: ifsc,
   listBank: bank + '/BankListbyCompId/',

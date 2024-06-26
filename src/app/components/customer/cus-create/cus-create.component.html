@@ -156,7 +156,7 @@
                   addcustomerForm.get('cusGst')?.hasError('pattern') &&
                   addcustomerForm.get('cusGst')?.touched
                 "
-                >Invalid GST pattern!</small
+                >Invalid GST pattern! (Use Capital Letters)</small
               >
               <small
                 class="text-red-600"
@@ -381,6 +381,14 @@
                   placeholder=""
                   required=""
                 />
+                <small
+                  class="text-red-600"
+                  *ngIf="
+                    addcustomerForm.get('cusSAdd1')?.hasError('required') &&
+                    addcustomerForm.get('cusSAdd1')?.touched
+                  "
+                  >Address1 is required!</small
+                >
               </div>
               <div class="sm:col-span-2">
                 <label
@@ -395,6 +403,14 @@
                   placeholder=""
                   required=""
                 />
+                <small
+                  class="text-red-600"
+                  *ngIf="
+                    addcustomerForm.get('cusSAdd2')?.hasError('required') &&
+                    addcustomerForm.get('cusSAdd2')?.touched
+                  "
+                  >Address2 is required!</small
+                >
               </div>
               <div class="w-full">
                 <label
@@ -411,6 +427,14 @@
                   placeholder=""
                   required=""
                 />
+                <small
+                  class="text-red-600"
+                  *ngIf="
+                    addcustomerForm.get('cusSCity')?.hasError('required') &&
+                    addcustomerForm.get('cusSCity')?.touched
+                  "
+                  >City is required!</small
+                >
               </div>
               <div class="w-full">
                 <label
@@ -427,6 +451,14 @@
                   placeholder=""
                   required=""
                 />
+                <small
+                  class="text-red-600"
+                  *ngIf="
+                    addcustomerForm.get('cusSState')?.hasError('required') &&
+                    addcustomerForm.get('cusSState')?.touched
+                  "
+                  >State is required!</small
+                >
               </div>
               <div class="w-full">
                 <label
@@ -443,6 +475,22 @@
                   placeholder=""
                   required=""
                 />
+                <small
+                  class="text-red-600"
+                  *ngIf="
+                    addcustomerForm.get('cusSPcode')?.hasError('pattern') &&
+                    addcustomerForm.get('cusSPcode')?.touched
+                  "
+                  >Invalid PinNumber pattern!</small
+                >
+                <small
+                  class="text-red-600"
+                  *ngIf="
+                    addcustomerForm.get('cusSPcode')?.hasError('required') &&
+                    addcustomerForm.get('cusSPcode')?.touched
+                  "
+                  >PinNumber is required!</small
+                >
               </div>
             </div>
           </div>

@@ -84,6 +84,7 @@
       <div class="mx-auto mt-4 max-w-[260px]">
         <button
           (click)="onSubmit()"
+          [disabled]="isButtonDisabled"
           type="submit"
           class="inline-flex w-full justify-center whitespace-nowrap rounded-lg bg-blue-500 px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-blue-950/10 transition-colors duration-150 hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-300"
         >

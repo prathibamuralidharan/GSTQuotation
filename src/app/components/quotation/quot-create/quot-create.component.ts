@@ -26,6 +26,7 @@ export class QuotCreateComponent implements OnInit {
   currentDate: string = '';
   modelList: any;
   productData: any;
+  termsText: string = '';
   isCharge: boolean = false;
   productList: any[] = [];
   _totalAmt: number = 0;
@@ -108,10 +109,10 @@ export class QuotCreateComponent implements OnInit {
     installChargeInput.value = '';
   }
 
-  clearTerms(): void {
-    this.terms = '';
-    this.service.clearTerms();
-  }
+  // clearTerms(): void {
+  //   this.terms = '';
+  //   this.service.clearTerms();
+  // }
 
   toggleText() {
     this.showText = !this.showText;
@@ -120,10 +121,10 @@ export class QuotCreateComponent implements OnInit {
     this.service.saveTerm(this.notes);
   }
 
-  clearTerm(): void {
-    this.notes = '';
-    this.service.clearTerm();
-  }
+  // clearTerm(): void {
+  //   this.notes = '';
+  //   this.service.clearTerm();
+  // }
   _unitprice: number = 0;
   addToBill(data: any) {
     console.log(data);
@@ -389,7 +390,14 @@ export class QuotCreateComponent implements OnInit {
     this.status = sts;
     console.log(this.status);
   }
-
+  teamConditn: string = '';
+  termsConditions(terms: string) {
+    this.teamConditn = terms;
+    console.log(terms);
+  }
+  clearTerms() {
+    this.termsText = ''; // Clear the textarea content
+  }
   submitQuotation() {
     let finalList = {
       quoProductList: this.productList,

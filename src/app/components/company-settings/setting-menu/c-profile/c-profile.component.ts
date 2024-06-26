@@ -20,6 +20,9 @@ export class CProfileComponent implements OnInit {
   isShippingEnabled: boolean = false;
   message: string = '';
   successToster: boolean = false;
+
+  imageData: any;
+  imageUrl: any;
   private _viewCompany: any;
 
   constructor(
@@ -102,6 +105,7 @@ export class CProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchCompanyProfile();
+    this.retrieveComLogo();
   }
 
   fetchCompanyProfile() {
@@ -124,16 +128,6 @@ export class CProfileComponent implements OnInit {
       this.message = 'Company Updated Successfully';
       this.addcompany.reset();
     });
-  }
-
-  onRadioChange(optionValue: string) {
-    if (optionValue == '400') {
-      this.isShippingEnabled = true;
-    }
-    if (optionValue == '200') {
-      this.copyBillingToShipping();
-      this.isShippingEnabled = false;
-    }
   }
 
   setInitialValue(): void {
@@ -223,15 +217,23 @@ export class CProfileComponent implements OnInit {
     }
   }
 
-  copyBillingToShipping(): void {
-    console.log(this.addcompany.get('comBAdd1')?.value, 'shdg');
-
-    this.addcompany.patchValue({
-      comSAdd1: this.addcompany.get('comBAdd1')?.value,
-      comSAdd2: this.addcompany.get('comBAdd2')?.value,
-      comSCity: this.addcompany.get('comBCity')?.value,
-      comSState: this.addcompany.get('comBState')?.value,
-      comSPcode: this.addcompany.get('comBPcode')?.value,
-    });
+  retrieveComLogo() {
+    const comId = sessionStorage.getItem('companyId');
+    if (comId) {
+      this.ser.getCompanyLogo(comId).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.imageData = res.comLogo; // Assuming res.comLogo is base64 encoded image data
+          this.previewUrl = 'data:image/jpeg;base64,' + this.imageData; // Adjust format based on actual image type
+        },
+        (error) => {
+          console.error('Error fetching company logo:', error);
+          // Handle error scenario, e.g., display a default image or show an error message
+        },
+      );
+    } else {
+      console.error('Company ID not found in session storage');
+      // Handle scenario where company ID is missing from session storage
+    }
   }
 }

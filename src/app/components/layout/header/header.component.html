@@ -54,13 +54,9 @@
       <div
         class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
       >
-        <div class="flex gap-2 flex-shrink-0 items-center">
-          <img
-            class="h-8 w-auto"
-            src="../../../../assets/img/cloude (1).svg"
-            alt="Cloute"
-          />
-          <h1 class="text-white font-semibold text-xl">Cloute Technologies</h1>
+        <div class="flex flex-shrink-0 items-center gap-2">
+          <img [src]="previewUrl" alt="Image Preview" class="w-16" />
+          <h1 class="text-xl font-semibold text-white">{{ companyName }}</h1>
         </div>
       </div>
       <div
@@ -92,7 +88,7 @@
         <div class="relative ml-3">
           <div>
             <button
-           (click)="toggleSetting()"
+              (click)="toggleSetting()"
               type="button"
               class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               id="user-menu-button"

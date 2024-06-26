@@ -65,3 +65,13 @@ button:disabled {
 .custom-border {
   border-color: #ccc;
 }
+.select-option {
+  width: 80px; /* Set a uniform width for all select fields */
+}
+.select-option.customer {
+  width: 180px;
+}
+
+.description-select {
+  width: 220px; /* Set a larger width for the Description select field */
+}

@@ -23,6 +23,7 @@ export class OtpgenComponent implements OnInit {
   companydata: any;
   message: string = '';
   errorMessage: string = '';
+  isButtonDisabled: boolean = false;
   LoginsuccessToster: boolean = false;
   otp = {
     first: '',
@@ -81,6 +82,7 @@ export class OtpgenComponent implements OnInit {
 
   // name change pannatha pakka sonnala apovea
   onSubmit() {
+    this.isButtonDisabled = true;
     const otpValue = Object.values(this.otp).join('');
     console.log(otpValue);
     let email = { emailId: this.email };
@@ -91,6 +93,7 @@ export class OtpgenComponent implements OnInit {
         sessionStorage.setItem('companyId', this.companydata.comId);
         this.route.navigate(['/home']);
         sessionStorage.removeItem('email');
+        this.isButtonDisabled = false;
       },
       (error) => {
         console.error(error);
@@ -99,6 +102,7 @@ export class OtpgenComponent implements OnInit {
         } else {
           this.errorMessage = 'An error occurred. Please try again later.';
         }
+        this.isButtonDisabled = false;
       },
     );
   }

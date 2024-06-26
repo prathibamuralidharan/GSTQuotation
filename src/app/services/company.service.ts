@@ -45,4 +45,7 @@ export class CompanyService {
   updateBank(vbank: any, id: any) {
     return this.http.post(endPoint.updateBank + id, vbank);
   }
+  getCompanyLogo(comId: any) {
+    return this.http.get(endPoint.getComLogo + comId);
+  }
 }

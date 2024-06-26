@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
+  isButtonDisabled: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -36,15 +38,18 @@ export class LoginPageComponent implements OnInit {
   }
 
   signIn(data: any) {
+    this.isButtonDisabled = true;
     sessionStorage.setItem('email', data.email);
 
     this.authService.signIn(data.email).subscribe(
       (res) => {
         console.log(res);
+        this.isButtonDisabled = false;
       },
       (error) => {
         if (error.status == 200) {
           this.route.navigate(['/otp']);
+          this.isButtonDisabled = false;
         }
       },
     );
