@@ -66,6 +66,9 @@ export class QuotationService {
   getModelList(brandId: any) {
     return this.http.get(endPoint.ModelList + brandId);
   }
+  getDescriptionList(model: any) {
+    return this.http.get(endPoint.DescriptionList + model);
+  }
   getProduct(data: any) {
     return this.http.get(endPoint.getProduct + data);
   }

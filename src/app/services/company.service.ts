@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { endPoint } from '../../environments/environment.apiEndPoint';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -47,5 +48,15 @@ export class CompanyService {
   }
   getCompanyLogo(comId: any) {
     return this.http.get(endPoint.getComLogo + comId);
+  }
+  getSignature(comId: any) {
+    return this.http.get(endPoint.getSignLogo + comId);
+  }
+
+  updateAddress(com: any) {
+    return this.http.post(
+      endPoint.addresspost + sessionStorage.getItem('companyId'),
+      com,
+    );
   }
 }

@@ -378,236 +378,136 @@
                             formControlName="emailId" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="State name" required="">
                         </div>  -->
           </div>
-          <div
-            *ngFor="let address of companyAddressDto.controls; let i = index"
-          >
-            <h2
-              class="mb-4 mt-10 text-xl font-bold text-gray-900 dark:text-white"
-            >
-              Add Address
-            </h2>
-            <div formArrayName="companyAddressDto">
-              <div>
+
+          <div>
+            <div>
+              <h2
+                class="mb-4 mt-10 text-xl font-bold text-gray-900 dark:text-white"
+              >
+                Add Address
+              </h2>
+              <div formArrayName="companyAddressDto">
                 <div
-                  [formGroupName]="i"
-                  class="grid gap-4 sm:grid-cols-2 sm:gap-6"
+                  *ngFor="
+                    let address of companyAddressDto.controls;
+                    let i = index
+                  "
                 >
-                  <div class="inline-flex items-center gap-5">
-                    <div class="flex items-center">
-                      <input
-                        id="1"
-                        formControlName="comAddName"
-                        type="radio"
-                        value="home"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                      />
+                  <div
+                    [formGroupName]="i"
+                    class="grid gap-4 sm:grid-cols-2 sm:gap-6"
+                  >
+                    <div class="sm:col-span-2">
                       <label
-                        for="disabled-radio-2"
-                        class="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500"
-                        >home</label
+                        for="name"
+                        class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Address1</label
                       >
-                    </div>
-                    <div class="flex items-center">
                       <input
-                        id="2"
-                        formControlName="comAddName"
-                        type="radio"
-                        value="work"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                        type="text"
+                        formControlName="comBAdd1"
+                        name="name"
+                        id="name"
+                        class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                        placeholder="Building no/street Name/area"
+                        required=""
                       />
-                      <label
-                        for="disabled-radio-2"
-                        class="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500"
-                        >work</label
-                      >
                     </div>
-                    <div class="flex items-center">
+                    <div class="sm:col-span-2">
+                      <label
+                        for="name"
+                        class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Address 2</label
+                      >
                       <input
-                        id="apartment"
-                        formControlName="comAddName"
-                        type="radio"
-                        value="3"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                        type="text"
+                        formControlName="comBAdd2"
+                        name="name"
+                        id="name"
+                        class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                        placeholder="Building no/street Name/area"
+                        required=""
                       />
-                      <label
-                        for="disabled-radio-2"
-                        class="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500"
-                        >apartment</label
-                      >
                     </div>
-                  </div>
-                  <div class="sm:col-span-2">
-                    <label
-                      for="name-{{ i }}"
-                      class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >Address1</label
-                    >
-                    <input
-                      type="text"
-                      formControlName="comBAdd1"
-                      name="name"
-                      id="name-{{ i }}"
-                      class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                      placeholder="Building no/street Name/area"
-                      required=""
-                    />
-
-                    <small
-                      class="text-red-600"
-                      *ngIf="
-                        addcompany.get('comBAdd1')?.hasError('required') &&
-                        addcompany.get('comBAdd1')?.touched
-                      "
-                      >Address1 should not be Empty!</small
-                    >
-                  </div>
-                  <div class="sm:col-span-2">
-                    <label
-                      for="name-{{ i }}"
-                      class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >Address 2</label
-                    >
-                    <input
-                      type="text"
-                      formControlName="comBAdd2"
-                      name="name"
-                      id="name-{{ i }}"
-                      class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                      placeholder="Building no/street Name/area"
-                      required=""
-                    />
-
-                    <small
-                      class="text-red-600"
-                      *ngIf="
-                        addcompany.get('comBAdd2')?.hasError('required') &&
-                        addcompany.get('comBAdd2')?.touched
-                      "
-                      >Address1 should not be Empty!</small
-                    >
-                  </div>
-                  <div class="w-full">
-                    <label
-                      for="brand-{{ i }}"
-                      class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >city</label
-                    >
-                    <input
-                      type="text"
-                      formControlName="comBCity"
-                      name="brand"
-                      id="brand-{{ i }}"
-                      class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                      placeholder="City name"
-                      required=""
-                    />
-
-                    <small
-                      class="text-red-600"
-                      *ngIf="
-                        addcompany.get('comBCity')?.hasError('required') &&
-                        addcompany.get('comBCity')?.touched
-                      "
-                      >Enter City!</small
-                    >
-                  </div>
-                  <div class="w-full">
-                    <label
-                      for="brand-{{ i }}"
-                      class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >State</label
-                    >
-                    <input
-                      type="text"
-                      formControlName="comBState"
-                      name="brand"
-                      id="brand-{{ i }}"
-                      class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                      placeholder="State name"
-                      required=""
-                    />
-
-                    <small
-                      class="text-red-600"
-                      *ngIf="
-                        addcompany.get('comBState')?.hasError('required') &&
-                        addcompany.get('comBState')?.touched
-                      "
-                      >Enter State!</small
-                    >
-                  </div>
-                  <div class="w-full">
-                    <label
-                      for="brand-{{ i }}"
-                      class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >Pincode</label
-                    >
-                    <input
-                      type="text"
-                      formControlName="comBPcode"
-                      name="brand"
-                      id="brand-{{ i }}"
-                      class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-                      placeholder="eg:605034"
-                      required=""
-                    />
-                    <small
-                      class="text-red-600"
-                      *ngIf="
-                        addcompany.get('comBPcode')?.hasError('pattern') &&
-                        addcompany.get('comBPcode')?.touched
-                      "
-                      >Pincode should be in 6-Digits!</small
-                    >
-                    <small
-                      class="text-red-600"
-                      *ngIf="
-                        addcompany.get('comBPcode')?.hasError('required') &&
-                        addcompany.get('comBPcode')?.touched
-                      "
-                      >Pincode is required!</small
-                    >
-                  </div>
-                  <div class="flex gap-3">
-                    <button
-                      type="submit"
-                      (click)="addaddress()"
-                      class="mt-4 inline-flex w-14 items-center rounded-2xl bg-green-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 focus:ring-4 focus:ring-blue-200 sm:mt-6 dark:focus:ring-green-900"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="size-6"
+                    <div class="w-full">
+                      <label
+                        for="brand"
+                        class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >City</label
                       >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 4.5v15m7.5-7.5h-15"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      type="submit"
-                      class="mt-4 inline-flex w-14 items-center rounded-2xl bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:ring-4 focus:ring-blue-200 sm:mt-6 dark:focus:ring-red-900"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="size-6"
+                      <input
+                        type="text"
+                        formControlName="comBCity"
+                        name="brand"
+                        id="brand"
+                        class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                        placeholder="City name"
+                        required=""
+                      />
+                    </div>
+                    <div class="w-full">
+                      <label
+                        for="brand-{{ i }}"
+                        class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >State</label
                       >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                        />
-                      </svg>
-                    </button>
+                      <input
+                        type="text"
+                        formControlName="comBState"
+                        name="brand"
+                        id="brand"
+                        class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                        placeholder="State name"
+                        required=""
+                      />
+                    </div>
+                    <div class="w-full">
+                      <label
+                        for="brand"
+                        class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >Pincode</label
+                      >
+                      <input
+                        type="text"
+                        formControlName="comBPcode"
+                        name="brand"
+                        id="brand"
+                        class="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+                        placeholder="eg:605034"
+                        required=""
+                      />
+                    </div>
+
+                    <div class="flex gap-3">
+                      <div>
+                        <button
+                          (click)="updateAddress()"
+                          type="submit"
+                          class="mt-8 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white transition-all duration-500 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          <svg
+                            class="mr-1 h-5 w-5 text-white"
+                            fill="currentColor"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                            />
+                          </svg>
+
+                          Edit Address
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -617,7 +517,7 @@
           <button
             type="submit"
             (click)="SubmitCompany(addcompany.value)"
-            class="mt-4 inline-flex items-center rounded-lg bg-blue-700 px-8 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 sm:mt-6 dark:focus:ring-blue-900"
+            class="mt-4 inline-flex items-center rounded-lg bg-green-700 px-8 py-2.5 text-center text-sm font-medium text-white hover:bg-green-800 focus:ring-4 focus:ring-green-200 sm:mt-6 dark:focus:ring-green-900"
           >
             Save
           </button>

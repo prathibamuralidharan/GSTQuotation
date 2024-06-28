@@ -386,33 +386,33 @@
                               <select
                                 formControlName="prdModel"
                                 #pID
-                                (change)="getProduct(pID.value)"
+                                (change)="getDescriptionList(pID.value)"
                                 class="select-option common-style p-2"
                               >
                                 <option [value]="null" disabled selected>
                                   Model
                                 </option>
                                 <option
-                                  *ngFor="let item of modelList"
-                                  value="{{ item.prdId }}"
+                                  *ngFor="let item of _modelList"
+                                  value="{{ item.prdModel }}"
                                 >
                                   {{ item.prdModel }}
                                 </option>
                               </select>
                               <select
                                 formControlName="prdModel"
-                                #pID
-                                (change)="getProduct(pID.value)"
+                                #dID
+                                (change)="getProduct(dID.value)"
                                 class="select-option common-style description-select p-2"
                               >
                                 <option [value]="null" disabled selected>
                                   Description
                                 </option>
                                 <option
-                                  *ngFor="let item of modelList"
+                                  *ngFor="let item of _description"
                                   value="{{ item.prdId }}"
                                 >
-                                  {{ item.prdModel }}
+                                  {{ item.prdDescription }}
                                 </option>
                               </select>
                             </div>

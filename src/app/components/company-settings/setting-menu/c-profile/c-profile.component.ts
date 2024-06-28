@@ -20,7 +20,6 @@ export class CProfileComponent implements OnInit {
   isShippingEnabled: boolean = false;
   message: string = '';
   successToster: boolean = false;
-
   imageData: any;
   imageUrl: any;
   private _viewCompany: any;
@@ -52,7 +51,7 @@ export class CProfileComponent implements OnInit {
           ),
         ],
       ],
-      comEmailId: [],
+
       comLandLine: [],
       comGst: [
         '',
@@ -84,7 +83,6 @@ export class CProfileComponent implements OnInit {
   }
   showaddress() {
     return this.fb1.group({
-      comAddName: ['', Validators.required],
       comBAdd1: ['', [Validators.required]],
       comBAdd2: ['', [Validators.required]],
 
@@ -98,23 +96,57 @@ export class CProfileComponent implements OnInit {
       comBState: ['', Validators.required],
     });
   }
-
-  addaddress() {
+  addAddress() {
     this.companyAddressDto.push(this.showaddress());
   }
-
   ngOnInit(): void {
     this.fetchCompanyProfile();
     this.retrieveComLogo();
   }
-
   fetchCompanyProfile() {
-    this.ser.getcompany().subscribe((res) => {
-      this._viewCompany = res;
-      this.shared.companyData = res;
-      console.log(res);
+    this.ser.getcompany().subscribe(
+      (res) => {
+        this._viewCompany = res;
+        this.shared.companyData = res;
+        console.log(res);
 
-      this.addcompany.patchValue(this._viewCompany);
+        this.addcompany.patchValue(this._viewCompany);
+
+        // Check if companyAddressDto exists and is an array
+        if (Array.isArray(this._viewCompany.companyAddressDto)) {
+          const addresses = this._viewCompany.companyAddressDto;
+          this.patchAddressValues(addresses); // Patch addresses to the form array
+        } else {
+          console.error('companyAddressDto is not an array or is undefined');
+          // Handle scenario where companyAddressDto is missing or not an array
+        }
+      },
+      (error) => {
+        console.error('Error fetching company data:', error);
+        // Handle error scenario, e.g., display an error message to the user
+      },
+    );
+  }
+
+  patchAddressValues(addresses: any[]): void {
+    const addressArray = this.addcompany.get('companyAddressDto') as FormArray;
+    addressArray.clear(); // Clear existing addresses before patching new ones
+
+    addresses.forEach((address) => {
+      addressArray.push(
+        this.fb1.group({
+          comAddId: [address.comAddId], // Assuming comAddId is part of address object
+          comAddressStatus: [address.comAddressStatus], // Assuming comAddressStatus is part of address object
+          comBAdd1: [address.comBAdd1, Validators.required],
+          comBAdd2: [address.comBAdd2, Validators.required],
+          comBPcode: [
+            address.comBPcode,
+            [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)],
+          ],
+          comBCity: [address.comBCity, Validators.required],
+          comBState: [address.comBState, Validators.required],
+        }),
+      );
     });
   }
 
@@ -235,5 +267,12 @@ export class CProfileComponent implements OnInit {
       console.error('Company ID not found in session storage');
       // Handle scenario where company ID is missing from session storage
     }
+  }
+
+  updateAddress() {
+    const comId = sessionStorage.getItem('companyId');
+    this.ser.updateAddress(comId).subscribe((res) => {
+      console.log(res);
+    });
   }
 }

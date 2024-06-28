@@ -25,6 +25,11 @@ export const endPoint = {
   addSignature: company + '/uploadComSign/', //-http://localhost:4003/company/uploadComSign/{comId}
   viewCompany: company + '/',
   getComLogo: company + '/GetSpecComLogo/',
+  getSignLogo: company + '/GetSpecComSignLogo/',
+
+  addresspost: company + '/InsertCompanyAddress/',
+
+  //bank
   addBank: bank + '/InsertNewBank/',
   ifsccode: ifsc,
   listBank: bank + '/BankListbyCompId/',
@@ -53,7 +58,8 @@ export const endPoint = {
   groupList: quote + '/GetPrductGrpList/',
   categoryList: quote + '/UseGrpIdToGetonlyCategyList/',
   brandList: quote + '/UseCatgyIdToGetonlyPrdBrdList/',
-  ModelList: quote + '/getListPrdModelByBrdId/',
+  ModelList: quote + '/UseBrdIdToGetPrdtModel/',
+  DescriptionList: quote + '/UsePrdtmodelToGetPrdtDescptn/',
   getProduct: quote + '/ProductDetails/',
   listQuotation: quote + '/QuoListbyCompId/',
   updateQuotation: quote + '/GetAllMasterInQuoByQuoId/',

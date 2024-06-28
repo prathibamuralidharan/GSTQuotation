@@ -11,124 +11,143 @@
         </button>
       </div>
 
+      <!-- Display company details -->
       <div
         class="mt-4 flow-root rounded-lg border border-gray-100 py-3 shadow-sm"
       >
-        <img
-          class="ms-auto h-auto max-w-lg items-end"
-          src="/docs/images/examples/image-1@2x.jpg"
-          alt="image description"
-        />
-
         <dl class="-my-3 divide-y divide-gray-100 text-sm">
+          <!-- Display individual company details -->
           <div
             class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
           >
-            <dt class="font-medium text-gray-900">Login Email:</dt>
+            <dt class="font-medium text-gray-900">Company Logo:</dt>
             <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.emailId }}
+              <img [src]="previewUrl" alt="Image Preview" class="h-20 w-32" />
             </dd>
           </div>
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">Company Name:</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comName }}
-            </dd>
-          </div>
-
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">Company Email:</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comEmail }}
-            </dd>
-          </div>
-
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">GST Number:</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comGst }}
-            </dd>
-          </div>
-
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">PAN Number:</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comPan }}
-            </dd>
-          </div>
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">Contact Person Name:</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comConPerson }}
-            </dd>
-          </div>
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">
-              Contact Person PhoneNumber:
-            </dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comConPhone }}
-            </dd>
-          </div>
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">LandLine Number:</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comLandLine }}
-            </dd>
-          </div>
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">Company Website:</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comUrl }}
-            </dd>
+          <div *ngIf="_companyDetails">
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">Login Email:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.emailId }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">Company Name:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comName }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">Company Email:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comEmail }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">GST Number:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comGst }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">PAN Number:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comPan }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">Contact Person Name:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comConPerson }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">
+                Contact Person Phone Number:
+              </dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comConPhone }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">Landline Number:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comLandLine }}
+              </dd>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">Company Website:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                {{ _companyDetails.comUrl }}
+              </dd>
+            </div>
           </div>
         </dl>
       </div>
-    </div>
-    <div class="mt-4 rounded-lg bg-white p-4">
-      <div>
-        <h1 class="mb-4 text-xl">Address</h1>
-      </div>
-      <div class="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
-        <dl class="-my-3 divide-y divide-gray-100 text-sm">
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">Address</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comBAdd1 }}<br />{{
-                _companyDetails.comBAdd2
-              }}
-              <br />{{ _companyDetails.comBCity }}<br />{{
-                _companyDetails.comBState
-              }}
-            </dd>
-          </div>
-          <div
-            class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
-          >
-            <dt class="font-medium text-gray-900">Pincode</dt>
-            <dd class="text-gray-700 sm:col-span-2">
-              {{ _companyDetails.comBPcode }}
-            </dd>
-          </div>
-        </dl>
+
+      <!-- Display address section if addresses are available -->
+
+      <div class="mt-4 rounded-lg bg-white p-4">
+        <h1 class="mb-4 text-xl">Company Address</h1>
+
+        <div class="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
+          <dl class="-my-3 divide-y divide-gray-100 text-sm">
+            <!-- Loop through each address in compAddress array -->
+            <div *ngFor="let com of _addressList">
+              <div
+                class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+              >
+                <dt class="font-medium text-gray-900">Address:</dt>
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ com.comAddName }}<br />
+                  {{ com.comBAdd1 }}<br />
+                  {{ com.comBAdd2 }}<br />
+                  {{ com.comBCity }}<br />
+                  {{ com.comBState }}
+                </dd>
+              </div>
+              <div
+                class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+              >
+                <dt class="font-medium text-gray-900">Pincode:</dt>
+                <dd class="text-gray-700 sm:col-span-2">
+                  {{ com.comBPcode }}
+                </dd>
+              </div>
+            </div>
+            <div
+              class="grid grid-cols-1 gap-1 p-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4"
+            >
+              <dt class="font-medium text-gray-900">Signature:</dt>
+              <dd class="text-gray-700 sm:col-span-2">
+                <img
+                  [src]="signatureUrl"
+                  alt="Image Preview"
+                  class="h-28 w-32"
+                />
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </div>
   </div>

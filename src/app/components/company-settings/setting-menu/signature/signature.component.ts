@@ -5,10 +5,9 @@ import { CompanyService } from '../../../../services/company.service';
 @Component({
   selector: 'app-signature',
   templateUrl: './signature.component.html',
-  styleUrls: ['./signature.component.css'],  // corrected to styleUrls
+  styleUrls: ['./signature.component.css'], // corrected to styleUrls
 })
 export class SignatureComponent {
- 
   addSign: FormGroup;
   successToster: boolean = false;
   message: string = '';
@@ -16,9 +15,12 @@ export class SignatureComponent {
   selectedFile: File | null = null;
   previewUrl: string | ArrayBuffer | null = null;
 
-  constructor(private fbs: FormBuilder, private comService: CompanyService) {
+  constructor(
+    private fbs: FormBuilder,
+    private comService: CompanyService,
+  ) {
     this.addSign = this.fbs.group({
-      comId:[],
+      comId: [],
       comSignature: [],
     });
   }
@@ -35,8 +37,7 @@ export class SignatureComponent {
       });
       console.log(this.selectedFile);
       console.log(this.addSign);
-      
-      
+
       this.previewFile(file);
       this.onSubmit();
     } else {
@@ -78,7 +79,7 @@ export class SignatureComponent {
   previewFile(file: File) {
     const reader = new FileReader();
     console.log(file);
-    
+
     reader.onload = (e) => {
       if (e.target?.result) {
         this.previewUrl = e.target.result;
@@ -91,25 +92,22 @@ export class SignatureComponent {
     if (this.addSign.valid && this.selectedFile) {
       const formData = new FormData();
       console.log(formData);
-      
+
       formData.append('comSignature', this.selectedFile);
 
       this.comService.uploadSignature(formData).subscribe(
         (response) => {
           console.log('Upload successful', response);
-          
         },
         (error) => {
-          if(error.status==200){
-           this.successToster=true;
-          this.message='Signature upload Successfully'
-          }else{
-          console.error('Upload error', error);
+          if (error.status == 200) {
+            this.successToster = true;
+            this.message = 'Signature upload Successfully';
+          } else {
+            console.error('Upload error', error);
           }
         },
       );
     }
   }
-
 }
-

@@ -24,7 +24,8 @@ export class QuotCreateComponent implements OnInit {
   isDelivery: boolean = false;
   isInstall: boolean = false;
   currentDate: string = '';
-  modelList: any;
+  _modelList: any;
+  _description: any;
   productData: any;
   termsText: string = '';
   isCharge: boolean = false;
@@ -61,6 +62,7 @@ export class QuotCreateComponent implements OnInit {
       prdCategory: [],
       prdBrand: [],
       prdModel: [],
+      prdDescription: [],
       prdUnitPrice: [],
       prdGstPercent: [],
       prdQuantity: [],
@@ -317,16 +319,33 @@ export class QuotCreateComponent implements OnInit {
     });
   }
 
-  getModelList(data: any) {
-    console.log(data);
+  getModelList(prdBrandId: any) {
+    console.log(prdBrandId);
 
-    this.service.getModelList(data).subscribe((res: any) => {
+    this.service.getModelList(prdBrandId).subscribe(
+      (res: any) => {
+        if (res != null) {
+          this._modelList = res;
+        } else {
+          this._modelList = null;
+        }
+        console.log(res);
+      },
+      (error) => {
+        console.error('Error fetching model list:', error);
+      },
+    );
+  }
+
+  getDescriptionList(desc: any) {
+    console.log(desc);
+
+    this.service.getDescriptionList(desc).subscribe((res: any) => {
       if (res != null) {
-        this.modelList = res;
+        this._description = res;
       } else {
-        this.modelList = null;
+        this._description = null;
       }
-
       console.log(res);
     });
   }
