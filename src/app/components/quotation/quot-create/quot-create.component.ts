@@ -79,6 +79,7 @@ export class QuotCreateComponent implements OnInit {
     this.getAllGroup();
     this.autoGen();
     this.companygst();
+    this.getAddressId();
   }
 
   toggleTextarea() {
@@ -409,10 +410,10 @@ export class QuotCreateComponent implements OnInit {
     this.status = sts;
     console.log(this.status);
   }
-  teamConditn: string = '';
+  teamConditn: any;
   termsConditions(terms: string) {
     this.teamConditn = terms;
-    console.log(terms);
+    console.log(this.teamConditn);
   }
   clearTerms() {
     this.termsText = ''; // Clear the textarea content
@@ -425,6 +426,7 @@ export class QuotCreateComponent implements OnInit {
       sgstTotal: this._sgstAmt,
       cgstTotal: this._cgstAmt,
       total: this._totalAmt,
+      teamConditn: this.teamConditn,
 
       othersCharge: {
         delCharge: this.deliveryCharge,
@@ -436,6 +438,7 @@ export class QuotCreateComponent implements OnInit {
       quoReference: this.reference,
       quoDate: this.quoDate,
       quoAutoId: this._id,
+      comAddId: this.comAddId,
     };
     this.service
       .addQuote(sessionStorage.getItem('companyId'), finalList)
@@ -491,5 +494,15 @@ export class QuotCreateComponent implements OnInit {
 
   calculateIgst(gstAmt: number): number {
     return gstAmt; // Assuming IGST is the same as the GST amount
+  }
+  _companyDetails: any;
+  comAddId: any;
+  getAddressId() {
+    this.companyService.getcompany().subscribe((res) => {
+      console.log(res);
+      this._companyDetails = res;
+      this.comAddId = this._companyDetails.companyAddressDto[0].comAddId;
+      console.log('add id', this.comAddId);
+    });
   }
 }

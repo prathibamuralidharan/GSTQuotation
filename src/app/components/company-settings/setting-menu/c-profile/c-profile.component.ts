@@ -22,7 +22,11 @@ export class CProfileComponent implements OnInit {
   successToster: boolean = false;
   imageData: any;
   imageUrl: any;
-  private _viewCompany: any;
+
+  isDeleteAddress: boolean = true;
+  isSaveAddress: boolean = false;
+
+  _viewCompany: any;
 
   constructor(
     private fb1: FormBuilder,
@@ -104,67 +108,62 @@ export class CProfileComponent implements OnInit {
     this.retrieveComLogo();
   }
   fetchCompanyProfile() {
-    this.ser.getcompany().subscribe(
-      (res) => {
-        this._viewCompany = res;
-        this.shared.companyData = res;
-        console.log(res);
+    this.ser.getcompany().subscribe((res) => {
+      this._viewCompany = res;
+      console.log(this._viewCompany);
 
-        this.addcompany.patchValue(this._viewCompany);
+      this.shared.companyData = res;
+      console.log(res);
 
-        // Check if companyAddressDto exists and is an array
-        if (Array.isArray(this._viewCompany.companyAddressDto)) {
-          const addresses = this._viewCompany.companyAddressDto;
-          this.patchAddressValues(addresses); // Patch addresses to the form array
-        } else {
-          console.error('companyAddressDto is not an array or is undefined');
-          // Handle scenario where companyAddressDto is missing or not an array
-        }
-      },
-      (error) => {
-        console.error('Error fetching company data:', error);
-        // Handle error scenario, e.g., display an error message to the user
-      },
-    );
-  }
+      this.addcompany.patchValue(this._viewCompany);
 
-  patchAddressValues(addresses: any[]): void {
-    const addressArray = this.addcompany.get('companyAddressDto') as FormArray;
-    addressArray.clear(); // Clear existing addresses before patching new ones
-
-    addresses.forEach((address) => {
-      addressArray.push(
-        this.fb1.group({
-          comAddId: [address.comAddId], // Assuming comAddId is part of address object
-          comAddressStatus: [address.comAddressStatus], // Assuming comAddressStatus is part of address object
-          comBAdd1: [address.comBAdd1, Validators.required],
-          comBAdd2: [address.comBAdd2, Validators.required],
-          comBPcode: [
-            address.comBPcode,
-            [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)],
-          ],
-          comBCity: [address.comBCity, Validators.required],
-          comBState: [address.comBState, Validators.required],
-        }),
+      this.comAddId = this._viewCompany.companyAddressDto.map(
+        (item: any) => item.comAddId,
       );
+      console.log(this.comAddId);
     });
   }
+
+  // patchAddressValues(addresses: any[]): void {
+  //   const addressArray = this.addcompany.get('companyAddressDto') as FormArray;
+  //   addressArray.clear(); // Clear existing addresses before patching new ones
+
+  //   addresses.forEach((address) => {
+  //     addressArray.push(
+  //       this.fb1.group({
+  //         comAddId: [address.comAddId], // Assuming comAddId is part of address object
+  //         comAddressStatus: [address.comAddressStatus], // Assuming comAddressStatus is part of address object
+  //         comBAdd1: [address.comBAdd1, Validators.required],
+  //         comBAdd2: [address.comBAdd2, Validators.required],
+  //         comBPcode: [
+  //           address.comBPcode,
+  //           [Validators.required, Validators.pattern(/^[1-9][0-9]{5}$/)],
+  //         ],
+  //         comBCity: [address.comBCity, Validators.required],
+  //         comBState: [address.comBState, Validators.required],
+  //       }),
+  //     );
+  //   });
+  // }
 
   SubmitCompany(data: any) {
     console.log(data);
 
-    this.ser.addNewCompany(data).subscribe((res: any) => {
-      console.log(data);
-      console.log(res);
-      this.successToster = true;
-      this.message = 'Company Updated Successfully';
-      this.addcompany.reset();
-    });
-  }
-
-  setInitialValue(): void {
-    const fetchedValue = '200';
-    this.addcompany.get('comBillAndShip')?.setValue(fetchedValue);
+    this.ser.addNewCompany(data).subscribe(
+      (res: any) => {
+        console.log(data);
+        console.log(res);
+        this.successToster = true;
+        this.message = 'Company Updated Successfully';
+        this.addcompany.reset();
+      },
+      (error) => {
+        if (error.status == 200) {
+          this.addcompany.reset();
+          this.fetchCompanyProfile();
+        }
+      },
+    );
   }
 
   onChangeFile(event: any) {
@@ -269,10 +268,41 @@ export class CProfileComponent implements OnInit {
     }
   }
 
-  updateAddress() {
+  addressDelete() {
+    this.ser.softDeleteAddress(this.comAddId).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        if (error.status == 200) {
+          this.addcompany.reset();
+          this.fetchCompanyProfile();
+        }
+      },
+    );
+    this.isDeleteAddress = false;
+    this.isSaveAddress = true;
+  }
+  comAddId(comAddId: any) {
+    throw new Error('Method not implemented.');
+  }
+  addAddressApi(data: any) {
+    console.log(data);
+    const { companyAddressDto } = data;
+    let address = { ...companyAddressDto[0] };
+
     const comId = sessionStorage.getItem('companyId');
-    this.ser.updateAddress(comId).subscribe((res) => {
-      console.log(res);
-    });
+    this.ser.addressAdd(comId, address).subscribe(
+      (res) => {
+        console.log('address', res);
+      },
+      (error) => {
+        if (error.status == 200) {
+          this.fetchCompanyProfile();
+        }
+      },
+    );
+    this.isSaveAddress = false;
+    this.isDeleteAddress = true;
   }
 }

@@ -26,8 +26,8 @@ export const endPoint = {
   viewCompany: company + '/',
   getComLogo: company + '/GetSpecComLogo/',
   getSignLogo: company + '/GetSpecComSignLogo/',
-
-  addresspost: company + '/InsertCompanyAddress/',
+  deleteAddress: company + '/SoftDeleteAddress/',
+  addAddress: company + '/InsertCompanyAddress/',
 
   //bank
   addBank: bank + '/InsertNewBank/',

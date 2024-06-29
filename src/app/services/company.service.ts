@@ -53,10 +53,10 @@ export class CompanyService {
     return this.http.get(endPoint.getSignLogo + comId);
   }
 
-  updateAddress(com: any) {
-    return this.http.post(
-      endPoint.addresspost + sessionStorage.getItem('companyId'),
-      com,
-    );
+  softDeleteAddress(com: any) {
+    return this.http.post(endPoint.deleteAddress + com, com);
+  }
+  addressAdd(comId: any, data: any) {
+    return this.http.post(endPoint.addAddress + comId, data);
   }
 }
