@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VPdfQuatationComponent } from './v-pdf-quatation.component';
+import { VPdfQuotationComponent } from './v-pdf-quatation.component';
 
 describe('VPdfQuatationComponent', () => {
-  let component: VPdfQuatationComponent;
-  let fixture: ComponentFixture<VPdfQuatationComponent>;
+  let component: VPdfQuotationComponent;
+  let fixture: ComponentFixture<VPdfQuotationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VPdfQuatationComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(VPdfQuatationComponent);
+      declarations: [VPdfQuotationComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(VPdfQuotationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
