@@ -4,11 +4,18 @@ import { SharedModule } from '../shared/shared.module';
 import { QuotationRoutingModule } from './quotation-routing.module';
 import { QuotCreateComponent } from './quot-create/quot-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LQuatationComponent } from './l-quatation/l-quatation.component';
-import { VPdfQuatationComponent } from './v-pdf-quatation/v-pdf-quatation.component';
+import {
+  LQuatationComponent,
+  LQuatationComponent as LQuotationComponent,
+} from './l-quatation/l-quatation.component';
+import { VPdfQuotationComponent } from './v-pdf-quatation/v-pdf-quatation.component';
 
 @NgModule({
-  declarations: [QuotCreateComponent, LQuatationComponent, VPdfQuatationComponent],
+  declarations: [
+    QuotCreateComponent,
+    LQuatationComponent,
+    VPdfQuotationComponent,
+  ],
   imports: [
     CommonModule,
     QuotationRoutingModule,

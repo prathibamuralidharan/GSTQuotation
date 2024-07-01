@@ -1,7 +1,7 @@
 <body class="">
   <div
     id="popup-wrapper"
-    class="fixed inset-0 z-40 flex items-center justify-center bg-gray-700 bg-opacity-85"
+    class="fixed inset-0 z-40 flex items-center justify-center overflow-scroll bg-gray-700 bg-opacity-85"
   >
     <button
       type="button"
@@ -24,225 +24,419 @@
         />
       </svg>
     </button>
-    <div
-      class="animate animate-fadeInUp relative inset-14 m-8 max-h-full max-w-5xl overflow-y-auto rounded-lg bg-white p-8 shadow-2xl"
+    <!-- pdf download button -->
+    <button
+      class="cancel-button rounded-md border p-4 hover:bg-white hover:text-red-700"
+      style="flex: 1; margin-left: 10px"
+      (click)="makePdf()"
     >
-      <div class="quotation-container mb-8 grid grid-cols-2 gap-8">
-        <div class="left-column">
-          <h2 class="font text-xl font-bold text-green-500">QUOTATION</h2>
-          <p class="text-sm text-black">Original for Recipient</p>
-          <div class="mb-4 mt-8 flex justify-start">
-            <!-- <img
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-download"
+        style="
+          width: 24px;
+          height: 24px;
+          vertical-align: middle;
+          margin-right: 8px;
+          cursor: pointer;
+          background-color: white; /* Set background color to white */
+        "
+      >
+        <path d="M21 15v4a2 2 0 0 1 -2 2H5a2 2 0 0 1 -2 -2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+    </button>
+
+    <section class="max-h-full">
+      <div
+        class="animate animate-fadeInUp relative inset-14 m-8 max-h-full max-w-5xl overflow-y-auto rounded-lg bg-white p-8 shadow-2xl"
+      >
+        <div class="quotation-container mb-8 grid grid-cols-2 gap-8">
+          <div class="left-column">
+            <h2 class="font text-xl font-bold text-green-500">QUOTATION</h2>
+            <p class="text-sm text-black">Original for Recipient</p>
+            <div class="mb-4 mt-8 flex justify-start">
+              <!-- <img
               src="../../../assets/img/cloute technologies.jpg"
               alt="Company Logo"
               class="h-24 w-24 object-contain"
             /> -->
+            </div>
+          </div>
+          <div class="right-column mt-12 text-right">
+            <h2 class="text-md font-semibold text-blue-500">
+              {{ _allQuoDetails.companyDto.comName }}
+            </h2>
+            <p class="text-sm text-black">
+              GSTIN: {{ _allQuoDetails.companyDto.comGst }}<br />
+              PAN: {{ _allQuoDetails.companyDto.comPan }}
+            </p>
+            <p class="text-sm text-black">
+              {{ _allQuoDetails.companyDto.comBAdd1
+              }}{{ _allQuoDetails.companyDto.comBAdd2 }}
+            </p>
+            <p class="text-sm text-black">
+              {{ _allQuoDetails.companyDto.comBCity
+              }}{{ _allQuoDetails.companyDto.comBState
+              }}{{ _allQuoDetails.companyDto.comBPcode }}
+            </p>
+            <p class="text-sm text-black">
+              Mobile:{{ _allQuoDetails.companyDto.comConPhone }}<br />
+              Email:
+              {{ _allQuoDetails.companyDto.comEmail }}
+            </p>
+            <p class="text-sm text-black">
+              Website: {{ _allQuoDetails.companyDto.comUrl }}
+            </p>
           </div>
         </div>
-        <div class="right-column mt-12 text-right">
-          <h2 class="text-md font-semibold text-blue-500">
-            {{ _allQuoDetails.companyDto.comName }}
-          </h2>
-          <p class="text-sm text-black">
-            GSTIN: {{ _allQuoDetails.companyDto.comGst }}<br />
-            PAN: {{ _allQuoDetails.companyDto.comPan }}
+
+        <div class="mb-8 text-left">
+          <p class="text-xl font-bold">
+            Quotation #: EST202425-{{ _allQuoDetails.quoAutoId }}
           </p>
-          <p class="text-sm text-black">
-            {{ _allQuoDetails.companyDto.comBAdd1
-            }}{{ _allQuoDetails.companyDto.comBAdd2 }}
-          </p>
-          <p class="text-sm text-black">
-            {{ _allQuoDetails.companyDto.comBCity
-            }}{{ _allQuoDetails.companyDto.comBState
-            }}{{ _allQuoDetails.companyDto.comBPcode }}
-          </p>
-          <p class="text-sm text-black">
-            Mobile:{{ _allQuoDetails.companyDto.comConPhone }}<br />
-            Email:
-            {{ _allQuoDetails.companyDto.comEmail }}
-          </p>
-          <p class="text-sm text-black">
-            Website: {{ _allQuoDetails.companyDto.comUrl }}
-          </p>
+          <p class="text-sm">Quotation Date: {{ _allQuoDetails.quoDate }}</p>
+          <!-- <p class="text-sm">Due Date: 10 Jun 2024</p> -->
         </div>
-      </div>
 
-      <div class="mb-8 text-left">
-        <p class="text-xl font-bold">
-          Quotation #: EST202425-{{ _allQuoDetails.quoAutoId }}
-        </p>
-        <p class="text-sm">Quotation Date: {{ _allQuoDetails.quoDate }}</p>
-        <!-- <p class="text-sm">Due Date: 10 Jun 2024</p> -->
-      </div>
+        <div class="mb-8 grid grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-bold">Customer Details:</h3>
+            <p class="text-sm">{{ _allQuoDetails.customerDto.cusName }}</p>
+            <p class="text-sm">{{ _allQuoDetails.customerDto.cusConPerson }}</p>
+            <p class="text-sm">
+              GSTIN: {{ _allQuoDetails.customerDto.cusConPerson.cusGst }}
+            </p>
+            <p class="text-sm">
+              Ph: {{ _allQuoDetails.customerDto.cusConPhone }}
+            </p>
 
-      <div class="mb-8 grid grid-cols-2 gap-8">
-        <div>
-          <h3 class="text-2xl font-bold">Customer Details:</h3>
-          <p class="text-sm">{{ _allQuoDetails.customerDto.cusName }}</p>
-          <p class="text-sm">{{ _allQuoDetails.customerDto.cusConPerson }}</p>
-          <p class="text-sm">
-            GSTIN: {{ _allQuoDetails.customerDto.cusConPerson.cusGst }}
-          </p>
-          <p class="text-sm">
-            Ph: {{ _allQuoDetails.customerDto.cusConPhone }}
-          </p>
-
-          <p class="text-sm">
-            Place of Supply: {{ _allQuoDetails.customerDto.cusBState }}
-          </p>
+            <p class="text-sm">
+              Place of Supply: {{ _allQuoDetails.customerDto.cusBState }}
+            </p>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold">Billing Address:</h3>
+            <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd1 }}</p>
+            <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd2 }}</p>
+            <p class="text-sm">
+              {{ _allQuoDetails.customerDto.cusBCity
+              }}{{ _allQuoDetails.customerDto.cusBState
+              }}{{ _allQuoDetails.customerDto.cusBPcode }}
+            </p>
+            <p class="text-sm">Reference: {{ _allQuoDetails.quoReference }}</p>
+          </div>
         </div>
-        <div>
-          <h3 class="text-2xl font-bold">Billing Address:</h3>
-          <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd1 }}</p>
-          <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd2 }}</p>
-          <p class="text-sm">
-            {{ _allQuoDetails.customerDto.cusBCity
-            }}{{ _allQuoDetails.customerDto.cusBState
-            }}{{ _allQuoDetails.customerDto.cusBPcode }}
-          </p>
-          <p class="text-sm">Reference: {{ _allQuoDetails.quoReference }}</p>
-        </div>
-      </div>
 
-      <table
-        class="mb-4 w-full overflow-hidden rounded-lg border border-gray-300 bg-gray-50 shadow-md"
-      >
-        <thead class="bg-blue-600 text-white">
-          <tr>
-            <th class="border-b px-6 py-3 text-sm">#</th>
-            <th class="border-b px-6 py-3 text-sm">Item</th>
-            <th class="border-b px-6 py-3 text-sm">Rate / Item</th>
-            <th class="border-b px-6 py-3 text-sm">Qty</th>
-            <th class="border-b px-6 py-3 text-sm">Taxable Value</th>
-            <th class="border-b px-6 py-3 text-sm">Tax Amount</th>
-            <th class="border-b px-6 py-3 text-sm">Amount</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white">
-          <tr *ngFor="let i of _allQuoDetails.getAllProductDTO">
-            <td class="border-b px-6 py-4 text-sm">{{ i.prdId }}</td>
-            <td class="border-b px-6 py-4 text-sm">
-              {{ i.prdModel }}{{ i.prdDescription }}
-            </td>
-            <td class="border-b px-6 py-4 text-sm">{{ i.unitPrice }}</td>
-            <td class="border-b px-6 py-4 text-sm">{{ i.quantity }}</td>
-            <td class="border-b px-6 py-4 text-sm">24,500.00</td>
-            <td class="border-b px-6 py-4 text-sm">
-              {{ i.gstAmt }} ({{ i.prdGstPercent }}%)
-            </td>
-            <td class="border-b px-6 py-4 text-sm">28,910.00</td>
-          </tr>
-          <tr>
-            <td class="border-b px-6 py-4 text-sm">2</td>
-            <td class="border-b px-6 py-4 text-sm">
-              CRUCIAL 2.5 INCH SATA SSD 512GB
-            </td>
-            <td class="border-b px-6 py-4 text-sm">2,650.00</td>
-            <td class="border-b px-6 py-4 text-sm">7</td>
-            <td class="border-b px-6 py-4 text-sm">18,550.00</td>
-            <td class="border-b px-6 py-4 text-sm">3,339.00 (18%)</td>
-            <td class="border-b px-6 py-4 text-sm">21,889.00</td>
-          </tr>
-          <tr>
-            <td class="border-b px-6 py-4 text-sm">3</td>
-            <td class="border-b px-6 py-4 text-sm">
-              WD 2.5 inch Sata SSD 512GB
-            </td>
-            <td class="border-b px-6 py-4 text-sm">3,625.00</td>
-            <td class="border-b px-6 py-4 text-sm">7</td>
-            <td class="border-b px-6 py-4 text-sm">25,375.00</td>
-            <td class="border-b px-6 py-4 text-sm">4,567.50 (18%)</td>
-            <td class="border-b px-6 py-4 text-sm">29,942.50</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="ml-96 mt-8 w-1/2 text-right">
-        <table class="">
-          <tr>
-            <td class="text-sm font-semibold">Taxable Amount</td>
-            <td class="text-sm">₹8,08,200.00</td>
-          </tr>
-          <tr>
-            <td class="text-sm font-semibold">CGST 9%</td>
-            <td class="text-sm">₹72,738.00</td>
-          </tr>
-          <tr>
-            <td class="text-sm font-semibold">SGST 9%</td>
-            <td class="text-sm">₹72,738.00</td>
-          </tr>
-          <tr>
-            <td class="text-sm font-semibold">IGST 18.0%</td>
-            <td class="text-sm">₹1,45,476.00</td>
-          </tr>
-
-          <tr class="border-b-2 font-semibold">
-            <td class="text-sm">Total</td>
-            <td class="text-sm">₹9,53,676.00</td>
-          </tr>
-
-          <tr class="">
-            <td class="text-sm font-semibold">Total Amount (in words)</td>
-            <td class="text-sm">
-              INR Nine Lakh, Fifty-Three Thousand, Six Hundred And Seventy-Six
-              Rupees Only.
-            </td>
-          </tr>
-          <tr class="font-semibold">
-            <td class="text-sm">Amount Payable</td>
-            <td class="text-sm">₹9,53,676.00</td>
-          </tr>
-        </table>
-                
-      </div>
-
-      <div class="mb-4 mt-20 grid grid-cols-2 gap-8">
-        <div class="mb-4">
-          <h3 class="text-xl font-bold">Bank Details:</h3>
-          <p class="text-md">
-            Bank: {{ _allQuoDetails.bankEntityDto.bankName }}
-          </p>
-          <p class="text-md">
-            Account #:{{ _allQuoDetails.bankEntityDto.conAccountNo }}
-          </p>
-          <p class="text-md">
-            IFSC: {{ _allQuoDetails.bankEntityDto.ifscCode }}
-          </p>
-          <p class="text-md">
-            Branch: {{ _allQuoDetails.bankEntityDto.branchName }}
-          </p>
-        </div>
-      </div>
-
-      <div class="mb-4 grid grid-cols-2 gap-8">
-        <div class="mb-4">
-          <h3 class="text-2xl font-bold">Terms and Conditions:</h3>
-          <p class="text-sm">1. Tax : GST 18% Included in the above Price.</p>
-          <p class="text-sm">2. Warranty : Company Direct</p>
-          <p class="text-sm">3. Validity : Till 20th of June 2024</p>
-          <p class="text-sm">4. Delivery : Same Day from PO</p>
-          <p class="text-sm">
-            5. Payment : 50% Advance along with PO Balance on Delivery
-          </p>
-        </div>
-        <div>
-          <h3 class="text-md font-normal">
-            For CLOUTE TECHNOLOGIES PRIVATE LIMITED
-          </h3>
-          <br /><br /><br />
-          <p class="text-sm">Authorized Signatory</p>
-        </div>
-      </div>
-
-      <!-- Download Button -->
-      <!-- <div class="mt-8 flex justify-center">
-        <button
-          id="download-btn"
-          class="rounded-lg bg-green-600 px-6 py-2 text-lg text-white hover:bg-green-700"
+        <table
+          class="mb-4 w-full overflow-hidden rounded-lg border border-gray-300 bg-gray-50 shadow-md"
         >
-          Download Quotation
-        </button>
-      </div> -->
-    </div>
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              <th class="border-b px-6 py-3 text-sm">#</th>
+              <th class="border-b px-6 py-3 text-sm">Item</th>
+              <th class="border-b px-6 py-3 text-sm">Rate / Item</th>
+              <th class="border-b px-6 py-3 text-sm">Qty</th>
+              <th class="border-b px-6 py-3 text-sm">Taxable Value</th>
+              <th class="border-b px-6 py-3 text-sm">Tax Amount</th>
+              <th class="border-b px-6 py-3 text-sm">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr *ngFor="let i of _allQuoDetails.getAllProductDTO">
+              <td class="border-b px-6 py-4 text-sm">{{ i.prdId }}</td>
+              <td class="border-b px-6 py-4 text-sm">
+                {{ i.prdModel }}{{ i.prdDescription }}
+              </td>
+              <td class="border-b px-6 py-4 text-sm">{{ i.unitPrice }}</td>
+              <td class="border-b px-6 py-4 text-sm">{{ i.quantity }}</td>
+              <td class="border-b px-6 py-4 text-sm">24,500.00</td>
+              <td class="border-b px-6 py-4 text-sm">
+                {{ i.gstAmt }} ({{ i.prdGstPercent }}%)
+              </td>
+              <td class="border-b px-6 py-4 text-sm">28,910.00</td>
+            </tr>
+            <tr>
+              <td class="border-b px-6 py-4 text-sm">2</td>
+              <td class="border-b px-6 py-4 text-sm">
+                CRUCIAL 2.5 INCH SATA SSD 512GB
+              </td>
+              <td class="border-b px-6 py-4 text-sm">2,650.00</td>
+              <td class="border-b px-6 py-4 text-sm">7</td>
+              <td class="border-b px-6 py-4 text-sm">18,550.00</td>
+              <td class="border-b px-6 py-4 text-sm">3,339.00 (18%)</td>
+              <td class="border-b px-6 py-4 text-sm">21,889.00</td>
+            </tr>
+            <tr>
+              <td class="border-b px-6 py-4 text-sm">3</td>
+              <td class="border-b px-6 py-4 text-sm">
+                WD 2.5 inch Sata SSD 512GB
+              </td>
+              <td class="border-b px-6 py-4 text-sm">3,625.00</td>
+              <td class="border-b px-6 py-4 text-sm">7</td>
+              <td class="border-b px-6 py-4 text-sm">25,375.00</td>
+              <td class="border-b px-6 py-4 text-sm">4,567.50 (18%)</td>
+              <td class="border-b px-6 py-4 text-sm">29,942.50</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="ml-96 mt-8 w-1/2 text-right">
+          <table class="">
+            <tr>
+              <td class="text-sm font-semibold">Taxable Amount</td>
+              <td class="text-sm">₹8,08,200.00</td>
+            </tr>
+            <tr>
+              <td class="text-sm font-semibold">CGST 9%</td>
+              <td class="text-sm">₹72,738.00</td>
+            </tr>
+            <tr>
+              <td class="text-sm font-semibold">SGST 9%</td>
+              <td class="text-sm">₹72,738.00</td>
+            </tr>
+            <tr>
+              <td class="text-sm font-semibold">IGST 18.0%</td>
+              <td class="text-sm">₹1,45,476.00</td>
+            </tr>
+
+            <tr class="border-b-2 font-semibold">
+              <td class="text-sm">Total</td>
+              <td class="text-sm">₹9,53,676.00</td>
+            </tr>
+
+            <tr class="">
+              <td class="text-sm font-semibold">Total Amount (in words)</td>
+              <td class="text-sm">
+                INR Nine Lakh, Fifty-Three Thousand, Six Hundred And Seventy-Six
+                Rupees Only.
+              </td>
+            </tr>
+            <tr class="font-semibold">
+              <td class="text-sm">Amount Payable</td>
+              <td class="text-sm">₹9,53,676.00</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="mb-4 mt-20 grid grid-cols-2 gap-8">
+          <div class="mb-4">
+            <h3 class="text-xl font-bold">Bank Details:</h3>
+            <p class="text-md">
+              Bank: {{ _allQuoDetails.bankEntityDto.bankName }}
+            </p>
+            <p class="text-md">
+              Account #:{{ _allQuoDetails.bankEntityDto.conAccountNo }}
+            </p>
+            <p class="text-md">
+              IFSC: {{ _allQuoDetails.bankEntityDto.ifscCode }}
+            </p>
+            <p class="text-md">
+              Branch: {{ _allQuoDetails.bankEntityDto.branchName }}
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-4 grid grid-cols-2 gap-8">
+          <div class="mb-4">
+            <h3 class="text-2xl font-bold">Terms and Conditions:</h3>
+            <p class="text-sm">1. Tax : GST 18% Included in the above Price.</p>
+            <p class="text-sm">2. Warranty : Company Direct</p>
+            <p class="text-sm">3. Validity : Till 20th of June 2024</p>
+            <p class="text-sm">4. Delivery : Same Day from PO</p>
+            <p class="text-sm">
+              5. Payment : 50% Advance along with PO Balance on Delivery
+            </p>
+          </div>
+          <div>
+            <h3 class="text-md font-normal">
+              For CLOUTE TECHNOLOGIES PRIVATE LIMITED
+            </h3>
+            <br /><br /><br />
+            <p class="text-sm">Authorized Signatory</p>
+          </div>
+        </div>
+      </div>
+      <body
+        class="relative inset-14 m-8 max-h-full max-w-5xl overflow-y-auto rounded-lg bg-white p-8 shadow-2xl"
+      >
+        <div class="">
+          <div class="max-h-full">
+            <div class="quotation-container mb-8 grid grid-cols-2 gap-8">
+              <div class="left-column">
+                <h2 class="font text-xl font-bold text-green-500">
+                  DELIVERY CHALLAN
+                </h2>
+
+                <div class="mb-4 mt-8 flex justify-start">
+                  <!-- <img
+                src="../../../assets/img/cloute technologies.jpg"
+                alt="Company Logo"
+                class="h-24 w-24 object-contain"
+              /> -->
+                </div>
+              </div>
+              <div class="right-column mt-12 text-right">
+                <h2 class="text-md font-semibold text-blue-500">
+                  {{ _allQuoDetails.companyDto.comName }}
+                </h2>
+                <p class="text-sm text-black">
+                  GSTIN: {{ _allQuoDetails.companyDto.comGst }}<br />
+                  PAN: {{ _allQuoDetails.companyDto.comPan }}
+                </p>
+                <p class="text-sm text-black">
+                  {{ _allQuoDetails.companyDto.comBAdd1
+                  }}{{ _allQuoDetails.companyDto.comBAdd2 }}
+                </p>
+                <p class="text-sm text-black">
+                  {{ _allQuoDetails.companyDto.comBCity
+                  }}{{ _allQuoDetails.companyDto.comBState
+                  }}{{ _allQuoDetails.companyDto.comBPcode }}
+                </p>
+                <p class="text-sm text-black">
+                  Mobile:{{ _allQuoDetails.companyDto.comConPhone }}<br />
+                  Email:
+                  {{ _allQuoDetails.companyDto.comEmail }}
+                </p>
+                <p class="text-sm text-black">
+                  Website: {{ _allQuoDetails.companyDto.comUrl }}
+                </p>
+              </div>
+            </div>
+
+            <div class="mb-8 text-left">
+              <p class="text-xl font-bold">
+                Quotation #: EST202425-{{ _allQuoDetails.quoAutoId }}
+              </p>
+              <p class="text-sm">
+                Quotation Date: {{ _allQuoDetails.quoDate }}
+              </p>
+              <!-- <p class="text-sm">Due Date: 10 Jun 2024</p> -->
+            </div>
+
+            <div class="mb-8 grid grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-2xl font-bold">Customer Details:</h3>
+                <p class="text-sm">
+                  {{ _allQuoDetails.customerDto.cusName }}
+                </p>
+                <p class="text-sm">
+                  {{ _allQuoDetails.customerDto.cusConPerson }}
+                </p>
+                <p class="text-sm">
+                  GSTIN: {{ _allQuoDetails.customerDto.cusConPerson.cusGst }}
+                </p>
+                <p class="text-sm">
+                  Ph: {{ _allQuoDetails.customerDto.cusConPhone }}
+                </p>
+
+                <p class="text-sm">
+                  Place of Supply: {{ _allQuoDetails.customerDto.cusBState }}
+                </p>
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold">Billing Address:</h3>
+                <p class="text-sm">
+                  {{ _allQuoDetails.customerDto.cusBAdd1 }}
+                </p>
+                <p class="text-sm">
+                  {{ _allQuoDetails.customerDto.cusBAdd2 }}
+                </p>
+                <p class="text-sm">
+                  {{ _allQuoDetails.customerDto.cusBCity
+                  }}{{ _allQuoDetails.customerDto.cusBState
+                  }}{{ _allQuoDetails.customerDto.cusBPcode }}
+                </p>
+                <p class="text-sm">
+                  Reference: {{ _allQuoDetails.quoReference }}
+                </p>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <table class="w-full border-collapse border border-blue-500">
+                <thead>
+                  <tr class="border-blue-500 bg-blue-500">
+                    <th class="border border-gray-300 px-4 py-2 text-lg">
+                      Item #
+                    </th>
+                    <th class="border border-gray-300 px-4 py-2 text-lg">
+                      Item Description
+                    </th>
+                    <th class="border border-gray-300 px-4 py-2 text-lg">
+                      HSN Code
+                    </th>
+                    <th class="border border-gray-300 px-4 py-2 text-lg">
+                      Serial Numbers
+                    </th>
+                    <th class="border border-gray-300 px-4 py-2 text-lg">
+                      Details
+                    </th>
+                    <th class="border border-gray-300 px-4 py-2 text-lg">
+                      Quantity
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="text-center">
+                    <td class="border border-gray-300 px-4 py-2 text-sm">1</td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">
+                      DELL VOSTRO DT 3910 MT
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">
+                      84715000
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">
+                      CS0G7W3, FT1G7W3, GR0G7W3
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">
+                      CORE I3 - 12100 12TH GEN, 8GB DDR4 RAM 3200MHz, 512GB SSD,
+                      NO DVD RW, WIN 11 SL, 19.5'' (E2020H), WIFI, 3 YEARS
+                      WARRANTY
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">3</td>
+                  </tr>
+                  <tr class="text-center">
+                    <td class="border border-gray-300 px-4 py-2 text-sm">2</td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">
+                      HP LASERJET TANK MFP M1005 - 381U3A
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">
+                      84433100
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">
+                      VNF3B16776
+                    </td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm"></td>
+                    <td class="border border-gray-300 px-4 py-2 text-sm">1</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="ml-96 mt-8 w-1/2 text-right">
+              <p><strong>Total Items / Qty:</strong> 2 / 4.000</p>
+            </div>
+            <div class="mb-4 grid grid-cols-2 gap-8">
+              <div class="mt-20">
+                <h3 class="text-md font-normal">
+                  For CLOUTE TECHNOLOGIES PRIVATE LIMITED
+                </h3>
+                <br /><br /><br />
+                <p class="text-sm">Authorized Signatory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </section>
   </div>
 </body>
