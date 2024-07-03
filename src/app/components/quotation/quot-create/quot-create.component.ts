@@ -11,13 +11,16 @@ import { CompanyService } from '../../../services/company.service';
   styleUrl: './quot-create.component.css',
 })
 export class QuotCreateComponent implements OnInit {
+  // showInstallationCharge = true; // Example flag to show/hide the installation charge section
+  // termsText: string = ''; // ngModel bound variable to store input text
+  storedLines: string[] = []; // Array to store lines of text
   visiable: boolean = false;
   successPopup: boolean = false;
   successMessage: string = '';
   _rItemList: any;
   emptyVisiable: boolean = true;
   showDeliveryCharge = false;
-  showInstallationCharge = false;
+
   terms: string = '';
   notes: string = '';
   showText = false;
@@ -27,7 +30,7 @@ export class QuotCreateComponent implements OnInit {
   _modelList: any;
   _description: any;
   productData: any;
-  termsText: string = '';
+
   isCharge: boolean = false;
   productList: any[] = [];
   _totalAmt: number = 0;
@@ -410,14 +413,12 @@ export class QuotCreateComponent implements OnInit {
     this.status = sts;
     console.log(this.status);
   }
-  teamConditn: any;
-  termsConditions(terms: string) {
-    this.teamConditn = terms;
-    console.log(this.teamConditn);
-  }
-  clearTerms() {
-    this.termsText = ''; // Clear the textarea content
-  }
+  // teamConditn: any;
+  // termsConditions(terms: string) {
+  //   this.teamConditn = terms;
+  //   console.log(this.teamConditn);
+  // }
+
   submitQuotation() {
     let finalList = {
       quoProductList: this.productList,
@@ -426,7 +427,7 @@ export class QuotCreateComponent implements OnInit {
       sgstTotal: this._sgstAmt,
       cgstTotal: this._cgstAmt,
       total: this._totalAmt,
-      teamConditn: this.teamConditn,
+      quoTermCondition: this.termsArray,
 
       othersCharge: {
         delCharge: this.deliveryCharge,
@@ -453,7 +454,7 @@ export class QuotCreateComponent implements OnInit {
           console.error(error);
 
           if (error.status == 200) {
-            this.route.navigate(['/home/listquote']);
+            this.route.navigate(['/home/liquote']);
           }
         },
       );
@@ -504,5 +505,44 @@ export class QuotCreateComponent implements OnInit {
       this.comAddId = this._companyDetails.companyAddressDto[0].comAddId;
       console.log('add id', this.comAddId);
     });
+  }
+  showInstallationCharge = true; // Assuming this is set somewhere in your code
+  termsText: string = '';
+  termsArray: { termConditn: string }[] = [];
+
+  handleEnter(event: KeyboardEvent, textarea: HTMLTextAreaElement): void {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      const currentText = this.termsText.trim();
+      if (currentText) {
+        const lines = currentText.split('\n');
+        const lastLine = lines.pop();
+        if (lastLine) {
+          this.termsArray.push({ termConditn: lastLine });
+        }
+        this.termsText = lines.join('\n') + '\n';
+        setTimeout(() => {
+          textarea.value = this.termsText;
+          textarea.selectionStart = textarea.selectionEnd =
+            this.termsText.length;
+        }, 0);
+      }
+    }
+  }
+
+  termsConditions(): void {
+    if (this.termsText.trim()) {
+      const remainingLines = this.termsText.trim().split('\n');
+      remainingLines.forEach((line) => {
+        this.termsArray.push({ termConditn: line });
+      });
+    }
+    console.log('quoTermCondition:', this.termsArray);
+    // Here you can send the `termsArray` to your server or handle it as needed
+  }
+
+  clearTerms(): void {
+    this.termsText = '';
+    this.termsArray = [];
   }
 }

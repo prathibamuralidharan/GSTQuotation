@@ -12,6 +12,7 @@ import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import autoTable from 'jspdf-autotable';
+import { CompanyService } from '../../../services/company.service';
 
 @Component({
   selector: 'app-v-pdf-quatation',
@@ -28,12 +29,57 @@ export class VPdfQuotationComponent implements OnInit {
   @Input() quoId: any;
   @Output() close = new EventEmitter<boolean>();
   @ViewChild('content') content!: ElementRef;
+  previewUrl: string = '';
+  imageData: any;
+  signatureData: any;
+  signatureUrl: string = '';
 
-  constructor(private quoService: QuotationService) {}
+  constructor(
+    private quoService: QuotationService,
+    private comser: CompanyService,
+  ) {}
 
   ngOnInit(): void {
     console.log('QuotationId', this.quoId);
     this.viewPdf();
+    this.retrieveComLogo();
+    this.retrieveSignature();
+  }
+
+  retrieveSignature() {
+    const comId = sessionStorage.getItem('companyId');
+    if (comId) {
+      this.comser.getSignature(comId).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.signatureData = res.comSignature;
+          this.signatureUrl = 'data:image/jpeg;base64,' + this.signatureData;
+        },
+        (error: any) => {
+          console.error('Error fetching signature:', error);
+        },
+      );
+    } else {
+      console.error('Company ID not found in session storage');
+    }
+  }
+
+  retrieveComLogo() {
+    const comId = sessionStorage.getItem('companyId');
+    if (comId) {
+      this.comser.getCompanyLogo(comId).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.imageData = res.comLogo;
+          this.previewUrl = 'data:image/jpeg;base64,' + this.imageData;
+        },
+        (error: any) => {
+          console.error('Error fetching company logo:', error);
+        },
+      );
+    } else {
+      console.error('Company ID not found in session storage');
+    }
   }
 
   downloadQuotation(): void {
@@ -75,19 +121,25 @@ export class VPdfQuotationComponent implements OnInit {
     const doc = new jsPDF.jsPDF();
 
     this.loadImage('assets/img/cloude (1).svg').then((base64Image: string) => {
-      doc.addImage(base64Image, 'SVG', 10, 10, 30, 0);
+      doc.addImage(base64Image, 'SVG', 10, 10, 50, 0);
 
       autoTable(doc, {
         startY: 40,
         body: [
           [
             {
-              content: 'QUOTATION\nOriginal for Recipient',
+              content: 'QUOTATION\nCLOUTE TECHNOLOGIES PRIVATE LIMITED',
               styles: {
                 halign: 'left',
                 fontSize: 16,
                 fontStyle: 'bold',
                 textColor: '#0000FF',
+              },
+            },
+            {
+              content: 'Quotation #: EST202425-01\nQuotation Date: 2024-06-06',
+              styles: {
+                halign: 'right',
               },
             },
           ],
@@ -99,22 +151,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'GSTIN:\tPAN:',
-              styles: {
-                halign: 'left',
-              },
-            },
-
-            {
-              content: 'Quotation #: EST202425-01\nQuotation Date: 2024-06-06',
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content: '\nMobile:\tEmail:',
+              content: 'GSTIN:',
               styles: {
                 halign: 'left',
               },
@@ -122,7 +159,31 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: '\nWebsite:',
+              content: 'PAN:',
+              styles: {
+                halign: 'left',
+              },
+            },
+          ],
+          [
+            {
+              content: '\n\n\nMobile:',
+              styles: {
+                halign: 'left',
+              },
+            },
+          ],
+          [
+            {
+              content: 'Email:',
+              styles: {
+                halign: 'left',
+              },
+            },
+          ],
+          [
+            {
+              content: 'Website:',
               styles: {
                 halign: 'left',
               },
@@ -148,14 +209,12 @@ export class VPdfQuotationComponent implements OnInit {
                 'Billing Address:\n20-kr, mahaleswar\ndam\nlonden\ndholakpur\n636406',
               styles: {
                 halign: 'left',
-                cellWidth: 'auto',
               },
             },
           ],
         ],
         theme: 'plain',
       });
-
       autoTable(doc, {
         body: [
           [
@@ -169,7 +228,6 @@ export class VPdfQuotationComponent implements OnInit {
         ],
         theme: 'plain',
       });
-
       autoTable(doc, {
         head: [
           [
@@ -211,10 +269,19 @@ export class VPdfQuotationComponent implements OnInit {
             '29,942.50',
           ],
         ],
-        theme: 'striped',
+        theme: 'grid',
         headStyles: {
-          fillColor: '#0000FF',
-          textColor: '#ffffff',
+          textColor: '#000000', // Set text color to black
+          fillColor: [255, 255, 255], // Set fill color to white (or remove this line if you don't want any fill color)
+          lineWidth: 0, // Remove border line
+          lineColor: [0, 0, 0], // Set line color to black (this line won't affect the border as lineWidth is 0)
+        },
+        bodyStyles: {
+          lineWidth: 0, // Remove border line
+          lineColor: [0, 0, 0], // Set line color to black (this line won't affect the border as lineWidth is 0)
+        },
+        styles: {
+          fillColor: false, // Disable the default fill color for the entire table
         },
       });
 
@@ -222,13 +289,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'Taxable Amount',
-              styles: {
-                halign: 'right',
-              },
-            },
-            {
-              content: '8,08,200.00',
+              content: 'Taxable Amount:\t8,08,200.00',
               styles: {
                 halign: 'right',
               },
@@ -236,13 +297,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'CGST 9%',
-              styles: {
-                halign: 'right',
-              },
-            },
-            {
-              content: '72,738.00',
+              content: 'CGST 9%:\t72,738.00',
               styles: {
                 halign: 'right',
               },
@@ -250,13 +305,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'SGST 9%',
-              styles: {
-                halign: 'right',
-              },
-            },
-            {
-              content: '72,738.00',
+              content: 'SGST 9%:\t72,738.00',
               styles: {
                 halign: 'right',
               },
@@ -264,13 +313,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'IGST 18.0%',
-              styles: {
-                halign: 'right',
-              },
-            },
-            {
-              content: '1,45,476.00',
+              content: 'IGST 18.0%:\t1,45,476.00',
               styles: {
                 halign: 'right',
               },
@@ -278,28 +321,16 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'Total',
-              styles: {
-                halign: 'right',
-              },
-            },
-            {
-              content: '9,53,676.00',
+              content: 'Total:\t9,53,676.00',
               styles: {
                 halign: 'right',
               },
             },
           ],
           [
-            {
-              content: 'Total Amount (in words)',
-              styles: {
-                halign: 'right',
-              },
-            },
             {
               content:
-                'INR Nine Lakh, Fifty-Three Thousand, Six Hundred And Seventy-Six Rupees Only.',
+                'Total Amount (in words):\tINR Nine Lakh, Fifty-Three Thousand, Six Hundred And Seventy-Six Rupees Only.',
               styles: {
                 halign: 'right',
               },
@@ -307,13 +338,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'Amount Payable',
-              styles: {
-                halign: 'right',
-              },
-            },
-            {
-              content: '9,53,676.00',
+              content: 'Amount Payable:\t9,53,676.00',
               styles: {
                 halign: 'right',
               },
@@ -340,7 +365,7 @@ export class VPdfQuotationComponent implements OnInit {
           [
             {
               content:
-                'Bank: HDFC Bank\nAccount #: 12345678909\nIFSC: HDFC0000035\nBranch: CHANDIGARH - SECTOR THIRTY FIVE B',
+                'Bank: ICICI Bank\nA/C No: 123456789012\nIFSC: ICIC0001234\nBranch: Chennai',
               styles: {
                 halign: 'left',
               },
@@ -354,20 +379,11 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'Terms and Conditions:',
-              styles: {
-                halign: 'left',
-                fontSize: 14,
-                fontStyle: 'bold',
-              },
-            },
-          ],
-          [
-            {
               content:
-                '1. Tax : GST 18% Included in the above Price.\n2. Warranty : Company Direct\n3. Validity : Till 20th of June 2024\n4. Delivery : Same Day from PO\n5. Payment : 50% Advance along with PO Balance on Delivery',
+                'Terms and Conditions:\n1. All disputes are subject to Chennai jurisdiction only.\n2. Goods once sold will not be taken back or exchanged.',
               styles: {
                 halign: 'left',
+                fontSize: 12,
               },
             },
           ],
@@ -385,7 +401,7 @@ export class VPdfQuotationComponent implements OnInit {
               },
             },
             {
-              content: 'FOR Cloudefi Technologies Pvt. Ltd.',
+              content: 'FOR Cloute Technologies Pvt. Ltd.',
               styles: {
                 halign: 'right',
               },
@@ -399,7 +415,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'Authorised Signatory',
+              content: '\n\n\n\nAuthorized Signatory',
               styles: {
                 halign: 'right',
               },
@@ -411,28 +427,26 @@ export class VPdfQuotationComponent implements OnInit {
 
       doc.save('quotation.pdf');
     });
+    // this.makechallan(); //used to download multiple pdf
   }
 
   loadImage(url: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.crossOrigin = 'Anonymous';
-      img.src = url;
       img.onload = () => {
         const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
         canvas.width = img.width;
         canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0);
-          resolve(canvas.toDataURL('image/svg+xml'));
-        } else {
-          reject(new Error('Canvas context is null'));
-        }
+        ctx!.drawImage(img, 0, 0);
+        const dataURL = canvas.toDataURL('image/png');
+        resolve(dataURL);
       };
-      img.onerror = () => {
-        reject(new Error('Failed to load image'));
+      img.onerror = (error) => {
+        reject(error);
       };
+      img.src = url;
     });
   }
 }
