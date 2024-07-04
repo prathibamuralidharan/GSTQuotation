@@ -13,6 +13,7 @@ import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import autoTable from 'jspdf-autotable';
 import { CompanyService } from '../../../services/company.service';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-v-pdf-quatation',
@@ -112,15 +113,17 @@ export class VPdfQuotationComponent implements OnInit {
   viewPdf() {
     this.quoService.getAllMasters(this.quoId).subscribe((res) => {
       console.log(res);
-      this._allQuoDetails = res;
+      this._allQuoDetails = res || {};
     });
   }
 
   makePdf(): void {
     console.log('PDF generation triggered');
     const doc = new jsPDF.jsPDF();
+    const quotationDetails = this._allQuoDetails;
+    console.log(quotationDetails);
 
-    this.loadImage('assets/img/cloude (1).svg').then((base64Image: string) => {
+    this.loadImage(this.previewUrl).then((base64Image: string) => {
       doc.addImage(base64Image, 'SVG', 10, 10, 50, 0);
 
       autoTable(doc, {
@@ -128,7 +131,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'QUOTATION\nCLOUTE TECHNOLOGIES PRIVATE LIMITED',
+              content: `QUOTATION\n ${quotationDetails.companyDto.comName}`,
               styles: {
                 halign: 'left',
                 fontSize: 16,
@@ -137,7 +140,7 @@ export class VPdfQuotationComponent implements OnInit {
               },
             },
             {
-              content: 'Quotation #: EST202425-01\nQuotation Date: 2024-06-06',
+              content: `Quotation #:2024-25/${quotationDetails.quoAutoId}\nQuotation Date: ${quotationDetails.quoDate}`,
               styles: {
                 halign: 'right',
               },
@@ -151,7 +154,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'GSTIN:',
+              content: `GSTIN: ${quotationDetails.companyDto.comGst}`,
               styles: {
                 halign: 'left',
               },
@@ -159,7 +162,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'PAN:',
+              content: `PAN:${quotationDetails.companyDto.comPan}`,
               styles: {
                 halign: 'left',
               },
@@ -167,7 +170,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: '\n\n\nMobile:',
+              content: `\n\n\nMobile: ${quotationDetails.companyDto.comConPhone},${quotationDetails.companyDto.comLandLine}`,
               styles: {
                 halign: 'left',
               },
@@ -175,7 +178,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'Email:',
+              content: `Email: ${quotationDetails.companyDto.comEmail}`,
               styles: {
                 halign: 'left',
               },
@@ -183,7 +186,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'Website:',
+              content: `Website: ${quotationDetails.companyDto.comUrl}`,
               styles: {
                 halign: 'left',
               },
@@ -191,22 +194,33 @@ export class VPdfQuotationComponent implements OnInit {
           ],
         ],
         theme: 'plain',
+        didDrawCell: (data) => {
+          if (data.row.index === 4) {
+            doc.setDrawColor(192, 192, 192); // Gray color
+            doc.setLineWidth(0.5); // Line width
+            doc.line(
+              data.cell.x,
+              data.cell.y + data.cell.height,
+              data.cell.x + data.cell.width,
+              data.cell.y + data.cell.height,
+            );
+          }
+        },
       });
 
       autoTable(doc, {
         body: [
           [
             {
-              content:
-                'Customer Details:\nsherin\nsherin\n\nGSTIN:\nPh: 9836748904\n\nPlace of Supply: dholakpur',
+              content: `Customer Details:\n Customer Name:${quotationDetails.customerDto.cusName} \nContact Person Name:  ${quotationDetails.customerDto.cusConPerson}\n Phone:${quotationDetails.customerDto.cusConPhone}
+              \n GSTIn:${quotationDetails.customerDto.cusGst} \nplace of supply:${quotationDetails.customerDto.cusBState}`,
               styles: {
                 halign: 'left',
                 cellWidth: 'auto',
               },
             },
             {
-              content:
-                'Billing Address:\n20-kr, mahaleswar\ndam\nlonden\ndholakpur\n636406',
+              content: `Shipping Address:\n${quotationDetails.customerDto.cusSAdd1}\n ${quotationDetails.customerDto.cusSAdd2}\n ${quotationDetails.customerDto.cusSCity}\n ${quotationDetails.customerDto.cusSState}-${quotationDetails.customerDto.cusSPcode}`,
               styles: {
                 halign: 'left',
               },
@@ -219,7 +233,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'Reference: wertyuio',
+              content: `Reference: ${quotationDetails.quoReference}`,
               styles: {
                 halign: 'right',
               },
@@ -240,48 +254,29 @@ export class VPdfQuotationComponent implements OnInit {
             'Amount',
           ],
         ],
-        body: [
-          [
-            '1',
-            'fgsr43gtazsdrfgthj',
-            '200000',
-            '3',
-            '24,500.00',
-            '10000 (5%)',
-            '28,910.00',
-          ],
-          [
-            '2',
-            'CRUCIAL 2.5 INCH SATA SSD 512GB',
-            '2,650.00',
-            '7',
-            '18,550.00',
-            '3,339.00 (18%)',
-            '21,889.00',
-          ],
-          [
-            '3',
-            'WD 2.5 inch Sata SSD 512GB',
-            '3,625.00',
-            '7',
-            '25,375.00',
-            '4,567.50 (18%)',
-            '29,942.50',
-          ],
-        ],
+        body: this._allQuoDetails.getAllProductDTO.map((product: any) => [
+          `${product.prdId}`,
+          `${product.prdModel}`,
+          `${product.unitPrice}`,
+          `${product.quantity}`,
+          `${product.taxable}`,
+          `${product.prdGstPercent}%\n${product.gstAmt}`,
+          `${product.includedtaxAmt}`,
+        ]),
         theme: 'grid',
         headStyles: {
-          textColor: '#000000', // Set text color to black
-          fillColor: [255, 255, 255], // Set fill color to white (or remove this line if you don't want any fill color)
-          lineWidth: 0, // Remove border line
-          lineColor: [0, 0, 0], // Set line color to black (this line won't affect the border as lineWidth is 0)
+          textColor: [0, 0, 0], // Black text color
+          fillColor: [255, 255, 255], // White fill color for header
+          lineWidth: 0, // No border for header
+          lineColor: [0, 0, 0], // Black line color (won't be visible without borders)
         },
         bodyStyles: {
-          lineWidth: 0, // Remove border line
-          lineColor: [0, 0, 0], // Set line color to black (this line won't affect the border as lineWidth is 0)
+          lineWidth: 0, // No border for body rows
+          lineColor: [0, 128, 0], // Green line color
         },
+
         styles: {
-          fillColor: false, // Disable the default fill color for the entire table
+          fillColor: false, // Disable default fill color for the entire table
         },
       });
 
@@ -289,7 +284,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: 'Taxable Amount:\t8,08,200.00',
+              content: `\n Taxable:${quotationDetails.taxableTotal}`,
               styles: {
                 halign: 'right',
               },
@@ -297,7 +292,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'CGST 9%:\t72,738.00',
+              content: `CGST: ${quotationDetails.cgstTotal}`,
               styles: {
                 halign: 'right',
               },
@@ -305,7 +300,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'SGST 9%:\t72,738.00',
+              content: `SGST:${quotationDetails.sgstTotal}`,
               styles: {
                 halign: 'right',
               },
@@ -313,7 +308,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'IGST 18.0%:\t1,45,476.00',
+              content: `IGST:${quotationDetails.igstTotal}`,
               styles: {
                 halign: 'right',
               },
@@ -321,7 +316,23 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'Total:\t9,53,676.00',
+              content: `Delivery :${quotationDetails.othersCharge.delCharge}`,
+              styles: {
+                halign: 'right',
+              },
+            },
+          ],
+          [
+            {
+              content: `Install:${quotationDetails.othersCharge.instllCharge}`,
+              styles: {
+                halign: 'right',
+              },
+            },
+          ],
+          [
+            {
+              content: `\n TOTAL:${quotationDetails.total}`,
               styles: {
                 halign: 'right',
               },
@@ -338,7 +349,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: 'Amount Payable:\t9,53,676.00',
+              content: `\n Amount Payable:${quotationDetails.total}`,
               styles: {
                 halign: 'right',
               },
@@ -364,8 +375,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content:
-                'Bank: ICICI Bank\nA/C No: 123456789012\nIFSC: ICIC0001234\nBranch: Chennai',
+              content: `\n BankName:${quotationDetails.bankEntityDto.bankName}\n Account No:${quotationDetails.bankEntityDto.accountNo}\nIFSC Code:${quotationDetails.bankEntityDto.ifscCode}\nBranch:${quotationDetails.bankEntityDto.branchName}`,
               styles: {
                 halign: 'left',
               },
@@ -379,8 +389,10 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content:
-                'Terms and Conditions:\n1. All disputes are subject to Chennai jurisdiction only.\n2. Goods once sold will not be taken back or exchanged.',
+              content: this._allQuoDetails.quoTeamCondition.map((term: any) => [
+                ` \n${term.termConditn}`,
+              ]),
+
               styles: {
                 halign: 'left',
                 fontSize: 12,
