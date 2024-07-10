@@ -175,7 +175,7 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: `Quotation #: 202425-${quotationDetails.quoAutoId}\n$Quotation Date: ${this.formatDate(quotationDetails.quoDate)}`,
+              content: `Quotation #: 202425-${quotationDetails.quoAutoId}\nDate: ${this.formatDate(quotationDetails.quoDate)}`,
               styles: {
                 halign: 'right',
               },
@@ -279,6 +279,11 @@ export class VPdfQuotationComponent implements OnInit {
           ],
         ),
         theme: 'grid',
+        headStyles: {
+          fillColor: [31, 81, 255], // Red color for the table header background
+          textColor: [255, 255, 255], // White color for the table header text
+          fontStyle: 'bold', // Bold text for the table header
+        },
       });
 
       autoTable(doc, {
@@ -300,6 +305,7 @@ export class VPdfQuotationComponent implements OnInit {
         ],
         theme: 'plain',
       });
+
       autoTable(doc, {
         body: [
           [
@@ -363,11 +369,11 @@ export class VPdfQuotationComponent implements OnInit {
             startY: finalY + 22,
           });
 
-          doc.save('quotation.pdf');
+          doc.save(`${quotationDetails.quoAutoId}.pdf`);
         })
         .catch((error) => {
           console.error('Error loading signature image:', error);
-          doc.save('quotation.pdf'); // Save PDF even if signature image fails to load
+          doc.save(`${quotationDetails.quoAutoId}.pdf`); // Save PDF even if signature image fails to load
         });
     });
   }

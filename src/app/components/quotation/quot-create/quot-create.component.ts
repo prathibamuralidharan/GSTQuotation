@@ -515,30 +515,25 @@ export class QuotCreateComponent implements OnInit {
       event.preventDefault();
       const currentText = this.termsText.trim();
       if (currentText) {
-        const lines = currentText.split('\n');
-        const lastLine = lines.pop();
-        if (lastLine) {
-          this.termsArray.push({ termConditn: lastLine });
-        }
-        this.termsText = lines.join('\n') + '\n';
-        setTimeout(() => {
-          textarea.value = this.termsText;
-          textarea.selectionStart = textarea.selectionEnd =
-            this.termsText.length;
-        }, 0);
+        const lines = this.termsText.split('\n');
+        this.termsArray.push({ termConditn: lines.pop() || '' });
+        this.termsText += '\n'; // Add a new line
       }
     }
   }
 
+  // termsConditions(): void {
+  //   if (this.termsText.trim()) {
+  //     const remainingLines = this.termsText.trim().split('\n');
+  //     remainingLines.forEach((line) => {
+  //       this.termsArray.push({ termConditn: line });
+  //     });
+  //   }
+  //   console.log('quoTermCondition:', this.termsArray);
+  //   // Here you can send the `termsArray` to your server or handle it as needed
+  // }
   termsConditions(): void {
-    if (this.termsText.trim()) {
-      const remainingLines = this.termsText.trim().split('\n');
-      remainingLines.forEach((line) => {
-        this.termsArray.push({ termConditn: line });
-      });
-    }
-    console.log('quoTermCondition:', this.termsArray);
-    // Here you can send the `termsArray` to your server or handle it as needed
+    console.log('Terms Conditions Saved:', this.termsArray);
   }
 
   clearTerms(): void {
