@@ -14,6 +14,9 @@ import html2canvas from 'html2canvas';
 import autoTable from 'jspdf-autotable';
 import { CompanyService } from '../../../services/company.service';
 import { NgFor } from '@angular/common';
+import 'jspdf-autotable';
+
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-v-pdf-quatation',
@@ -34,6 +37,40 @@ export class VPdfQuotationComponent implements OnInit {
   imageData: any;
   signatureData: any;
   signatureUrl: string = '';
+  a = [
+    '',
+    'one ',
+    'two ',
+    'three ',
+    'four ',
+    'five ',
+    'six ',
+    'seven ',
+    'eight ',
+    'nine ',
+    'ten ',
+    'eleven ',
+    'twelve ',
+    'thirteen ',
+    'fourteen ',
+    'fifteen ',
+    'sixteen ',
+    'seventeen ',
+    'eighteen ',
+    'nineteen ',
+  ];
+  b = [
+    '',
+    '',
+    'twenty',
+    'thirty',
+    'forty',
+    'fifty',
+    'sixty',
+    'seventy',
+    'eighty',
+    'ninety',
+  ];
 
   constructor(
     private quoService: QuotationService,
@@ -116,33 +153,75 @@ export class VPdfQuotationComponent implements OnInit {
       this._allQuoDetails = res || {};
     });
   }
+  formatDate = (dateString: string | number | Date) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   makePdf(): void {
     console.log('PDF generation triggered');
-    const doc = new jsPDF.jsPDF();
+    const doc = new jsPDF.jsPDF({ compress: true });
     const quotationDetails = this._allQuoDetails;
+
     console.log(quotationDetails);
 
     this.loadImage(this.previewUrl).then((base64Image: string) => {
-      doc.addImage(base64Image, 'SVG', 10, 10, 50, 0);
+      doc.addImage(base64Image, 'PNG', 15, 10, 30, 0);
 
       autoTable(doc, {
-        startY: 40,
         body: [
           [
             {
-              content: `QUOTATION\n ${quotationDetails.companyDto.comName}`,
+              content: `Quotation #: 202425-${quotationDetails.quoAutoId}\n$Quotation Date: ${this.formatDate(quotationDetails.quoDate)}`,
+              styles: {
+                halign: 'right',
+              },
+            },
+          ],
+        ],
+        theme: 'plain',
+      });
+      autoTable(doc, {
+        body: [
+          [
+            {
+              content: `QUOTATION`,
               styles: {
                 halign: 'left',
-                fontSize: 16,
+                fontSize: 10,
+                fontStyle: 'normal',
+                textColor: '#0000FF',
+              },
+            },
+          ],
+          [
+            {
+              content: `${quotationDetails.companyDto.comName}`,
+              styles: {
+                halign: 'left',
+                fontSize: 14,
                 fontStyle: 'bold',
                 textColor: '#0000FF',
               },
             },
+          ],
+          [
             {
-              content: `Quotation #:2024-25/${quotationDetails.quoAutoId}\nQuotation Date: ${quotationDetails.quoDate}`,
+              content: `GSTIN: ${quotationDetails.companyDto.comGst}  PAN: ${quotationDetails.companyDto.comPan}`,
               styles: {
-                halign: 'right',
+                halign: 'left',
+                fontStyle: 'bold',
+              },
+            },
+          ],
+          [
+            {
+              content: `${quotationDetails.companyAddressDto.comBAdd1},\n${quotationDetails.companyAddressDto.comBAdd2},${quotationDetails.companyAddressDto.comBCity}-${quotationDetails.companyAddressDto.comBPcode}\n${quotationDetails.companyAddressDto.comBState}.\nMobile: ${quotationDetails.companyDto.comConPhone}, Email: ${quotationDetails.companyDto.comEmail}\nWebsite: ${quotationDetails.companyDto.comUrl}`,
+              styles: {
+                halign: 'left',
               },
             },
           ],
@@ -154,39 +233,19 @@ export class VPdfQuotationComponent implements OnInit {
         body: [
           [
             {
-              content: `GSTIN: ${quotationDetails.companyDto.comGst}`,
+              content: `Customer Details:\n\n${quotationDetails.customerDto.cusName}\n${quotationDetails.customerDto.cusConPerson}\n${quotationDetails.customerDto.cusConPhone}\nGSTIn:${quotationDetails.customerDto.cusGst}\nplace of supply:${quotationDetails.customerDto.cusBState}`,
               styles: {
                 halign: 'left',
               },
             },
-          ],
-          [
             {
-              content: `PAN:${quotationDetails.companyDto.comPan}`,
+              content: `Billing Address:\n\n${quotationDetails.customerDto.cusBAdd1}\n${quotationDetails.customerDto.cusBAdd2}\n${quotationDetails.customerDto.cusBCity}--${quotationDetails.customerDto.cusBPcode}\n${quotationDetails.customerDto.cusBState}.`,
               styles: {
                 halign: 'left',
               },
             },
-          ],
-          [
             {
-              content: `\n\n\nMobile: ${quotationDetails.companyDto.comConPhone},${quotationDetails.companyDto.comLandLine}`,
-              styles: {
-                halign: 'left',
-              },
-            },
-          ],
-          [
-            {
-              content: `Email: ${quotationDetails.companyDto.comEmail}`,
-              styles: {
-                halign: 'left',
-              },
-            },
-          ],
-          [
-            {
-              content: `Website: ${quotationDetails.companyDto.comUrl}`,
+              content: `Shipping Address:\n\n${quotationDetails.customerDto.cusSAdd1}\n${quotationDetails.customerDto.cusSAdd2}\n${quotationDetails.customerDto.cusSCity}--${quotationDetails.customerDto.cusSPcode}\n${quotationDetails.customerDto.cusSState}\nReference:${quotationDetails.quoReference}`,
               styles: {
                 halign: 'left',
               },
@@ -194,54 +253,8 @@ export class VPdfQuotationComponent implements OnInit {
           ],
         ],
         theme: 'plain',
-        didDrawCell: (data) => {
-          if (data.row.index === 4) {
-            doc.setDrawColor(192, 192, 192); // Gray color
-            doc.setLineWidth(0.5); // Line width
-            doc.line(
-              data.cell.x,
-              data.cell.y + data.cell.height,
-              data.cell.x + data.cell.width,
-              data.cell.y + data.cell.height,
-            );
-          }
-        },
       });
 
-      autoTable(doc, {
-        body: [
-          [
-            {
-              content: `Customer Details:\n Customer Name:${quotationDetails.customerDto.cusName} \nContact Person Name:  ${quotationDetails.customerDto.cusConPerson}\n Phone:${quotationDetails.customerDto.cusConPhone}
-              \n GSTIn:${quotationDetails.customerDto.cusGst} \nplace of supply:${quotationDetails.customerDto.cusBState}`,
-              styles: {
-                halign: 'left',
-                cellWidth: 'auto',
-              },
-            },
-            {
-              content: `Shipping Address:\n${quotationDetails.customerDto.cusSAdd1}\n ${quotationDetails.customerDto.cusSAdd2}\n ${quotationDetails.customerDto.cusSCity}\n ${quotationDetails.customerDto.cusSState}-${quotationDetails.customerDto.cusSPcode}`,
-              styles: {
-                halign: 'left',
-              },
-            },
-          ],
-        ],
-        theme: 'plain',
-      });
-      autoTable(doc, {
-        body: [
-          [
-            {
-              content: `Reference: ${quotationDetails.quoReference}`,
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-        ],
-        theme: 'plain',
-      });
       autoTable(doc, {
         head: [
           [
@@ -254,37 +267,44 @@ export class VPdfQuotationComponent implements OnInit {
             'Amount',
           ],
         ],
-        body: this._allQuoDetails.getAllProductDTO.map((product: any) => [
-          `${product.prdId}`,
-          `${product.prdModel}`,
-          `${product.unitPrice}`,
-          `${product.quantity}`,
-          `${product.taxable}`,
-          `${product.prdGstPercent}%\n${product.gstAmt}`,
-          `${product.includedtaxAmt}`,
-        ]),
+        body: this._allQuoDetails.getAllProductDTO.map(
+          (product: any, index: number) => [
+            `${index + 1}`,
+            `${product.prdModel}`,
+            `${Number(product.unitPrice).toFixed(2)}`,
+            `${product.quantity}`,
+            `${Number(product.taxable).toFixed(2)}`,
+            `${product.prdGstPercent}%\n${product.gstAmt}`,
+            `${product.includedtaxAmt}`,
+          ],
+        ),
         theme: 'grid',
-        headStyles: {
-          textColor: [0, 0, 0], // Black text color
-          fillColor: [255, 255, 255], // White fill color for header
-          lineWidth: 0, // No border for header
-          lineColor: [0, 0, 0], // Black line color (won't be visible without borders)
-        },
-        bodyStyles: {
-          lineWidth: 0, // No border for body rows
-          lineColor: [0, 128, 0], // Green line color
-        },
-
-        styles: {
-          fillColor: false, // Disable default fill color for the entire table
-        },
       });
 
       autoTable(doc, {
         body: [
           [
             {
-              content: `\n Taxable:${quotationDetails.taxableTotal}`,
+              content: `Bank Details:\n\nBank Name:${quotationDetails.bankEntityDto.bankName}\nAccount No:${quotationDetails.bankEntityDto.accountNo}\nIFSC Code:${quotationDetails.bankEntityDto.ifscCode}\nBranch Name:${quotationDetails.bankEntityDto.branchName}`,
+              styles: {
+                halign: 'left',
+              },
+            },
+            {
+              content: `Taxable Amount:${Number(quotationDetails.taxableTotal).toFixed(2)}\nCGST:${Number(quotationDetails.cgstTotal).toFixed(2)}\nSGST: ${Number(quotationDetails.sgstTotal).toFixed(2)}\nIGST: ${Number(quotationDetails.igstTotal).toFixed(2)}\nTOTAL: ${Number(quotationDetails.total).toFixed(2)}`,
+              styles: {
+                halign: 'right',
+              },
+            },
+          ],
+        ],
+        theme: 'plain',
+      });
+      autoTable(doc, {
+        body: [
+          [
+            {
+              content: `Total Amount(in words): INR: ${this.convertNumberToWords(quotationDetails.total)} Rupees Only`,
               styles: {
                 halign: 'right',
               },
@@ -292,64 +312,7 @@ export class VPdfQuotationComponent implements OnInit {
           ],
           [
             {
-              content: `CGST: ${quotationDetails.cgstTotal}`,
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content: `SGST:${quotationDetails.sgstTotal}`,
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content: `IGST:${quotationDetails.igstTotal}`,
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content: `Delivery :${quotationDetails.othersCharge.delCharge}`,
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content: `Install:${quotationDetails.othersCharge.instllCharge}`,
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content: `\n TOTAL:${quotationDetails.total}`,
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content:
-                'Total Amount (in words):\tINR Nine Lakh, Fifty-Three Thousand, Six Hundred And Seventy-Six Rupees Only.',
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-          [
-            {
-              content: `\n Amount Payable:${quotationDetails.total}`,
+              content: `Amount Payable:${quotationDetails.total.toFixed(2)}`,
               styles: {
                 halign: 'right',
               },
@@ -359,59 +322,17 @@ export class VPdfQuotationComponent implements OnInit {
         theme: 'plain',
       });
 
-      doc.addPage();
-
       autoTable(doc, {
-        body: [
-          [
-            {
-              content: 'Bank Details:',
-              styles: {
-                halign: 'left',
-                fontSize: 14,
-                fontStyle: 'bold',
-              },
-            },
-          ],
-          [
-            {
-              content: `\n BankName:${quotationDetails.bankEntityDto.bankName}\n Account No:${quotationDetails.bankEntityDto.accountNo}\nIFSC Code:${quotationDetails.bankEntityDto.ifscCode}\nBranch:${quotationDetails.bankEntityDto.branchName}`,
-              styles: {
-                halign: 'left',
-              },
-            },
-          ],
-        ],
+        head: [['Terms and Condition:']],
+        body: this._allQuoDetails.quoTeamCondition.map((terms: any) => [
+          `${terms.termConditn}`,
+        ]),
+
         theme: 'plain',
       });
-
       autoTable(doc, {
         body: [
           [
-            {
-              content: this._allQuoDetails.quoTeamCondition.map((term: any) => [
-                ` \n${term.termConditn}`,
-              ]),
-
-              styles: {
-                halign: 'left',
-                fontSize: 12,
-              },
-            },
-          ],
-        ],
-        theme: 'plain',
-      });
-
-      autoTable(doc, {
-        body: [
-          [
-            {
-              content: '',
-              styles: {
-                halign: 'left',
-              },
-            },
             {
               content: 'FOR Cloute Technologies Pvt. Ltd.',
               styles: {
@@ -422,24 +343,102 @@ export class VPdfQuotationComponent implements OnInit {
         ],
         theme: 'plain',
       });
+      const finalY = (doc as any).lastAutoTable.finalY || 10;
+      this.loadImage(this.signatureUrl)
+        .then((signatureImage: string) => {
+          doc.addImage(signatureImage, 'PNG', 150, finalY, 50, 0);
 
-      autoTable(doc, {
-        body: [
-          [
-            {
-              content: '\n\n\n\nAuthorized Signatory',
-              styles: {
-                halign: 'right',
-              },
-            },
-          ],
-        ],
-        theme: 'plain',
-      });
+          autoTable(doc, {
+            body: [
+              [
+                {
+                  content: 'Authorized Signatory',
+                  styles: {
+                    halign: 'right',
+                  },
+                },
+              ],
+            ],
+            theme: 'plain',
+            startY: finalY + 22,
+          });
 
-      doc.save('quotation.pdf');
+          doc.save('quotation.pdf');
+        })
+        .catch((error) => {
+          console.error('Error loading signature image:', error);
+          doc.save('quotation.pdf'); // Save PDF even if signature image fails to load
+        });
     });
-    // this.makechallan(); //used to download multiple pdf
+  }
+  convertNumberToWords(amount: number): string {
+    const a = [
+      '',
+      'one',
+      'two',
+      'three',
+      'four',
+      'five',
+      'six',
+      'seven',
+      'eight',
+      'nine',
+      'ten',
+      'eleven',
+      'twelve',
+      'thirteen',
+      'fourteen',
+      'fifteen',
+      'sixteen',
+      'seventeen',
+      'eighteen',
+      'nineteen',
+    ];
+    const b = [
+      '',
+      '',
+      'twenty',
+      'thirty',
+      'forty',
+      'fifty',
+      'sixty',
+      'seventy',
+      'eighty',
+      'ninety',
+    ];
+
+    if (amount === 0) return 'zero';
+
+    const inWords = (num: number): string => {
+      if (num < 20) return a[num];
+      if (num < 100)
+        return b[Math.floor(num / 10)] + (num % 10 ? ' ' + a[num % 10] : '');
+      if (num < 1000)
+        return (
+          a[Math.floor(num / 100)] +
+          ' hundred' +
+          (num % 100 ? ' ' + inWords(num % 100) : '')
+        );
+      if (num < 100000)
+        return (
+          inWords(Math.floor(num / 1000)) +
+          ' thousand' +
+          (num % 1000 ? ' ' + inWords(num % 1000) : '')
+        );
+      if (num < 10000000)
+        return (
+          inWords(Math.floor(num / 100000)) +
+          ' lakh' +
+          (num % 100000 ? ' ' + inWords(num % 100000) : '')
+        );
+      return (
+        inWords(Math.floor(num / 10000000)) +
+        ' crore' +
+        (num % 10000000 ? ' ' + inWords(num % 10000000) : '')
+      );
+    };
+
+    return inWords(amount).trim();
   }
 
   loadImage(url: string): Promise<string> {

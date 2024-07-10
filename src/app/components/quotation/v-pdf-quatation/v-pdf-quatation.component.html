@@ -124,6 +124,7 @@
               Place of Supply: {{ _allQuoDetails.customerDto.cusBState }}
             </p>
           </div>
+
           <div>
             <h3 class="text-2xl font-bold">Billing Address:</h3>
             <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd1 }}</p>
@@ -161,48 +162,59 @@
               <td class="border-b px-6 py-4 text-sm">{{ i.quantity }}</td>
               <td class="border-b px-6 py-4 text-sm">{{ i.taxable }}</td>
               <td class="border-b px-6 py-4 text-sm">
-                {{ i.gstAmt }} ({{ i.prdGstPercent }}%)
+                {{ i.gstAmt | number: "4.1-2" }} ({{ i.prdGstPercent }}%)
               </td>
               <td class="border-b px-6 py-4 text-sm">{{ i.includedtaxAmt }}</td>
             </tr>
           </tbody>
         </table>
 
-        <div class="ml-96 mt-8 w-1/2 text-right">
-          <table class="">
+        <div class="ml-auto mt-8 w-1/2 text-right">
+          <table class="w-full">
             <tr>
-              <td class="text-sm font-semibold">Taxable Amount</td>
-              <td class="text-sm">{{ _allQuoDetails.taxableTotal }}</td>
+              <td class="text-right text-sm font-semibold">Taxable Amount</td>
+              <td class="text-right text-sm">
+                {{ _allQuoDetails.taxableTotal | number: "4.1-2" }}
+              </td>
             </tr>
             <tr>
-              <td class="text-sm font-semibold">CGST 9%</td>
-              <td class="text-sm">{{ _allQuoDetails.cgstTotal }}</td>
+              <td class="text-right text-sm font-semibold">CGST 9%</td>
+              <td class="text-right text-sm">
+                {{ _allQuoDetails.cgstTotal | number: "4.1-2" }}
+              </td>
             </tr>
             <tr>
-              <td class="text-sm font-semibold">SGST 9%</td>
-              <td class="text-sm">{{ _allQuoDetails.sgstTotal }}</td>
+              <td class="text-right text-sm font-semibold">SGST 9%</td>
+              <td class="text-right text-sm">
+                {{ _allQuoDetails.sgstTotal | number: "4.1-2" }}
+              </td>
             </tr>
             <tr>
-              <td class="text-sm font-semibold">IGST 18.0%</td>
-              <td class="text-sm">{{ _allQuoDetails.igstTotal }}</td>
+              <td class="text-right text-sm font-semibold">IGST 18.0%</td>
+              <td class="text-right text-sm">
+                {{ _allQuoDetails.igstTotal | number: "4.1-2" }}
+              </td>
             </tr>
 
             <tr class="border-b-2 font-semibold">
-              <td class="text-sm">Total</td>
-              <td class="text-sm">{{ _allQuoDetails.total }}</td>
-            </tr>
-
-            <tr class="">
-              <td class="text-sm font-semibold">Total Amount (in words)</td>
-              <td class="text-sm">
-                INR Nine Lakh, Fifty-Three Thousand, Six Hundred And Seventy-Six
-                Rupees Only.
+              <td class="text-right text-sm">Total</td>
+              <td class="text-right text-sm">
+                {{ _allQuoDetails.total | number: "4.1-2" }}
               </td>
             </tr>
-            <tr class="font-semibold">
-              <td class="text-sm">Amount Payable</td>
-              <td class="text-sm">₹9,53,676.00</td>
+
+            <tr>
+              <td class="text-right text-sm font-semibold">
+                Total Amount (in words)
+              </td>
+              <td class="text-right text-sm">
+                {{ convertNumberToWords(_allQuoDetails.total) }} Rupees Only
+              </td>
             </tr>
+            <!-- <tr class="font-semibold">
+              <td class="text-right text-sm">Amount Payable</td>
+              <td class="text-right text-sm">₹9,53,676.00</td>
+            </tr> -->
           </table>
         </div>
 
@@ -227,7 +239,12 @@
         <div class="mb-4 grid grid-cols-2 gap-8">
           <div class="mb-4">
             <h3 class="text-2xl font-bold">Terms and Conditions:</h3>
-            <p class="text-sm">{{ _allQuoDetails.teamConditn }}</p>
+            <p
+              *ngFor="let terms of _allQuoDetails.quoTeamCondition"
+              class="text-sm"
+            >
+              {{ terms.termConditn }}
+            </p>
             <!-- <p class="text-sm">2. Warranty : Company Direct</p>
             <p class="text-sm">3. Validity : Till 20th of June 2024</p>
             <p class="text-sm">4. Delivery : Same Day from PO</p>
