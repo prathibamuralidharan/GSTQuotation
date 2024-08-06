@@ -5,7 +5,7 @@
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
           Stock Details
         </h2>
-        <form>
+        <form [formGroup]="addstockform">
           <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="w-full">
               <label
@@ -16,11 +16,25 @@
 
               <select
                 #grpId
+                (change)="getCatList(grpId.value)"
                 formControlName="prdGrpId"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               >
-                <option></option>
+                <option
+                  *ngFor="let group of productGroups"
+                  value="{{ group.prdGrpId }}"
+                >
+                  {{ group.prdGrop }}
+                </option>
               </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addstockform.get('prdGrpId')?.hasError('required') &&
+                  addstockform.get('prdGrpId')?.touched
+                "
+                >Group is required!</small
+              >
             </div>
             <div class="w-full">
               <label
@@ -32,10 +46,21 @@
               <select
                 #catId
                 formControlName="prdCateId"
+                (change)="getBand(catId.value)"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               >
-                <option></option>
+                <option *ngFor="let cat of catList" value="{{ cat.prdCateId }}">
+                  {{ cat.prdCategory }}
+                </option>
               </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addstockform.get('prdCateId')?.hasError('required') &&
+                  addstockform.get('prdCateId')?.touched
+                "
+                >Category is required!</small
+              >
             </div>
 
             <div class="w-full">
@@ -46,48 +71,86 @@
               >
 
               <select
-                #brd
-                formControlName="prdBrandId"
+                formControlName="prdBrand"
+                #brandId
+                (change)="getModelList(brandId.value)"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               >
-                <option></option>
+                <option
+                  *ngFor="let brand of brand"
+                  value="{{ brand.prdBrandId }}"
+                >
+                  {{ brand.prdBrand }}
+                </option>
               </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addstockform.get('prdBrandId')?.hasError('required') &&
+                  addstockform.get('prdBrandId')?.touched
+                "
+                >Brand is required!</small
+              >
             </div>
             <div class="w-full">
               <label
-                for="price"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                for="brand"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
                 >Product Model</label
               >
-              <input
+
+              <select
                 formControlName="prdModel"
-                type="text"
-                name="price"
-                id="price"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="model"
-                required=""
-              />
+                #pID
+                (change)="getDescriptionList(pID.value)"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option
+                  *ngFor="let item of _modelList"
+                  value="{{ item.prdModel }}"
+                >
+                  {{ item.prdModel }}
+                </option>
+              </select>
+              <small
+                class="text-red-600"
+                *ngIf="
+                  addstockform.get('prdBrandId')?.hasError('required') &&
+                  addstockform.get('prdBrandId')?.touched
+                "
+                >Brand is required!</small
+              >
             </div>
           </div>
 
-          <div class="mt-4 w-full">
-            <div>
-              <label
-                for="brand"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >Product Description</label
+          <div class="w-full">
+            <label
+              for="brand"
+              class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+              >Product Description</label
+            >
+
+            <select
+              formControlName="prdModel"
+              #dID
+              (change)="getProduct(dID.value)"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            >
+              <option
+                *ngFor="let item of _description"
+                value="{{ item.prdId }}"
               >
-              <textarea
-                formControlName="prdDescription"
-                type="text"
-                name="brand"
-                id="brand"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Product Description"
-                required=""
-              ></textarea>
-            </div>
+                {{ item.prdDescription }}
+              </option>
+            </select>
+            <small
+              class="text-red-600"
+              *ngIf="
+                addstockform.get('prdBrandId')?.hasError('required') &&
+                addstockform.get('prdBrandId')?.touched
+              "
+              >Brand is required!</small
+            >
           </div>
           <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="w-full">
@@ -137,8 +200,8 @@
                 formControlName="prdGstStatus"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               >
-                <option value="1">With GST</option>
-                <option value="2">Without GST</option>
+                <option value="200">With GST</option>
+                <option value="400">Without GST</option>
               </select>
             </div>
 
@@ -168,7 +231,7 @@
                 >Opening</label
               >
               <input
-                formControlName="prdHsn"
+                formControlName=""
                 type="number"
                 name="brand"
                 id="brand"
@@ -185,7 +248,7 @@
                 >Closing</label
               >
               <input
-                formControlName="prdUnitPrice"
+                formControlName=""
                 type="number"
                 name="brand"
                 id="brand"
@@ -203,7 +266,7 @@
                 >Stock In</label
               >
               <input
-                formControlName="prdHsn"
+                formControlName=""
                 type="number"
                 name="brand"
                 id="brand"
