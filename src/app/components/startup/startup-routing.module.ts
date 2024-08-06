@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ProductModule } from '../product/product.module';
 import { CompanySettingsModule } from '../company-settings/company-settings.module';
+import { StockModule } from '../stock/stock.module';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('../quotation/quotation.module').then(
-            (m) => m.QuotationModule
+            (m) => m.QuotationModule,
           ),
       },
       {
@@ -31,8 +32,13 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('../company-settings/company-settings.module').then(
-            (m) => CompanySettingsModule
+            (m) => CompanySettingsModule,
           ),
+      },
+      {
+        path: '',
+        loadChildren: () =>
+          import('../stock/stock.module').then((m) => StockModule),
       },
     ],
   },

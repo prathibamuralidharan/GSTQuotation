@@ -1,8 +1,8 @@
-let url = 'http://192.168.1.13:4003/';
-let url2 = 'http://192.168.1.13:4004/';
-let url1 = 'http://192.168.1.13:4001/';
+let url = 'http://192.168.1.17:4003/';
+let url2 = 'http://192.168.1.17:4004/';
+let url1 = 'http://192.168.1.17:4001/';
 let ifsc = 'https://ifsc.razorpay.com/';
-let prod = 'http://192.168.1.13:9004/';
+let prod = 'http://192.168.1.17:9004/';
 
 let customer = url1 + 'customer';
 let company = url + 'company';
@@ -18,7 +18,10 @@ export const endPoint = {
   addAllCustomer: customer + '/InsertNewCustomer/',
   listCustomer: customer + '/GetCustomerDetailsList/',
   getCustomerId: customer + '/GetSpecficCusId/',
-  updateCustomer: customer + '/UpdateCustomer', //- http://localhost:9004/Product/UpdatePrdGrpIdToAddPrdCatgy/{prdGrpId}
+  updateCustomer: customer + '/UpdateCustomer',
+  updateCusAdd: customer + '/UpdateCustomerAddress',
+
+  //- http://localhost:9004/Product/UpdatePrdGrpIdToAddPrdCatgy/{prdGrpId}
 
   AddCompany: company + '/AddCompany/', //- http://localhost:9004/Product/UpdatePrdCatgyIdToPrdBrds/{prdCateId}
   addLogo: company + '/uploadComLogo/', //- http://localhost:9004/Product/InsertNewProduct/{prdBrandId}

@@ -65,7 +65,7 @@
             <h2 class="font text-xl font-bold text-green-500">QUOTATION</h2>
             <p class="text-sm text-black">Original for Recipient</p>
             <div class="mb-4 mt-8 flex justify-start">
-              <img [src]="previewUrl" alt="Image Preview" class="h-20 w-32" />
+              <img [src]="previewUrl" alt="Image Preview" class="h-20 w-40" />
             </div>
           </div>
           <div class="right-column mt-12 text-right">
@@ -127,12 +127,16 @@
 
           <div>
             <h3 class="text-2xl font-bold">Billing Address:</h3>
-            <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd1 }}</p>
-            <p class="text-sm">{{ _allQuoDetails.customerDto.cusBAdd2 }}</p>
             <p class="text-sm">
-              {{ _allQuoDetails.customerDto.cusBCity
-              }}{{ _allQuoDetails.customerDto.cusBState
-              }}{{ _allQuoDetails.customerDto.cusBPcode }}
+              {{ _allQuoDetails.customerAddressDto.cusBAdd1 }}
+            </p>
+            <p class="text-sm">
+              {{ _allQuoDetails.customerAddressDto.cusBAdd2 }}
+            </p>
+            <p class="text-sm">
+              {{ _allQuoDetails.customerAddressDto.cusBCity
+              }}{{ _allQuoDetails.customerAddressDto.cusBState
+              }}{{ _allQuoDetails.customerAddressDto.cusBPcode }}
             </p>
             <p class="text-sm">Reference: {{ _allQuoDetails.quoReference }}</p>
           </div>

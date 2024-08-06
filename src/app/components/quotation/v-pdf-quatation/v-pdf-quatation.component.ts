@@ -245,7 +245,7 @@ export class VPdfQuotationComponent implements OnInit {
               },
             },
             {
-              content: `Shipping Address:\n\n${quotationDetails.customerDto.cusSAdd1}\n${quotationDetails.customerDto.cusSAdd2}\n${quotationDetails.customerDto.cusSCity}--${quotationDetails.customerDto.cusSPcode}\n${quotationDetails.customerDto.cusSState}\nReference:${quotationDetails.quoReference}`,
+              content: `Shipping Address:\n\n${quotationDetails.customerAddressDto.cusSAdd1}\n${quotationDetails.customerAddressDto.cusSAdd2}\n${quotationDetails.customerAddressDto.cusSCity}--${quotationDetails.customerAddressDto.cusSPcode}\n${quotationDetails.customerAddressDto.cusSState}\nReference:${quotationDetails.quoReference}`,
               styles: {
                 halign: 'left',
               },

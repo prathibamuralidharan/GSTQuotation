@@ -19,4 +19,7 @@ export class CustomerService {
   updatecustomer(id: any, updateData: any) {
     return this.http.post(endPoint.updateCustomer + '/' + id, updateData);
   }
+  addressUpdate(cusid: any, add: any) {
+    return this.http.post(endPoint.updateCusAdd + '/' + cusid, add);
+  }
 }

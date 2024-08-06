@@ -52,6 +52,7 @@ export class PViewComponent implements OnInit, OnChanges {
       prdUnitPrice: [],
       prdGstStatus: [],
       prdGstPercent: [],
+      prdStackQuantity: [],
     });
   }
 

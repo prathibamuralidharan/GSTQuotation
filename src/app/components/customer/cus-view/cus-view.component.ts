@@ -14,6 +14,7 @@ export class CusViewComponent implements OnInit {
   isEdit: boolean = true;
   isSaveIcon: boolean = true;
   updateCustomerForm: FormGroup;
+  address: any = {};
   constructor(
     private ufb: FormBuilder,
     private cusService: CustomerService,
@@ -134,6 +135,18 @@ export class CusViewComponent implements OnInit {
         this.isShippingEnabled = true;
       }
     });
+    this.address = {
+      cusBAdd1: this._customerDetail.cusBAdd1,
+      cusBAdd2: this._customerDetail.cusBAdd2,
+      cusBPcode: this._customerDetail.cusBPcode,
+      cusBCity: this._customerDetail.cusBCity,
+      cusBState: this._customerDetail.cusBState,
+      cusSAdd1: this._customerDetail.cusSAdd1,
+      cusSAdd2: this._customerDetail.cusSAdd2,
+      cusSPcode: this._customerDetail.cusSPcode,
+      cusSCity: this._customerDetail.cusSCity,
+      cusSState: this._customerDetail.cusSState,
+    };
   }
   isShippingEnabled: boolean = false;
   onRadioChange(optionValue: string) {
@@ -165,7 +178,21 @@ export class CusViewComponent implements OnInit {
     console.log(id);
     this.isSaveIcon = false;
 
+    // Update customer details
     this.cusService.updatecustomer(id, data).subscribe((res) => {
+      console.log(res);
+    });
+
+    // Update address details if needed
+    this.addressUpdate(this.address);
+  }
+
+  addressUpdate(add: any) {
+    let id = this._customerDetail.cusId;
+    console.log(id);
+
+    // Update address details
+    this.cusService.addressUpdate(id, add).subscribe((res) => {
       console.log(res);
     });
   }

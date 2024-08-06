@@ -53,6 +53,7 @@ export class QuotCreateComponent implements OnInit {
   _bankName: any[] = [];
   addQuoteForm: FormGroup;
   product: any;
+  cusAddId: any;
   constructor(
     private service: QuotationService,
     private companyService: CompanyService,
@@ -247,8 +248,16 @@ export class QuotCreateComponent implements OnInit {
     this.service.listCustomer(comId).subscribe((res: any) => {
       console.log(res);
       this._customerName = res;
+
+      if (this._customerName && this._customerName.length > 0) {
+        this.cusAddId = this._customerName[0].cusAddId;
+        console.log('customer Address id', this.cusAddId);
+      } else {
+        console.log('No customer details found');
+      }
     });
   }
+
   customers: any;
 
   selectCustomer(cus: any) {
@@ -436,10 +445,12 @@ export class QuotCreateComponent implements OnInit {
 
       bankId: this.bankId,
       cusId: this.customers,
+
       quoReference: this.reference,
       quoDate: this.quoDate,
       quoAutoId: this._id,
       comAddId: this.comAddId,
+      cusAddId: this.cusAddId,
     };
     this.service
       .addQuote(sessionStorage.getItem('companyId'), finalList)

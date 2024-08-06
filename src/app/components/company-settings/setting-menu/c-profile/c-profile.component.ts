@@ -152,7 +152,7 @@ export class CProfileComponent implements OnInit {
     this.ser.addNewCompany(data).subscribe(
       (res: any) => {
         console.log(data);
-        console.log(res);
+
         this.successToster = true;
         this.message = 'Company Updated Successfully';
         this.addcompany.reset();

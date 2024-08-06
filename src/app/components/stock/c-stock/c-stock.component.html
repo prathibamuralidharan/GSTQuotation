@@ -1,0 +1,227 @@
+<section>
+  <div class="ml-64">
+    <section class="bg-white dark:bg-gray-900">
+      <div class="mx-auto max-w-2xl px-4 py-8 lg:py-16">
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+          Stock Details
+        </h2>
+        <form>
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Group</label
+              >
+
+              <select
+                #grpId
+                formControlName="prdGrpId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option></option>
+              </select>
+            </div>
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Category</label
+              >
+
+              <select
+                #catId
+                formControlName="prdCateId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option></option>
+              </select>
+            </div>
+
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
+                >Product Brand</label
+              >
+
+              <select
+                #brd
+                formControlName="prdBrandId"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option></option>
+              </select>
+            </div>
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product Model</label
+              >
+              <input
+                formControlName="prdModel"
+                type="text"
+                name="price"
+                id="price"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="model"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="mt-4 w-full">
+            <div>
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product Description</label
+              >
+              <textarea
+                formControlName="prdDescription"
+                type="text"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="Product Description"
+                required=""
+              ></textarea>
+            </div>
+          </div>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >HSN Code</label
+              >
+              <input
+                formControlName="prdHsn"
+                type="number"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="HSN code"
+                required=""
+              />
+            </div>
+
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Unit Price</label
+              >
+              <input
+                formControlName="prdUnitPrice"
+                type="number"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder="$20000"
+                required=""
+              />
+            </div>
+          </div>
+
+          <div class="mt-4 grid gap-5 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product GST Status</label
+              >
+              <select
+                id="countries"
+                formControlName="prdGstStatus"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option value="1">With GST</option>
+                <option value="2">Without GST</option>
+              </select>
+            </div>
+
+            <div class="w-full">
+              <label
+                for="price"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Product GST Rate</label
+              >
+              <select
+                id="countries"
+                formControlName="prdGstPercent"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option value="0">0%</option>
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18">18%</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Opening</label
+              >
+              <input
+                formControlName="prdHsn"
+                type="number"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder=""
+                required=""
+              />
+            </div>
+
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Closing</label
+              >
+              <input
+                formControlName="prdUnitPrice"
+                type="number"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder=""
+                required=""
+              />
+            </div>
+          </div>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <div class="w-full">
+              <label
+                for="brand"
+                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                >Stock In</label
+              >
+              <input
+                formControlName="prdHsn"
+                type="number"
+                name="brand"
+                id="brand"
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                placeholder=""
+                required=""
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="mt-4 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 sm:mt-6 dark:focus:ring-blue-900"
+          >
+            Add Stock
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+</section>
