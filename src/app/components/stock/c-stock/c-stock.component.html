@@ -5,285 +5,98 @@
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
           Stock Details
         </h2>
-        <form [formGroup]="addstockform">
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
-                >Product Group</label
-              >
 
-              <select
-                #grpId
-                (change)="getCatList(grpId.value)"
-                formControlName="prdGrpId"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              >
-                <option
-                  *ngFor="let group of productGroups"
-                  value="{{ group.prdGrpId }}"
-                >
-                  {{ group.prdGrop }}
-                </option>
-              </select>
-              <small
-                class="text-red-600"
-                *ngIf="
-                  addstockform.get('prdGrpId')?.hasError('required') &&
-                  addstockform.get('prdGrpId')?.touched
-                "
-                >Group is required!</small
-              >
-            </div>
-            <div class="w-full">
-              <label
-                for="price"
-                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
-                >Product Category</label
-              >
-
-              <select
-                #catId
-                formControlName="prdCateId"
-                (change)="getBand(catId.value)"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              >
-                <option *ngFor="let cat of catList" value="{{ cat.prdCateId }}">
-                  {{ cat.prdCategory }}
-                </option>
-              </select>
-              <small
-                class="text-red-600"
-                *ngIf="
-                  addstockform.get('prdCateId')?.hasError('required') &&
-                  addstockform.get('prdCateId')?.touched
-                "
-                >Category is required!</small
-              >
-            </div>
-
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
-                >Product Brand</label
-              >
-
-              <select
-                formControlName="prdBrand"
-                #brandId
-                (change)="getModelList(brandId.value)"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              >
-                <option
-                  *ngFor="let brand of brand"
-                  value="{{ brand.prdBrandId }}"
-                >
-                  {{ brand.prdBrand }}
-                </option>
-              </select>
-              <small
-                class="text-red-600"
-                *ngIf="
-                  addstockform.get('prdBrandId')?.hasError('required') &&
-                  addstockform.get('prdBrandId')?.touched
-                "
-                >Brand is required!</small
-              >
-            </div>
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
-                >Product Model</label
-              >
-
-              <select
-                formControlName="prdModel"
-                #pID
-                (change)="getDescriptionList(pID.value)"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              >
-                <option
-                  *ngFor="let item of _modelList"
-                  value="{{ item.prdModel }}"
-                >
-                  {{ item.prdModel }}
-                </option>
-              </select>
-              <small
-                class="text-red-600"
-                *ngIf="
-                  addstockform.get('prdBrandId')?.hasError('required') &&
-                  addstockform.get('prdBrandId')?.touched
-                "
-                >Brand is required!</small
-              >
-            </div>
-          </div>
-
-          <div class="w-full">
-            <label
-              for="brand"
-              class="mb-2 inline-flex text-sm font-medium text-gray-900 dark:text-white"
-              >Product Description</label
+        <form class="mx-auto flex max-w-lg items-center" autocomplete="off">
+          <label for="voice-search" class="sr-only">Search</label>
+          <div class="relative w-full">
+            <div
+              class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3"
+            ></div>
+            <input
+              type="text"
+              id="voice-search"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Search Mockups, Logos, Design Templates..."
+              required
+            />
+            <ul
+              *ngIf="suggestions.length > 0"
+              class="absolute z-10 mt-1 max-h-48 w-full overflow-y-auto rounded-md bg-white shadow-lg dark:bg-gray-700"
             >
-
-            <select
-              formControlName="prdModel"
-              #dID
-              (change)="getProduct(dID.value)"
-              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            >
-              <option
-                *ngFor="let item of _description"
-                value="{{ item.prdId }}"
+              <li
+                *ngFor="let suggestion of suggestions"
+                (click)="selectSuggestion(suggestion)"
+                class="cursor-pointer px-4 py-2 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-600"
               >
-                {{ item.prdDescription }}
-              </option>
-            </select>
-            <small
-              class="text-red-600"
-              *ngIf="
-                addstockform.get('prdBrandId')?.hasError('required') &&
-                addstockform.get('prdBrandId')?.touched
-              "
-              >Brand is required!</small
-            >
+                {{ suggestion }}
+              </li>
+            </ul>
           </div>
-          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >HSN Code</label
-              >
-              <input
-                formControlName="prdHsn"
-                type="number"
-                name="brand"
-                id="brand"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="HSN code"
-                required=""
-              />
-            </div>
-
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >Unit Price</label
-              >
-              <input
-                formControlName="prdUnitPrice"
-                type="number"
-                name="brand"
-                id="brand"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="$20000"
-                required=""
-              />
-            </div>
-          </div>
-
-          <div class="mt-4 grid gap-5 sm:grid-cols-2 sm:gap-6">
-            <div class="w-full">
-              <label
-                for="price"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >Product GST Status</label
-              >
-              <select
-                id="countries"
-                formControlName="prdGstStatus"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              >
-                <option value="200">With GST</option>
-                <option value="400">Without GST</option>
-              </select>
-            </div>
-
-            <div class="w-full">
-              <label
-                for="price"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >Product GST Rate</label
-              >
-              <select
-                id="countries"
-                formControlName="prdGstPercent"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              >
-                <option value="0">0%</option>
-                <option value="5">5%</option>
-                <option value="12">12%</option>
-                <option value="18">18%</option>
-              </select>
-            </div>
-          </div>
-          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >Opening</label
-              >
-              <input
-                formControlName=""
-                type="number"
-                name="brand"
-                id="brand"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder=""
-                required=""
-              />
-            </div>
-
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >Closing</label
-              >
-              <input
-                formControlName=""
-                type="number"
-                name="brand"
-                id="brand"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder=""
-                required=""
-              />
-            </div>
-          </div>
-          <div class="mt-4 grid gap-4 sm:grid-cols-2 sm:gap-6">
-            <div class="w-full">
-              <label
-                for="brand"
-                class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                >Stock In</label
-              >
-              <input
-                formControlName=""
-                type="number"
-                name="brand"
-                id="brand"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-600 focus:ring-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder=""
-                required=""
-              />
-            </div>
-          </div>
-
           <button
-            type="submit"
-            class="mt-4 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-200 sm:mt-6 dark:focus:ring-blue-900"
+            (click)="searchProductId()"
+            type="button"
+            class="ms-2 inline-flex items-center rounded-lg border border-blue-700 bg-blue-700 px-3 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Add Stock
+            <svg
+              class="me-2 h-4 w-4"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+              /></svg
+            >Search
           </button>
         </form>
+        <div class="mx-auto mt-4 flex max-w-lg items-center">
+          <div
+            class="block max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          >
+            <h5
+              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+              Product ID: <span>{{ _product.prdAutoId }}</span>
+            </h5>
+            <h1 class="font-normal text-gray-700 dark:text-gray-400">
+              Product Model:
+              <span class="text-blue-700">{{ _product.prdModel }}</span>
+            </h1>
+            <h1 class="font-normal text-gray-700 dark:text-gray-400">
+              Product Description:
+              <span class="text-blue-700">{{ _product.prdDescription }}</span>
+            </h1>
+            <h1 class="font-normal text-gray-700 dark:text-gray-400">
+              HSN Code: <span class="text-blue-700">{{ _product.prdHsn }}</span>
+            </h1>
+            <h1 class="font-normal text-gray-700 dark:text-gray-400">
+              GST Price:
+              <span class="text-blue-700">{{ _product.prdGstPercent }}</span>
+            </h1>
+
+            <h1 class="font-normal text-gray-700 dark:text-gray-400">
+              Unit Price:
+              <span class="text-blue-700">{{ _product.prdUnitPrice }}</span>
+            </h1>
+
+            <h1 class="font-normal text-gray-700 dark:text-gray-400">
+              Quantity:
+              <span class="text-blue-700">{{ _product.prdStackQuantity }}</span>
+            </h1>
+          </div>
+        </div>
+
+        <p
+          *ngIf="selectedSuggestion"
+          class="mt-4 text-gray-700 dark:text-gray-300"
+        >
+          You selected: {{ selectedSuggestion }}
+        </p>
       </div>
     </section>
   </div>

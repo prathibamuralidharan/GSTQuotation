@@ -41,6 +41,10 @@
       </div>
       <div class="container mx-auto mt-12">
         <form [formGroup]="updateProduct">
+          <p class="font-semibold">
+            Product ID:
+            <input formControlName="prdAutoId" />
+          </p>
           <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div class="w-full">
               <label
@@ -236,8 +240,8 @@
                 formControlName="prdGstStatus"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               >
-                <option value="1">With GST</option>
-                <option value="2">Without GST</option>
+                <option value="200">With GST</option>
+                <option value="400">Without GST</option>
               </select>
             </div>
 

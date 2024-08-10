@@ -1,14 +1,16 @@
-let url = 'http://192.168.1.28:4003/';
-let url2 = 'http://192.168.1.28:4004/';
-let url1 = 'http://192.168.1.28:4001/';
+let url = 'http://192.168.1.16:4003/';
+let url2 = 'http://192.168.1.16:4004/';
+let url1 = 'http://192.168.1.16:4001/';
 let ifsc = 'https://ifsc.razorpay.com/';
-let prod = 'http://192.168.1.28:9004/';
+let prod = 'http://192.168.1.16:9004/';
+let stockurl = 'http://192.168.1.16:3333/';
 
 let customer = url1 + 'customer';
 let company = url + 'company';
 let bank = url + 'Bank';
 let pro = prod + 'Product';
 let quote = url2 + 'quotation';
+let stock = stockurl + 'StackAndPurchase';
 
 export const endPoint = {
   production: false,
@@ -44,6 +46,7 @@ export const endPoint = {
   addnewcategory: pro + '/UpdatePrdGrpIdToAddPrdCatgy',
   addnewbrand: pro + '/UpdatePrdCatgyIdToPrdBrds/',
   addnewproduct: pro + '/InsertNewProduct/',
+  proAutoId: pro + '/getPrdGenIdBycomId/',
 
   //get
   getgroup: pro + '/getListProductGroup/',
@@ -66,4 +69,7 @@ export const endPoint = {
   getProduct: quote + '/ProductDetails/',
   listQuotation: quote + '/QuoListbyCompId/',
   updateQuotation: quote + '/GetAllMasterInQuoByQuoId/',
+
+  //stock
+  SearchStock: pro + '/GetSpecificProductByPrdAutoGenId/',
 };

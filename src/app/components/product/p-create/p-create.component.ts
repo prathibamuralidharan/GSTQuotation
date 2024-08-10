@@ -21,6 +21,8 @@ export class PCreateComponent implements OnInit {
     private router: Router,
   ) {
     this.addProductForm = this.fb1.group({
+      prdAutoId: [],
+      comId: [sessionStorage.getItem('companyId')],
       prdGrpId: ['', Validators.required],
       prdCateId: ['', Validators.required],
       prdBrandId: ['', Validators.required],
@@ -34,6 +36,7 @@ export class PCreateComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getallgroup();
+    this.autoGenId();
   }
 
   isgroup: boolean = false;
@@ -121,7 +124,24 @@ export class PCreateComponent implements OnInit {
       console.log(res);
       this.addProductForm.reset();
       this.message = 'Product Added Successfully';
-      this.router.navigate(['/home/quote']);
+      // this.router.navigate(['/home/quote']);
+    });
+  }
+
+  id: string = '';
+
+  autoGenId() {
+    const comId = sessionStorage.getItem('companyId');
+    this.pser.autoGen(comId).subscribe((res: any) => {
+      console.log(res);
+      this.id = res.prdAutoId;
+
+      // Patch the value to the form control
+      this.addProductForm.patchValue({
+        prdAutoId: this.id,
+      });
+
+      console.log('hello', this.id);
     });
   }
 }

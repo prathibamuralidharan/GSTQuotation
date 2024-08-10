@@ -40,4 +40,11 @@ export class ProductService {
   upDate(id: any, updateData: any) {
     return this.http.post(endPoint.updateProduct + id, updateData);
   }
+  autoGen(comId: any) {
+    return this.http.get(endPoint.proAutoId + comId);
+  }
+  //stock
+  stockSearch(comId: any, prdId: any) {
+    return this.http.get(endPoint.SearchStock + comId + '/' + prdId);
+  }
 }

@@ -57,7 +57,7 @@ export class BCreateComponent {
       this.addBankForm.reset();
       sessionStorage.setItem('companyId', data.companyId);
     });
-    
+
     this.addBankForm.reset();
   }
   BANK: string = '';

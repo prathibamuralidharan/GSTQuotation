@@ -395,7 +395,7 @@ export class QuotCreateComponent implements OnInit {
     console.log(this.bankId);
   }
   quoId: any;
-  quoautoId(id: any) {
+  quoAutoId(id: any) {
     this.quoId = id;
     console.log(this.quoId);
   }

@@ -43,6 +43,7 @@ export class PViewComponent implements OnInit, OnChanges {
   ) {
     this.updateProduct = this.ufb.group({
       prdId: [],
+      prdAutoId: [],
       prdGrpId: [],
       prdCateId: [],
       prdBrandId: [],
@@ -92,6 +93,7 @@ export class PViewComponent implements OnInit, OnChanges {
         (res: any) => {
           this.productData = res;
           console.log(this.productData);
+
           this.updateProduct.patchValue(this.productData);
         },
         (error) => {
